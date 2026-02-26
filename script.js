@@ -208,8 +208,8 @@ const CATALOGUE = [
         "date": "2026-02-22",
         "image": "assets/Assoiffés (Tracy Wolff).jpg",
         "tomes": [
-            { "label": "Tome 2", "lien": "livre/Assoiffes_T2_Foudroyes_-_Tracy_Wolff.pdf", "zip": "livre/Assoiffées T2 Foudroyés - Tracy Wolff.zip" },
-            { "label": "Tome 3", "lien": "livre/Assoiffes_T3_Convoites_-_Tracy_Wolff.pdf", "zip": "livre/Assoiffées T3 Convoités - Tracy Wolff.zip" }
+            { "label": "Tome 2", "lien": "livre/Assoiffes_T2_Foudroyes_-_Tracy_Wolff.pdf", "zip": "livre/Assoiffés T2 Foudroyés - Tracy Wolff.zip" },
+            { "label": "Tome 3", "lien": "livre/Assoiffes_T3_Convoites_-_Tracy_Wolff.pdf", "zip": "livre/Assoiffés T3 Convoités - Tracy Wolff.zip" }
         ]
     },
     {
@@ -233,7 +233,7 @@ const CATALOGUE = [
         "date": "2026-02-22",
         "image": "assets/Le royaume des ombres Tenebräe tome 3.jpg",
         "tomes": [
-            { "label": "Tome 3", "lien": "livre/Le-royaume-des-ombres Tenebräe.pdf", "zip": "livre/Le-royaume-des-ombres Tenebrie.zip" }
+            { "label": "Tome 3", "lien": "livre/Le-royaume-des-ombres Tenebräe.pdf", "zip": "livre/Le-royaume-des-ombres Tenebräe.zip" }
         ]
     },
     {
@@ -269,7 +269,7 @@ const CATALOGUE = [
             { "label": "Tome 3", "lien": "livre/harry-potter-3-le-prisonnier-dazkaban.pdf", "zip": "livre/harry-potter-3-le-prisonnier-dAzkaban.zip" },
             { "label": "Tome 4", "lien": "livre/harry-potter-4-la-coupe-de-feu.pdf", "zip": "livre/harry-potter-4-la-coupe-de-feu.zip" },
             { "label": "Tome 5", "lien": "livre/harry-potter-5-lordre-du-phoenix.pdf", "zip": "livre/harry-potter-5-lordre-du-phoenix.zip" },
-            { "label": "Tome 6", "lien": "livre/harry-potter-6-le-prince-de-sang-mecc82lecc81.pdf", "zip": "livre/harry-potter-6-le-prince-de-sang-meccê2lecé1.zip" },
+            { "label": "Tome 6", "lien": "livre/harry-potter-6-le-prince-de-sang-mecc82lecc81.pdf", "zip": "livre/harry-potter-6-le-prince-de-sang.zip" },
             { "label": "Tome 7", "lien": "livre/harry-potter-7-les-reliques-de-la-mort.pdf", "zip": "livre/harry-potter-7-les-reliques-de-la-mort.zip" },
             { "label": "Tome 7/2", "lien": "livre/J.K.Rowling-Harry-Potter-et-l-enfant-maudit-Parties-1-et-21476458495304.pdf", "zip": "livre/J.K.Rowling-Harry-Potter-et-l-enfant-maudit-Parties-1-et-21476458495304.zip" }
         ]
@@ -317,7 +317,7 @@ const CATALOGUE = [
         "date": "2026-02-22",
         "image": "assets/Anna Briac  le baiser des ombres.jpg",
         "lien": "livre/Le-baiser-des-ombres-Anna-Briac-Tenebrae_-2_-2024-Anna-Briac.pdf",
-        "zip": "livre/Le-baiser-des-ombres-Anna-Briac-Tenebrac_-2_-2024-Anna-Briac.zip"
+        "zip": "livre/Anna Briac le baiser des ombres.zip"
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
