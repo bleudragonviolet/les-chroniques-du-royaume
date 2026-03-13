@@ -327,6 +327,105 @@ const CATALOGUE = [
         "date": "2026-03-03",
         "image": "assets/BeamNG.png",
         "lien": "https://multiup.io/9c987cb2801737e8ea230d07f266bd7b"
+    },
+    {
+        "nom": "Lethal Company",
+        "description": "Lethal Company est un jeu vidéo d'horreur indépendant coopératif actuellement en accès anticipé depuis le 23 octobre 2023 sur Windows. Il est développé et auto-édité par un seul développeur, Zeekerss.",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-03",
+        "image": "assets/Lethal Company.png",
+        "lien": "https://multiup.io/38f4f208178ee57898addfc650923b4e"
+    },
+    {
+        "nom": "RV There Yet?",
+        "description": "Traduit de l'anglais-RV There Yet? est un jeu vidéo d'aventure coopératif développé et édité par le studio suédois Nuggets Entertainment. Sorti le 21 octobre 2025, il a rapidement rencontré un vif succès sur la plateforme Steam.",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-03",
+        "image": "assets/RV There Yet.png",
+        "lien": "https://multiup.io/4fcbcd7b7e1517ef8bc59b2bcae09d44"
+    },
+    {
+        "nom": "Poppy Playtime",
+        "description": "Poppy Playtime est un jeu vidéo de type survival horror développé et publié par le développeur indépendant américain Mob Entertainment.",
+        "note": 4,
+        "categorie": "Jeu",
+        "date": "2026-03-03",
+        "image": "assets/Poppy Playtime.jpg",
+        "lien": "https://multiup.io/55ec5613070f8b1be8fbb240dbb0f253"
+    },
+    {
+        "nom": "Resident Evil 2",
+        "description": "Resident Evil 2 est un jeu vidéo d'horreur en vue à la troisième personne développé et édité par Capcom, sorti le 25 janvier 2019 sur Microsoft Windows, PlayStation 4 et Xbox One. La 4K, les 60 images par seconde et le HDR sont compatibles sur Microsoft Windows et sur les consoles Xbox One X et PS4 Pro.",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-05",
+        "image": "assets/Resident Evil 2.png",
+        "lien": "https://multiup.io/669c144364c6563474220e27ad970013"
+    },
+    {
+        "nom": "Pokémon Violet",
+        "description": "ROM Pokemon Violet avec emulateur Ryujinx. Le fichier Randomizer-X contient un dossier romfs a placer ici : Faire clic droit sur le jeu dans Ryujinx → Ouvrir le dossier des mods, puis creer un dossier Randomizer et placer le dossier romfs dedans. Ensuite, lancer le jeu.",
+        "note": 2,
+        "categorie": "Jeu",
+        "date": "2026-03-12",
+        "image": "assets/Pokémon Violet.jpg",
+        "lien": "https://multiup.io/51297fccc2a698de6cab6703af00bd44"
+    },
+    {
+        "nom": "Pico Park 2",
+        "description": "Traduit de l'anglais-Pico Park 2 est un jeu indépendant d'action-puzzle multijoueur coopératif développé par le développeur japonais TECOPARK. Il est sorti sur Nintendo Switch le 27 août 2024, avec une sortie sur Microsoft Windows, Xbox One et Xbox Series X/S le 12 septembre. C'est la suite de Pico Park.",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-12",
+        "image": "assets/Pico Park 2.jpg",
+        "lien": "https://multiup.io/f98ba1278ed0a6a81d699d602fd63143"
+    },
+    {
+        "nom": "Pico Park",
+        "description": "Traduit de l'anglais-Pico Park est un jeu indépendant d'action-puzzle coopératif multijoueur développé par le studio japonais TECOPARK. Initialement sorti sur Microsoft Windows en 2016 via la plateforme de distribution de jeux vidéo Steam, il proposait un mode multijoueur local.",
+        "note": 4,
+        "categorie": "Jeu",
+        "date": "2026-03-12",
+        "image": "assets/Pico Park.jpg",
+        "lien": "https://multiup.io/c67e2f9d5a6f995b878484cb09ac2ab2"
+    },
+    {
+        "nom": "R.E.P.O.",
+        "description": "R.E.P.O. est un jeu vidéo survival horror coopératif en ligne développé et publié par le studio suédois Semiwork pour Windows. Il est sorti en accès anticipé le 26 février 2025 sur Steam. Il est développé dans le moteur de jeu Unity en utilisant Photon pour la mise en réseau.",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-12",
+        "image": "assets/R.E.P.O.png",
+        "lien": "https://multiup.io/0bb1b4797f0a5571b6ead5ae2c7205c0"
+    },
+    {
+        "nom": "War Machine",
+        "description": "Alors que des soldats se préparent pour rejoindre un corps d'élite de l'armée, ils doivent interrompre leur entraînement pour survivre face à une menace inimaginable.",
+        "note": 3,
+        "categorie": "Film",
+        "date": "2026-03-13",
+        "image": "assets/War Machine.jpg",
+        "lien": "https://1fichier.com/?izwhmzysu0jgze7mbyfk"
+    },
+    {
+        "nom": "Captain America: Civil War",
+        "description": "Steve Rogers est désormais à la tête des Avengers, dont la mission est de protéger l'humanité. À la suite d'une de leurs interventions qui a causé d'importants dégâts collatéraux, le gouvernement décide de mettre en place un organisme de commandement et de supervision.",
+        "note": 4,
+        "categorie": "Film",
+        "date": "2026-03-13",
+        "image": "assets/Captain America Civil War.jpg",
+        "lien": "https://1fichier.com/?g7kjiq887tyw1e90l8yq"
+    },
+    {
+        "nom": "Banlieusards 3",
+        "description": "Alors que Noumouké franchit une étape dans sa carrière musicale, l'influence de la rue risque de le faire basculer de manière irréversible. Demba construit une nouvelle vie avec Djenaba mais ses décisions le rattrapent. Soulaymaan développe sa carrière d'avocat, mais son engagement auprès des habitants de son quartier est questionné. Les choix que feront les trois frères vont déterminer leur avenir personnel et celui de toute la famille.",
+        "note": 3,
+        "categorie": "Film",
+        "date": "2026-03-13",
+        "image": "assets/Banlieusards 3.jpg",
+        "lien": "https://1fichier.com/?chjbeoz0nhy9beyd1il5"
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
