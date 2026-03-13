@@ -318,6 +318,15 @@ const CATALOGUE = [
         "image": "assets/Anna Briac  le baiser des ombres.jpg",
         "lien": "livre/Le-baiser-des-ombres-Anna-Briac-Tenebrae_-2_-2024-Anna-Briac.pdf",
         "zip": "livre/Anna Briac le baiser des ombres.zip"
+    },
+    {
+        "nom": "BeamNG",
+        "description": "BeamNG.drive est un jeu de simulation de véhicules en temps réel développé et édité par la startup BeamNG et qui fonctionne sous Microsoft Windows et de manière expérimentale sous Linux. ",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-03",
+        "image": "assets/BeamNG.png",
+        "lien": "https://multiup.io/9c987cb2801737e8ea230d07f266bd7b"
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
