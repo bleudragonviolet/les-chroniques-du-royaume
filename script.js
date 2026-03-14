@@ -170,7 +170,7 @@ const CATALOGUE = [
         "note": 3,
         "categorie": "Série",
         "date": "2026-02-22",
-        "image": "assets/Comment traduire cet amour.png",
+        "image": "assets/Commenttraduirecetamour.png",
         "lien": "https://1fichier.com/?xjiyjk371w621z5y98m4"
     },
     {
@@ -206,7 +206,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/Assoiffés (Tracy Wolff).jpg",
+        "image": "assets/Assoiffés(TracyWolff).jpg",
         "tomes": [
             { "label": "Tome 2", "lien": "livre/Assoiffes_T2_Foudroyes_-_Tracy_Wolff.pdf", "zip": "livre/Assoiffés T2 Foudroyés - Tracy Wolff.zip" },
             { "label": "Tome 3", "lien": "livre/Assoiffes_T3_Convoites_-_Tracy_Wolff.pdf", "zip": "livre/Assoiffés T3 Convoités - Tracy Wolff.zip" }
@@ -218,7 +218,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/solo leveling.jpg",
+        "image": "assets/sololeveling.jpg",
         "tomes": [
             { "label": "Tome 0", "lien": "livre/Solo Leveling - Tome 0.pdf", "zip": "livre/Solo Leveling - Tome 0.zip" },
             { "label": "Tome 1", "lien": "livre/Solo Leveling - Tome 1.pdf", "zip": "livre/Solo Leveling - Tome 1.zip" },
@@ -231,7 +231,7 @@ const CATALOGUE = [
         "note": 4,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/Le royaume des ombres Tenebräe tome 3.jpg",
+        "image": "assets/LeroyaumedesombresTenebräetome3.jpg",
         "tomes": [
             { "label": "Tome 3", "lien": "livre/Le-royaume-des-ombres Tenebräe.pdf", "zip": "livre/Le-royaume-des-ombres Tenebräe.zip" }
         ]
@@ -242,7 +242,7 @@ const CATALOGUE = [
         "note": 4,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/Girl in pieces - Kathleen Glasgow.jpg",
+        "image": "assets/Girlinpieces-KathleenGlasgow.jpg",
         "lien": "livre/Girl-in-pieces-Kathleen-Glasgow.pdf",
         "zip": "livre/Girl-in-pieces-Kathleen-Glasgow.zip"
     },
@@ -262,7 +262,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/Harry Potter.jpg",
+        "image": "assets/HarryPotter.jpg",
         "tomes": [
             { "label": "Tome 1", "lien": "livre/harry-potter-1-lecole-des-sorciers.pdf", "zip": "livre/harry-potter-1-lecole-des-sorciers.zip" },
             { "label": "Tome 2", "lien": "livre/harry-potter-2-la-chambre-des-secrets.pdf", "zip": "livre/harry-potter-2-la-chambre-des-secrets.zip" },
@@ -301,7 +301,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/Loups du zodiaque.jpg",
+        "image": "assets/Loupsduzodiaque.jpg",
         "tomes": [
             { "label": "Tome 1", "lien": "livre/Loups.Du.Zodiaque.T1.Touche.Par.La.Lune.2022.Elizabeth.Briggs_1.pdf", "zip": "livre/Loups.Du.Zodiaque.T1.Touche.Par.La.Lune.2022.Elizabeth.Briggs_1.zip" },
             { "label": "Tome 2", "lien": "livre/Loups.Du.Zodiaque.T2.Rejete.Par.Les.Etoiles.2022.Elizabeth.Briggs_1.pdf", "zip": "livre/Loups.Du.Zodiaque.T2.Rejete.Par.Les.Etoiles.2022.Elizabeth.Briggs_1.zip" },
@@ -315,7 +315,7 @@ const CATALOGUE = [
         "note": 4,
         "categorie": "Livre",
         "date": "2026-02-22",
-        "image": "assets/Anna Briac  le baiser des ombres.jpg",
+        "image": "assets/AnnaBriaclebaiserdesombres.jpg",
         "lien": "livre/Le-baiser-des-ombres-Anna-Briac-Tenebrae_-2_-2024-Anna-Briac.pdf",
         "zip": "livre/Anna Briac le baiser des ombres.zip"
     },
@@ -334,7 +334,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Jeu",
         "date": "2026-03-03",
-        "image": "assets/Lethal Company.png",
+        "image": "assets/LethalCompany.png",
         "lien": "https://multiup.io/38f4f208178ee57898addfc650923b4e"
     },
     {
@@ -343,7 +343,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Jeu",
         "date": "2026-03-03",
-        "image": "assets/RV There Yet.png",
+        "image": "assets/RVThereYet.png",
         "lien": "https://multiup.io/4fcbcd7b7e1517ef8bc59b2bcae09d44"
     },
     {
@@ -352,7 +352,7 @@ const CATALOGUE = [
         "note": 4,
         "categorie": "Jeu",
         "date": "2026-03-03",
-        "image": "assets/Poppy Playtime.jpg",
+        "image": "assets/PoppyPlaytime.jpg",
         "lien": "https://multiup.io/55ec5613070f8b1be8fbb240dbb0f253"
     },
     {
@@ -361,7 +361,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Jeu",
         "date": "2026-03-05",
-        "image": "assets/Resident Evil 2.png",
+        "image": "assets/ResidentEvil2.png",
         "lien": "https://multiup.io/669c144364c6563474220e27ad970013"
     },
     {
@@ -370,7 +370,7 @@ const CATALOGUE = [
         "note": 2,
         "categorie": "Jeu",
         "date": "2026-03-12",
-        "image": "assets/Pokémon Violet.jpg",
+        "image": "assets/PokémonViolet.jpg",
         "lien": "https://multiup.io/51297fccc2a698de6cab6703af00bd44"
     },
     {
@@ -379,7 +379,7 @@ const CATALOGUE = [
         "note": 5,
         "categorie": "Jeu",
         "date": "2026-03-12",
-        "image": "assets/Pico Park 2.jpg",
+        "image": "assets/PicoPark2.jpg",
         "lien": "https://multiup.io/f98ba1278ed0a6a81d699d602fd63143"
     },
     {
@@ -388,7 +388,7 @@ const CATALOGUE = [
         "note": 4,
         "categorie": "Jeu",
         "date": "2026-03-12",
-        "image": "assets/Pico Park.jpg",
+        "image": "assets/PicoPark.jpg",
         "lien": "https://multiup.io/c67e2f9d5a6f995b878484cb09ac2ab2"
     },
     {
@@ -406,7 +406,7 @@ const CATALOGUE = [
         "note": 3,
         "categorie": "Film",
         "date": "2026-03-13",
-        "image": "assets/War Machine.jpg",
+        "image": "assets/WarMachine.jpg",
         "lien": "https://1fichier.com/?izwhmzysu0jgze7mbyfk"
     },
     {
@@ -415,7 +415,7 @@ const CATALOGUE = [
         "note": 4,
         "categorie": "Film",
         "date": "2026-03-13",
-        "image": "assets/Captain America Civil War.jpg",
+        "image": "assets/CaptainAmericaCivilWar.jpg",
         "lien": "https://1fichier.com/?g7kjiq887tyw1e90l8yq"
     },
     {
@@ -424,8 +424,17 @@ const CATALOGUE = [
         "note": 3,
         "categorie": "Film",
         "date": "2026-03-13",
-        "image": "assets/Banlieusards 3.jpg",
+        "image": "assets/Banlieusards3.jpg",
         "lien": "https://1fichier.com/?chjbeoz0nhy9beyd1il5"
+    },
+    {
+        "nom": "Resident Evil 6",
+        "description": "Resident Evil 6, connu au Japon sous le titre Biohazard 6, est un jeu vidéo de tir à la troisième personne développé et édité par Capcom. Le jeu est sorti le 2 octobre 2012 sur PlayStation 3 et Xbox 360, en mars 2013 sur PC et le 29 mars 2016 sur PlayStation 4 et Xbox One.",
+        "note": 4,
+        "categorie": "Jeu",
+        "date": "2026-03-14",
+        "image": "assets/ResidentEvil6.jpg",
+        "lien": ""
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
