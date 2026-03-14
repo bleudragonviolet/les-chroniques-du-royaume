@@ -434,7 +434,7 @@ const CATALOGUE = [
         "categorie": "Jeu",
         "date": "2026-03-14",
         "image": "assets/ResidentEvil6.jpg",
-        "lien": ""
+        "lien": "https://multiup.io/download/0099e9d467a8ba5d7c9947e80b125661/Resident_Evil_6_.rar"
     },
     {
         "nom": "Thank Goodness You're Here!",
