@@ -435,6 +435,15 @@ const CATALOGUE = [
         "date": "2026-03-14",
         "image": "assets/ResidentEvil6.jpg",
         "lien": ""
+    },
+    {
+        "nom": "Thank Goodness You're Here!",
+        "description": "Thank Goodness You're Here! est un jeu de claqueforme comique et absurde au cœur du nord de l'Angleterre, dans l'étrange ville de Barnsworth. En tant que commercial itinérant, visitez les lieux et rencontrez ses habitants, impatients de vous confier des tâches plus loufoques les unes que les autres… ",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-14",
+        "image": "assets/ThankGoodnessYou'reHere!.jpg",
+        "lien": "https://multiup.io/b5709758907a714812883363e1607e9a"
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
