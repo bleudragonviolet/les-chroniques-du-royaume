@@ -444,6 +444,15 @@ const CATALOGUE = [
         "date": "2026-03-14",
         "image": "assets/ThankGoodnessYou'reHere!.jpg",
         "lien": "https://multiup.io/b5709758907a714812883363e1607e9a"
+    },
+    {
+        "nom": "Schedule I",
+        "description": "Schedule I est un jeu vidéo de simulation criminelle en monde ouvert développé par le studio australien TVGS. Disponible en accès anticipé depuis le 24 mars 2025 sur Windows, il combine gestion d'entreprise, stratégie tactique et humour noir",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-19",
+        "image": "assets/Schedule1.jpg",
+        "lien": "https://multiup.io/c2162b56b72b3f5c42da63f6286bddd3"
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
