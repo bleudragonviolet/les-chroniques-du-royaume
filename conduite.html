@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Route Royale — Monde Ouvert 3D</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="conduite.css">
+</head>
+<body>
+
+<!-- Canvas 3D -->
+<canvas id="c"></canvas>
+
+<!-- Écran de chargement -->
+<div id="loading">
+    <div class="load-inner">
+        <div class="load-car">🚗</div>
+        <div class="load-title">ROUTE ROYALE</div>
+        <div class="load-sub">Monde Ouvert — Les Chroniques du Royaume</div>
+        <div class="load-bar-wrap">
+            <div class="load-bar" id="load-bar"></div>
+            <div class="load-glow"></div>
+        </div>
+        <div class="load-status" id="load-status">Initialisation du moteur...</div>
+    </div>
+</div>
+
+<!-- HUD principal -->
+<div id="hud" class="hidden">
+
+    <!-- Barre du haut -->
+    <div id="top-bar">
+        <a href="jeux.html" id="back-link">← Quitter</a>
+        <div id="top-title">⚔️ ROUTE ROYALE</div>
+        <div id="sound-btn" onclick="toggleMute()">🔊</div>
+    </div>
+
+    <!-- Compteur de vitesse -->
+    <div id="speedo-wrap">
+        <canvas id="speedo-canvas" width="170" height="170"></canvas>
+        <div id="speed-num">0</div>
+        <div id="speed-unit">KM/H</div>
+        <div id="gear-label">AUTO</div>
+    </div>
+
+    <!-- Barre Nitro -->
+    <div id="nitro-wrap">
+        <div id="nitro-icon">⚡</div>
+        <div id="nitro-track">
+            <div id="nitro-fill"></div>
+        </div>
+        <div id="nitro-text">NITRO</div>
+    </div>
+
+    <!-- Flash NITRO actif -->
+    <div id="nitro-flash" class="hidden">⚡ NITRO ⚡</div>
+
+    <!-- Minimap -->
+    <div id="minimap-wrap">
+        <div id="minimap-label">Carte</div>
+        <canvas id="minimap-canvas" width="160" height="160"></canvas>
+    </div>
+
+    <!-- Contrôles -->
+    <div id="controls-hint">
+        <div class="ctrl-row"><kbd>Z Q S D</kbd> Conduire</div>
+        <div class="ctrl-row"><kbd>⇧</kbd> Nitro</div>
+        <div class="ctrl-row"><kbd>F</kbd> Plein écran</div>
+        <div class="ctrl-row"><kbd>M</kbd> Son</div>
+        <div class="ctrl-row"><kbd>Échap</kbd> Pause</div>
+    </div>
+
+    <!-- Effet vignette Nitro -->
+    <div id="nitro-vignette"></div>
+    <!-- Effet vitesse -->
+    <div id="speed-lines"></div>
+</div>
+
+<!-- Menu Pause -->
+<div id="pause-menu" class="hidden">
+    <div class="pause-box">
+        <div class="pause-emblem">⚜️</div>
+        <div class="pause-title">PAUSE</div>
+        <button class="pause-btn" onclick="resumeGame()">▶ Reprendre</button>
+        <button class="pause-btn" onclick="toggleFullscreen()">⛶ Plein Écran</button>
+        <button class="pause-btn" onclick="toggleMute()" id="mute-btn-pause">🔊 Son activé</button>
+        <a href="jeux.html" style="text-decoration:none;display:block">
+            <button class="pause-btn pause-quit">← Quitter l'Arène</button>
+        </a>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="conduite.js"></script>
+</body>
+</html>
