@@ -8,490 +8,192 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --or: #c6a84a;
-            --or-clair: #e8c96a;
-            --or-profond: #8b6820;
-            --bronze: #8b6f3d;
-            --fond: #0d0b09;
-            --fond-carte: #1c1510;
-            --fond-carte-hover: #241a12;
-            --brun-fonce: #1a1210;
-            --brun-moyen: #2d1f15;
-            --texte: #e8d5a8;
-            --texte-doux: #b09060;
-            --rouge-sang: #8b2020;
-            --vert: #4a8b50;
-            --vert-clair: #6ab870;
-            --glow-or: rgba(198,168,74,0.4);
-            --glow-or-fort: rgba(198,168,74,0.7);
+            --or: #c6a84a; --or-clair: #e8c96a; --or-profond: #8b6820;
+            --bronze: #8b6f3d; --fond: #0d0b09; --fond-carte: #1c1510;
+            --fond-carte-hover: #241a12; --brun-fonce: #1a1210; --brun-moyen: #2d1f15;
+            --texte: #e8d5a8; --texte-doux: #b09060; --rouge-sang: #8b2020;
+            --vert: #4a8b50; --vert-clair: #6ab870;
+            --glow-or: rgba(198,168,74,0.4); --glow-or-fort: rgba(198,168,74,0.7);
         }
+        *{margin:0;padding:0;box-sizing:border-box;}
+        html,body{height:100%;overflow-x:hidden;}
+        body{font-family:'EB Garamond',Georgia,serif;background:var(--fond);color:var(--texte);
+            cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='0,0 0,14 4,10 6,16 8,15 6,9 10,9' fill='%23c6a84a'/%3E%3C/svg%3E") 0 0,auto;min-height:100vh;}
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* HEADER */
+        header{position:relative;text-align:center;padding:32px 20px 0;background:linear-gradient(180deg,#1a0f06 0%,transparent 100%);}
+        .header-emblem{font-size:2.2rem;display:block;margin-bottom:8px;filter:drop-shadow(0 0 12px var(--glow-or-fort));}
+        .site-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.2rem,3vw,2rem);color:var(--or-clair);text-shadow:0 0 20px var(--glow-or-fort),0 2px 4px rgba(0,0,0,0.8);letter-spacing:2px;}
+        .site-subtitle{font-family:'Cinzel',serif;color:var(--texte-doux);font-size:.95rem;margin-top:4px;letter-spacing:3px;}
+        .back-btn{display:inline-flex;align-items:center;gap:8px;margin-top:16px;padding:8px 20px;background:transparent;border:1px solid var(--or-profond);color:var(--texte-doux);font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:1px;cursor:pointer;transition:all .3s;text-decoration:none;}
+        .back-btn:hover{border-color:var(--or);color:var(--or-clair);background:rgba(198,168,74,0.08);}
+        .header-divider{display:flex;align-items:center;gap:12px;margin:20px 40px 0;}
+        .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--or-profond),transparent);}
+        .divider-ornament{color:var(--or);font-size:.8rem;}
 
-        html, body {
-            height: 100%;
-            overflow-x: hidden;
-        }
+        /* ARENA */
+        .arena-header{text-align:center;padding:40px 20px 10px;}
+        .arena-title{font-family:'Cinzel Decorative',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--or-clair);text-shadow:0 0 30px var(--glow-or-fort);}
+        .arena-subtitle{color:var(--texte-doux);font-style:italic;margin-top:8px;font-size:1.1rem;}
 
-        body {
-            font-family: 'EB Garamond', Georgia, serif;
-            background: var(--fond);
-            color: var(--texte);
-            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpolygon points='0,0 0,14 4,10 6,16 8,15 6,9 10,9' fill='%23c6a84a'/%3E%3C/svg%3E") 0 0, auto;
-            min-height: 100vh;
-        }
+        /* DIFFICULTY */
+        .difficulty-bar{display:flex;justify-content:center;align-items:center;gap:12px;padding:20px;flex-wrap:wrap;}
+        .diff-label{font-family:'Cinzel',serif;color:var(--texte-doux);font-size:.85rem;letter-spacing:2px;}
+        .diff-btn{padding:8px 20px;background:transparent;border:1px solid var(--or-profond);color:var(--texte-doux);font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:1px;cursor:pointer;transition:all .25s;position:relative;overflow:hidden;}
+        .diff-btn::before{content:'';position:absolute;inset:0;background:var(--glow-or);opacity:0;transition:opacity .25s;}
+        .diff-btn:hover::before,.diff-btn.active::before{opacity:1;}
+        .diff-btn.active{border-color:var(--or-clair);color:var(--or-clair);box-shadow:0 0 12px var(--glow-or);}
+        .diff-btn:hover{border-color:var(--or);color:var(--or);}
 
-        /* ── HEADER ── */
-        header {
-            position: relative;
-            text-align: center;
-            padding: 32px 20px 0;
-            background: linear-gradient(180deg, #1a0f06 0%, transparent 100%);
-        }
+        /* GAMES GRID */
+        .games-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:1400px;margin:0 auto;padding:20px 24px 60px;}
 
-        .header-emblem {
-            font-size: 2.2rem;
-            display: block;
-            margin-bottom: 8px;
-            filter: drop-shadow(0 0 12px var(--glow-or-fort));
-        }
+        /* GAME CARD */
+        .game-card{background:var(--fond-carte);border:1px solid var(--or-profond);position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s;}
+        .game-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(198,168,74,0.05) 0%,transparent 70%);pointer-events:none;}
+        .game-card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(0,0,0,0.6),0 0 20px var(--glow-or);}
+        .game-card-header{display:flex;align-items:center;gap:12px;padding:16px 20px 12px;border-bottom:1px solid rgba(198,168,74,0.15);}
+        .game-icon{font-size:1.8rem;}
+        .game-card-title{font-family:'Cinzel',serif;font-size:1.1rem;color:var(--or-clair);letter-spacing:1px;}
+        .game-card-sub{font-size:.8rem;color:var(--texte-doux);font-style:italic;}
+        .game-area{padding:16px 20px 20px;}
 
-        .site-title {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            color: var(--or-clair);
-            text-shadow: 0 0 20px var(--glow-or-fort), 0 2px 4px rgba(0,0,0,0.8);
-            letter-spacing: 2px;
-        }
+        /* SCORE */
+        .score-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:8px 12px;background:rgba(0,0,0,0.3);border:1px solid rgba(198,168,74,0.1);}
+        .score-item{text-align:center;}
+        .score-val{font-family:'Cinzel Decorative',serif;font-size:1.3rem;color:var(--or-clair);}
+        .score-lbl{font-size:.7rem;color:var(--texte-doux);letter-spacing:1px;display:block;}
+        .score-vs{color:var(--or-profond);font-size:.9rem;}
 
-        .site-subtitle {
-            font-family: 'Cinzel', serif;
-            color: var(--texte-doux);
-            font-size: 0.95rem;
-            margin-top: 4px;
-            letter-spacing: 3px;
-        }
+        /* BUTTONS */
+        .game-btn{display:block;width:100%;padding:10px;background:linear-gradient(135deg,rgba(198,168,74,0.15),rgba(139,104,32,0.1));border:1px solid var(--or-profond);color:var(--or-clair);font-family:'Cinzel',serif;font-size:.8rem;letter-spacing:1px;cursor:pointer;transition:all .25s;margin-top:12px;}
+        .game-btn:hover{background:linear-gradient(135deg,rgba(198,168,74,0.3),rgba(139,104,32,0.2));border-color:var(--or-clair);box-shadow:0 0 12px var(--glow-or);}
+        .game-btn:disabled{opacity:.4;cursor:not-allowed;}
+        .game-status{text-align:center;font-style:italic;color:var(--texte-doux);font-size:.9rem;min-height:24px;margin:8px 0;}
+        .game-status.win{color:var(--or-clair);font-style:normal;}
+        .game-status.lose{color:#e06060;font-style:normal;}
+        .game-status.draw{color:#b0a060;font-style:normal;}
 
-        .back-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 16px;
-            padding: 8px 20px;
-            background: transparent;
-            border: 1px solid var(--or-profond);
-            color: var(--texte-doux);
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-        .back-btn:hover {
-            border-color: var(--or);
-            color: var(--or-clair);
-            background: rgba(198,168,74,0.08);
-        }
+        /* MODE TOGGLE */
+        .mode-toggle{display:flex;gap:4px;margin-bottom:10px;}
+        .mtog-btn{flex:1;padding:6px 4px;background:transparent;border:1px solid var(--or-profond);color:var(--texte-doux);font-family:'Cinzel',serif;font-size:.68rem;letter-spacing:.5px;cursor:pointer;transition:all .2s;}
+        .mtog-btn.active{background:rgba(198,168,74,0.15);border-color:var(--or);color:var(--or-clair);}
+        .mtog-btn:hover:not(.active){border-color:var(--or-profond);color:var(--or);}
 
-        .header-divider {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 20px 40px 0;
-        }
-        .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--or-profond), transparent); }
-        .divider-ornament { color: var(--or); font-size: 0.8rem; }
+        /* MORPION */
+        .morpion-board{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:rgba(198,168,74,0.1);border:1px solid var(--or-profond);padding:4px;margin:0 auto;max-width:240px;}
+        .morpion-cell{aspect-ratio:1;background:var(--fond-carte);display:flex;align-items:center;justify-content:center;font-size:2rem;cursor:pointer;transition:background .2s;border:1px solid rgba(198,168,74,0.08);user-select:none;}
+        .morpion-cell:hover:not(.taken){background:var(--fond-carte-hover);}
+        .morpion-cell.taken{cursor:default;}
+        .morpion-cell.x{color:var(--or-clair);text-shadow:0 0 8px var(--glow-or);}
+        .morpion-cell.o{color:#e06060;text-shadow:0 0 8px rgba(224,96,96,0.4);}
+        .morpion-cell.win-cell{background:rgba(198,168,74,0.2);border-color:var(--or);}
 
-        /* ── ARÈNE TITLE ── */
-        .arena-header {
-            text-align: center;
-            padding: 40px 20px 10px;
-        }
-        .arena-title {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: clamp(1.6rem, 4vw, 2.8rem);
-            color: var(--or-clair);
-            text-shadow: 0 0 30px var(--glow-or-fort);
-        }
-        .arena-subtitle {
-            color: var(--texte-doux);
-            font-style: italic;
-            margin-top: 8px;
-            font-size: 1.1rem;
-        }
+        /* SNAKE */
+        #snake-canvas{display:block;margin:0 auto;border:1px solid var(--or-profond);background:#080604;image-rendering:pixelated;}
+        .snake-controls{display:grid;grid-template-columns:repeat(3,40px);grid-template-rows:repeat(2,40px);gap:4px;margin:10px auto 0;width:fit-content;}
+        .snake-ctrl-btn{background:rgba(198,168,74,0.1);border:1px solid var(--or-profond);color:var(--or);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s;user-select:none;}
+        .snake-ctrl-btn:hover,.snake-ctrl-btn:active{background:rgba(198,168,74,0.3);}
+        .ctrl-up{grid-column:2;grid-row:1;} .ctrl-left{grid-column:1;grid-row:2;} .ctrl-down{grid-column:2;grid-row:2;} .ctrl-right{grid-column:3;grid-row:2;}
 
-        /* ── DIFFICULTY SELECTOR ── */
-        .difficulty-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            padding: 20px;
-            flex-wrap: wrap;
-        }
-        .diff-label {
-            font-family: 'Cinzel', serif;
-            color: var(--texte-doux);
-            font-size: 0.85rem;
-            letter-spacing: 2px;
-        }
-        .diff-btn {
-            padding: 8px 20px;
-            background: transparent;
-            border: 1px solid var(--or-profond);
-            color: var(--texte-doux);
-            font-family: 'Cinzel', serif;
-            font-size: 0.78rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.25s;
-            position: relative;
-            overflow: hidden;
-        }
-        .diff-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: var(--glow-or);
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-        .diff-btn:hover::before, .diff-btn.active::before { opacity: 1; }
-        .diff-btn.active {
-            border-color: var(--or-clair);
-            color: var(--or-clair);
-            box-shadow: 0 0 12px var(--glow-or);
-        }
-        .diff-btn:hover { border-color: var(--or); color: var(--or); }
+        /* PFC */
+        .pfc-choices{display:flex;justify-content:center;gap:8px;margin:12px 0;flex-wrap:wrap;}
+        .pfc-btn{flex:1;min-width:52px;max-width:70px;aspect-ratio:1;background:rgba(198,168,74,0.08);border:1px solid var(--or-profond);font-size:1.6rem;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:all .2s;position:relative;gap:2px;}
+        .pfc-btn span.pfc-btn-lbl{font-size:.5rem;font-family:'Cinzel',serif;color:var(--texte-doux);letter-spacing:.5px;display:block;}
+        .pfc-btn:hover{background:rgba(198,168,74,0.2);border-color:var(--or);transform:scale(1.08);}
+        .pfc-btn.chosen{border-color:var(--or-clair);background:rgba(198,168,74,0.25);box-shadow:0 0 12px var(--glow-or);}
+        .pfc-reveal{display:flex;justify-content:space-around;align-items:center;padding:10px;background:rgba(0,0,0,0.3);border:1px solid rgba(198,168,74,0.1);margin:8px 0;min-height:64px;}
+        .pfc-side{text-align:center;}
+        .pfc-emoji{font-size:2.4rem;display:block;}
+        .pfc-who{font-size:.7rem;color:var(--texte-doux);letter-spacing:1px;}
+        .pfc-vs-mid{color:var(--or-profond);font-family:'Cinzel',serif;font-size:.8rem;}
+        .pfc-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;}
+        .pfc-modes-btn{padding:4px 10px;background:rgba(198,168,74,0.08);border:1px solid var(--or-profond);color:var(--texte-doux);font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:1px;cursor:pointer;transition:all .2s;}
+        .pfc-modes-btn:hover{border-color:var(--or);color:var(--or-clair);}
 
-        /* ── GAMES GRID ── */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 24px;
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 20px 24px 60px;
-        }
+        /* PFC COVER (1v1 pass screen) */
+        .pfc-cover{position:absolute;inset:0;background:rgba(13,11,9,0.97);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;z-index:20;border:1px solid var(--or-profond);}
+        .pfc-cover.hidden{display:none;}
+        .pfc-cover-icon{font-size:3rem;display:block;}
+        .pfc-cover-msg{text-align:center;font-family:'Cinzel',serif;color:var(--or-clair);font-size:.85rem;letter-spacing:1px;line-height:1.7;}
+        .pfc-cover-sub{text-align:center;color:var(--texte-doux);font-style:italic;font-size:.8rem;}
 
-        /* ── GAME CARD ── */
-        .game-card {
-            background: var(--fond-carte);
-            border: 1px solid var(--or-profond);
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .game-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 50% 0%, rgba(198,168,74,0.05) 0%, transparent 70%);
-            pointer-events: none;
-        }
-        .game-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6), 0 0 20px var(--glow-or);
-        }
+        /* PFC MODAL */
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:500;display:flex;align-items:center;justify-content:center;padding:20px;}
+        .modal-overlay.hidden{display:none;}
+        .modal-box{background:var(--fond-carte);border:1px solid var(--or-profond);padding:28px;max-width:560px;width:100%;box-shadow:0 0 60px rgba(0,0,0,0.8),0 0 30px var(--glow-or);}
+        .modal-title{font-family:'Cinzel Decorative',serif;color:var(--or-clair);font-size:1.2rem;text-align:center;margin-bottom:20px;letter-spacing:2px;}
+        .mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+        .mode-card{background:rgba(0,0,0,0.3);border:1px solid var(--or-profond);padding:14px;cursor:pointer;transition:all .2s;position:relative;}
+        .mode-card:hover{border-color:var(--or);background:rgba(198,168,74,0.08);}
+        .mode-card.active{border-color:var(--or-clair);background:rgba(198,168,74,0.12);box-shadow:0 0 10px var(--glow-or);}
+        .mode-card.active::after{content:'✓';position:absolute;top:8px;right:10px;color:var(--or-clair);font-family:'Cinzel',serif;font-size:.75rem;}
+        .mode-card-title{font-family:'Cinzel',serif;color:var(--or-clair);font-size:.85rem;letter-spacing:1px;margin-bottom:4px;}
+        .mode-card-symbols{font-size:1.3rem;margin:6px 0;}
+        .mode-card-desc{font-size:.72rem;color:var(--texte-doux);font-style:italic;}
+        .mode-card-rules{font-size:.67rem;color:var(--texte-doux);margin-top:6px;line-height:1.5;}
 
-        .game-card-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 20px 12px;
-            border-bottom: 1px solid rgba(198,168,74,0.15);
-        }
-        .game-icon { font-size: 1.8rem; }
-        .game-card-title {
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            color: var(--or-clair);
-            letter-spacing: 1px;
-        }
-        .game-card-sub {
-            font-size: 0.8rem;
-            color: var(--texte-doux);
-            font-style: italic;
-        }
+        /* MEMORY */
+        .memory-board{display:grid;gap:6px;margin:0 auto;max-width:300px;transition:all .3s;}
+        .mem-card{aspect-ratio:1;background:var(--brun-moyen);border:1px solid var(--or-profond);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.4rem;transition:transform .3s,background .2s;user-select:none;position:relative;transform-style:preserve-3d;}
+        .mem-card .mem-front,.mem-card .mem-back{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;backface-visibility:hidden;}
+        .mem-card .mem-back{background:var(--fond-carte);font-size:1rem;color:var(--or-profond);}
+        .mem-card .mem-front{background:var(--brun-moyen);transform:rotateY(180deg);}
+        .mem-card.flipped{transform:rotateY(180deg);}
+        .mem-card.matched{background:rgba(74,139,80,0.2);border-color:var(--vert);cursor:default;}
+        .mem-card.matched .mem-front{background:rgba(74,139,80,0.2);}
+        .mem-info{display:flex;justify-content:space-between;margin-bottom:10px;font-size:.85rem;}
+        .mem-info span{color:var(--texte-doux);}
+        .mem-info strong{color:var(--or-clair);}
 
-        .game-area {
-            padding: 16px 20px 20px;
-        }
+        /* PUISSANCE 4 */
+        .p4-wrapper{width:100%;max-width:320px;margin:0 auto;display:block;}
+        .p4-drop-btns{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:3px;}
+        .p4-drop-btn{background:rgba(198,168,74,0.06);border:1px solid var(--or-profond);color:var(--or-profond);font-size:.65rem;cursor:pointer;padding:5px 0;transition:all .2s;font-family:'Cinzel',serif;}
+        .p4-drop-btn:hover{background:rgba(198,168,74,0.25);color:var(--or-clair);border-color:var(--or);}
+        .p4-drop-btn:disabled{opacity:.3;cursor:not-allowed;}
+        #p4-board{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;background:rgba(0,0,0,0.5);border:2px solid var(--or-profond);padding:5px;}
+        .p4-cell{aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,0.03);border:1px solid rgba(198,168,74,0.06);transition:background .15s,box-shadow .15s;}
+        .p4-cell.red{background:radial-gradient(circle at 35% 35%,#e05050,#8b2020);box-shadow:0 0 6px rgba(224,80,80,0.5);}
+        .p4-cell.yellow{background:radial-gradient(circle at 35% 35%,#e8c96a,#8b6820);box-shadow:0 0 6px var(--glow-or);}
+        .p4-cell.p4-win{border:2px solid #fff;box-shadow:0 0 14px rgba(255,255,255,0.7);}
+        .p4-legend{display:flex;justify-content:space-around;font-size:.75rem;margin-top:8px;color:var(--texte-doux);}
+        .p4-legend span{display:flex;align-items:center;gap:5px;}
+        .p4-dot{width:10px;height:10px;border-radius:50%;}
+        .p4-dot.red{background:#c0392b;}
+        .p4-dot.yellow{background:var(--or);}
 
-        /* Score bar */
-        .score-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-            padding: 8px 12px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(198,168,74,0.1);
-        }
-        .score-item { text-align: center; }
-        .score-val {
-            font-family: 'Cinzel Decorative', serif;
-            font-size: 1.3rem;
-            color: var(--or-clair);
-        }
-        .score-lbl {
-            font-size: 0.7rem;
-            color: var(--texte-doux);
-            letter-spacing: 1px;
-            display: block;
-        }
-        .score-vs { color: var(--or-profond); font-size: 0.9rem; }
+        /* PENDU */
+        .pendu-layout{display:flex;gap:12px;align-items:flex-start;}
+        .pendu-svg-wrap{flex-shrink:0;}
+        #pendu-svg line,#pendu-svg circle,#pendu-svg path{stroke-linecap:round;}
+        .pendu-right{flex:1;min-width:0;}
+        .pendu-word{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:10px 0;}
+        .pendu-letter{width:22px;height:28px;border-bottom:2px solid var(--or-profond);display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:.95rem;color:var(--or-clair);text-transform:uppercase;}
+        .pendu-letter.blank{border-bottom-color:var(--or-profond);}
+        .pendu-keyboard{display:flex;flex-wrap:wrap;gap:3px;justify-content:center;margin-top:8px;}
+        .pendu-key{width:26px;height:26px;background:rgba(198,168,74,0.07);border:1px solid var(--or-profond);color:var(--texte-doux);font-family:'Cinzel',serif;font-size:.65rem;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+        .pendu-key:hover:not(:disabled){background:rgba(198,168,74,0.2);border-color:var(--or);color:var(--or-clair);}
+        .pendu-key:disabled{opacity:.3;cursor:default;}
+        .pendu-key.correct{background:rgba(74,139,80,0.2);border-color:var(--vert);color:var(--vert-clair);}
+        .pendu-key.wrong{background:rgba(139,32,32,0.2);border-color:var(--rouge-sang);color:#e06060;}
+        .pendu-hint{text-align:center;color:var(--texte-doux);font-size:.8rem;font-style:italic;margin-bottom:6px;}
+        .pendu-errors{text-align:center;font-size:.8rem;color:var(--texte-doux);margin-bottom:4px;}
+        .pendu-errors strong{color:#e06060;}
 
-        /* Generic game btn */
-        .game-btn {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, rgba(198,168,74,0.15), rgba(139,104,32,0.1));
-            border: 1px solid var(--or-profond);
-            color: var(--or-clair);
-            font-family: 'Cinzel', serif;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: all 0.25s;
-            margin-top: 12px;
-        }
-        .game-btn:hover {
-            background: linear-gradient(135deg, rgba(198,168,74,0.3), rgba(139,104,32,0.2));
-            border-color: var(--or-clair);
-            box-shadow: 0 0 12px var(--glow-or);
-        }
-        .game-btn:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
+        /* PARTICLES & MISC */
+        #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;}
+        header,.arena-header,.difficulty-bar,.games-grid,footer{position:relative;z-index:1;}
+        .toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(60px);background:var(--fond-carte);border:1px solid var(--or);color:var(--or-clair);font-family:'Cinzel',serif;font-size:.85rem;padding:12px 28px;letter-spacing:1px;z-index:999;transition:transform .4s cubic-bezier(0.34,1.56,0.64,1);box-shadow:0 4px 24px rgba(0,0,0,0.6),0 0 20px var(--glow-or);white-space:nowrap;}
+        .toast.show{transform:translateX(-50%) translateY(0);}
+        footer{text-align:center;padding:20px;color:var(--texte-doux);font-size:.85rem;border-top:1px solid rgba(198,168,74,0.1);margin-top:20px;}
 
-        .game-status {
-            text-align: center;
-            font-style: italic;
-            color: var(--texte-doux);
-            font-size: 0.9rem;
-            min-height: 24px;
-            margin: 8px 0;
-        }
-        .game-status.win { color: var(--or-clair); font-style: normal; }
-        .game-status.lose { color: #e06060; font-style: normal; }
-        .game-status.draw { color: #b0a060; font-style: normal; }
-
-        /* ─── MORPION ─── */
-        .morpion-board {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 4px;
-            background: rgba(198,168,74,0.1);
-            border: 1px solid var(--or-profond);
-            padding: 4px;
-            margin: 0 auto;
-            max-width: 240px;
-        }
-        .morpion-cell {
-            aspect-ratio: 1;
-            background: var(--fond-carte);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            border: 1px solid rgba(198,168,74,0.08);
-            user-select: none;
-        }
-        .morpion-cell:hover:not(.taken) { background: var(--fond-carte-hover); }
-        .morpion-cell.taken { cursor: default; }
-        .morpion-cell.x { color: var(--or-clair); text-shadow: 0 0 8px var(--glow-or); }
-        .morpion-cell.o { color: #e06060; text-shadow: 0 0 8px rgba(224,96,96,0.4); }
-        .morpion-cell.win-cell { background: rgba(198,168,74,0.2); border-color: var(--or); }
-
-        /* ─── SNAKE ─── */
-        #snake-canvas {
-            display: block;
-            margin: 0 auto;
-            border: 1px solid var(--or-profond);
-            background: #080604;
-            image-rendering: pixelated;
-        }
-        .snake-controls {
-            display: grid;
-            grid-template-columns: repeat(3, 40px);
-            grid-template-rows: repeat(2, 40px);
-            gap: 4px;
-            margin: 10px auto 0;
-            width: fit-content;
-        }
-        .snake-ctrl-btn {
-            background: rgba(198,168,74,0.1);
-            border: 1px solid var(--or-profond);
-            color: var(--or);
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.15s;
-            user-select: none;
-        }
-        .snake-ctrl-btn:hover, .snake-ctrl-btn:active { background: rgba(198,168,74,0.3); }
-        .ctrl-up { grid-column: 2; grid-row: 1; }
-        .ctrl-left { grid-column: 1; grid-row: 2; }
-        .ctrl-down { grid-column: 2; grid-row: 2; }
-        .ctrl-right { grid-column: 3; grid-row: 2; }
-
-        /* ─── PIERRE FEUILLE CISEAUX ─── */
-        .pfc-choices {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 12px 0;
-        }
-        .pfc-btn {
-            flex: 1;
-            max-width: 80px;
-            aspect-ratio: 1;
-            background: rgba(198,168,74,0.08);
-            border: 1px solid var(--or-profond);
-            font-size: 2rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-            position: relative;
-        }
-        .pfc-btn:hover {
-            background: rgba(198,168,74,0.2);
-            border-color: var(--or);
-            transform: scale(1.08);
-        }
-        .pfc-btn.chosen {
-            border-color: var(--or-clair);
-            background: rgba(198,168,74,0.25);
-            box-shadow: 0 0 12px var(--glow-or);
-        }
-        .pfc-reveal {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 10px;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(198,168,74,0.1);
-            margin: 8px 0;
-            min-height: 64px;
-        }
-        .pfc-side { text-align: center; }
-        .pfc-emoji { font-size: 2.4rem; display: block; }
-        .pfc-who { font-size: 0.7rem; color: var(--texte-doux); letter-spacing: 1px; }
-        .pfc-vs-mid { color: var(--or-profond); font-family: 'Cinzel', serif; font-size: 0.8rem; }
-
-        /* ─── MEMORY ─── */
-        .memory-board {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 6px;
-            margin: 0 auto;
-            max-width: 280px;
-        }
-        .mem-card {
-            aspect-ratio: 1;
-            background: var(--brun-moyen);
-            border: 1px solid var(--or-profond);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.4rem;
-            transition: transform 0.3s, background 0.2s;
-            user-select: none;
-            position: relative;
-            transform-style: preserve-3d;
-        }
-        .mem-card .mem-front, .mem-card .mem-back {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backface-visibility: hidden;
-        }
-        .mem-card .mem-back {
-            background: var(--fond-carte);
-            font-size: 1rem;
-            color: var(--or-profond);
-        }
-        .mem-card .mem-front {
-            background: var(--brun-moyen);
-            transform: rotateY(180deg);
-        }
-        .mem-card.flipped { transform: rotateY(180deg); }
-        .mem-card.matched {
-            background: rgba(74,139,80,0.2);
-            border-color: var(--vert);
-            cursor: default;
-        }
-        .mem-card.matched .mem-front { background: rgba(74,139,80,0.2); }
-
-        .mem-info {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 0.85rem;
-        }
-        .mem-info span { color: var(--texte-doux); }
-        .mem-info strong { color: var(--or-clair); }
-
-        /* ─── FOOTER ─── */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: var(--texte-doux);
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(198,168,74,0.1);
-            margin-top: 20px;
-        }
-
-        /* ─── CANVAS particles ─── */
-        #particles {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        header, .arena-header, .difficulty-bar, .games-grid, footer {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Toast notification */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(60px);
-            background: var(--fond-carte);
-            border: 1px solid var(--or);
-            color: var(--or-clair);
-            font-family: 'Cinzel', serif;
-            font-size: 0.85rem;
-            padding: 12px 28px;
-            letter-spacing: 1px;
-            z-index: 999;
-            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
-            box-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 0 20px var(--glow-or);
-            white-space: nowrap;
-        }
-        .toast.show { transform: translateX(-50%) translateY(0); }
-
-        @media (max-width: 600px) {
-            .games-grid { grid-template-columns: 1fr; padding: 12px; }
-            .morpion-board { max-width: 200px; }
-            .memory-board { max-width: 240px; }
+        @media(max-width:600px){
+            .games-grid{grid-template-columns:1fr;padding:12px;}
+            .morpion-board{max-width:200px;}
+            .memory-board{max-width:260px;}
+            .mode-grid{grid-template-columns:1fr;}
+            .pendu-layout{flex-direction:column;align-items:center;}
         }
     </style>
 </head>
@@ -523,27 +225,66 @@
     <button class="diff-btn" data-diff="hard" onclick="setDifficulty('hard')">💀 Seigneur</button>
 </div>
 
+<!-- ═══════════ PFC MODAL ═══════════ -->
+<div id="pfc-modal" class="modal-overlay hidden" onclick="if(event.target===this)closePfcModal()">
+    <div class="modal-box">
+        <div class="modal-title">⚙️ Modes de Duel</div>
+        <div class="mode-grid">
+            <div class="mode-card active" id="mc-classique" onclick="setPfcMode('classique')">
+                <div class="mode-card-title">⚔️ Classique</div>
+                <div class="mode-card-symbols">🪨 📜 🗡️</div>
+                <div class="mode-card-desc">3 symboles — le duel originel</div>
+                <div class="mode-card-rules">Pierre &gt; Dague · Dague &gt; Parchemin · Parchemin &gt; Pierre</div>
+            </div>
+            <div class="mode-card" id="mc-puits" onclick="setPfcMode('puits')">
+                <div class="mode-card-title">🕳️ Le Puits</div>
+                <div class="mode-card-symbols">🪨 📜 🗡️ 🕳️</div>
+                <div class="mode-card-desc">4 symboles — le Puits ancestral</div>
+                <div class="mode-card-rules">Puits &gt; Pierre &amp; Dague · Parchemin &gt; Puits · Dague &gt; Parchemin</div>
+            </div>
+            <div class="mode-card" id="mc-ls" onclick="setPfcMode('ls')">
+                <div class="mode-card-title">🖖 Lézard & Spock</div>
+                <div class="mode-card-symbols">🪨 📜 ✂️ 🦎 🖖</div>
+                <div class="mode-card-desc">5 symboles — parfaitement équilibré</div>
+                <div class="mode-card-rules">Spock &gt; Pierre &amp; Ciseaux · Lézard &gt; Feuille &amp; Spock · Pierre &gt; Lézard</div>
+            </div>
+            <div class="mode-card" id="mc-chaos" onclick="setPfcMode('chaos')">
+                <div class="mode-card-title">🧨 Mode Chaos</div>
+                <div class="mode-card-symbols">🪨 📜 ✂️ 🦎 🖖 🧨 💧</div>
+                <div class="mode-card-desc">7 symboles — la Dynamite est OP 💀</div>
+                <div class="mode-card-rules">Dynamite &gt; Pierre, Feuille, Ciseaux, Lézard · Eau &gt; Dynamite &amp; Spock</div>
+            </div>
+        </div>
+        <button class="game-btn" onclick="closePfcModal()" style="max-width:220px;margin:16px auto 0;display:block">✕ Fermer</button>
+    </div>
+</div>
+
+<!-- ═══════════ GAMES GRID ═══════════ -->
 <div class="games-grid">
 
-    <!-- ══════════════════ MORPION ══════════════════ -->
+    <!-- ══════ MORPION ══════ -->
     <div class="game-card">
         <div class="game-card-header">
             <span class="game-icon">✖️</span>
             <div>
                 <div class="game-card-title">Morpion Royal</div>
-                <div class="game-card-sub">Marques croisées contre le Gardien</div>
+                <div class="game-card-sub">Marques croisées</div>
             </div>
         </div>
         <div class="game-area">
+            <div class="mode-toggle">
+                <button class="mtog-btn active" data-mode="bot" id="morp-mode-bot" onclick="setMorpMode('bot')">🤖 vs Gardien</button>
+                <button class="mtog-btn" data-mode="local" id="morp-mode-local" onclick="setMorpMode('local')">👥 1v1 Local</button>
+            </div>
             <div class="score-row">
                 <div class="score-item">
                     <span class="score-val" id="morp-score-p">0</span>
-                    <span class="score-lbl">VOUS</span>
+                    <span class="score-lbl" id="morp-lbl-p">VOUS</span>
                 </div>
                 <span class="score-vs">VS</span>
                 <div class="score-item">
                     <span class="score-val" id="morp-score-b">0</span>
-                    <span class="score-lbl">BOT</span>
+                    <span class="score-lbl" id="morp-lbl-b">BOT</span>
                 </div>
             </div>
             <div class="morpion-board" id="morpion-board">
@@ -562,7 +303,7 @@
         </div>
     </div>
 
-    <!-- ══════════════════ SNAKE ══════════════════ -->
+    <!-- ══════ SNAKE ══════ -->
     <div class="game-card">
         <div class="game-card-header">
             <span class="game-icon">🐍</span>
@@ -573,18 +314,9 @@
         </div>
         <div class="game-area">
             <div class="score-row">
-                <div class="score-item">
-                    <span class="score-val" id="snake-score">0</span>
-                    <span class="score-lbl">SCORE</span>
-                </div>
-                <div class="score-item">
-                    <span class="score-val" id="snake-best">0</span>
-                    <span class="score-lbl">RECORD</span>
-                </div>
-                <div class="score-item">
-                    <span class="score-val" id="snake-level">1</span>
-                    <span class="score-lbl">NIVEAU</span>
-                </div>
+                <div class="score-item"><span class="score-val" id="snake-score">0</span><span class="score-lbl">SCORE</span></div>
+                <div class="score-item"><span class="score-val" id="snake-best">0</span><span class="score-lbl">RECORD</span></div>
+                <div class="score-item"><span class="score-val" id="snake-level">1</span><span class="score-lbl">NIVEAU</span></div>
             </div>
             <canvas id="snake-canvas" width="260" height="260"></canvas>
             <div class="snake-controls">
@@ -598,52 +330,55 @@
         </div>
     </div>
 
-    <!-- ══════════════════ PIERRE FEUILLE CISEAUX ══════════════════ -->
+    <!-- ══════ PIERRE FEUILLE CISEAUX ══════ -->
     <div class="game-card">
         <div class="game-card-header">
             <span class="game-icon">✊</span>
             <div>
                 <div class="game-card-title">Duel de Symboles</div>
-                <div class="game-card-sub">Pierre, Parchemin, Dague</div>
+                <div class="game-card-sub" id="pfc-mode-label">Pierre, Parchemin, Dague</div>
             </div>
         </div>
-        <div class="game-area">
+        <div class="game-area" style="position:relative">
+            <!-- COVER for 1v1 pass -->
+            <div class="pfc-cover hidden" id="pfc-cover">
+                <span class="pfc-cover-icon" id="pfc-cover-icon">🛡️</span>
+                <div class="pfc-cover-msg" id="pfc-cover-msg">J1 a choisi !<br>Couvrez l'écran et passez à J2.</div>
+                <div class="pfc-cover-sub">Ne regardez pas le choix de l'adversaire !</div>
+                <button class="game-btn" onclick="pfcCoverNext()" style="max-width:180px;margin-top:4px">▶ J2 Prêt ?</button>
+            </div>
+
+            <div class="mode-toggle">
+                <button class="mtog-btn active" data-mode="bot" id="pfc-mode-bot" onclick="setPfcGameMode('bot')">🤖 vs Gardien</button>
+                <button class="mtog-btn" data-mode="local" id="pfc-mode-local" onclick="setPfcGameMode('local')">👥 1v1 Caché</button>
+            </div>
+            <div class="pfc-header-row">
+                <div style="font-size:.8rem;color:var(--texte-doux);" id="pfc-turn-label">Choisis ton arme !</div>
+                <button class="pfc-modes-btn" onclick="openPfcModal()">⚙️ Modes</button>
+            </div>
             <div class="score-row">
-                <div class="score-item">
-                    <span class="score-val" id="pfc-score-p">0</span>
-                    <span class="score-lbl">VOUS</span>
-                </div>
-                <div class="score-item">
-                    <span class="score-val" id="pfc-score-d">0</span>
-                    <span class="score-lbl">NULS</span>
-                </div>
-                <div class="score-item">
-                    <span class="score-val" id="pfc-score-b">0</span>
-                    <span class="score-lbl">BOT</span>
-                </div>
+                <div class="score-item"><span class="score-val" id="pfc-score-p">0</span><span class="score-lbl" id="pfc-lbl-p">VOUS</span></div>
+                <div class="score-item"><span class="score-val" id="pfc-score-d">0</span><span class="score-lbl">NULS</span></div>
+                <div class="score-item"><span class="score-val" id="pfc-score-b">0</span><span class="score-lbl" id="pfc-lbl-b">BOT</span></div>
             </div>
             <div class="pfc-reveal" id="pfc-reveal">
                 <div class="pfc-side">
                     <span class="pfc-emoji" id="pfc-p-emoji">❓</span>
-                    <span class="pfc-who">VOUS</span>
+                    <span class="pfc-who" id="pfc-who-p">VOUS</span>
                 </div>
                 <span class="pfc-vs-mid">VS</span>
                 <div class="pfc-side">
                     <span class="pfc-emoji" id="pfc-b-emoji">❓</span>
-                    <span class="pfc-who">BOT</span>
+                    <span class="pfc-who" id="pfc-who-b">BOT</span>
                 </div>
             </div>
             <div class="game-status" id="pfc-status">Choisis ton arme !</div>
-            <div class="pfc-choices">
-                <button class="pfc-btn" id="pfc-rock" onclick="pfcPlay('rock')" title="Pierre">🪨</button>
-                <button class="pfc-btn" id="pfc-paper" onclick="pfcPlay('paper')" title="Parchemin">📜</button>
-                <button class="pfc-btn" id="pfc-scissors" onclick="pfcPlay('scissors')" title="Dague">🗡️</button>
-            </div>
-            <button class="game-btn" onclick="pfcReset()">🔄 Recommencer le Duel</button>
+            <div class="pfc-choices" id="pfc-choices"></div>
+            <button class="game-btn" onclick="pfcReset()">🔄 Recommencer</button>
         </div>
     </div>
 
-    <!-- ══════════════════ MEMORY ══════════════════ -->
+    <!-- ══════ MEMORY ══════ -->
     <div class="game-card">
         <div class="game-card-header">
             <span class="game-icon">🃏</span>
@@ -655,18 +390,121 @@
         <div class="game-area">
             <div class="mem-info">
                 <span>Coups : <strong id="mem-moves">0</strong></span>
-                <span>Paires : <strong id="mem-pairs">0</strong>/8</span>
+                <span>Paires : <strong id="mem-pairs">0</strong>/<strong id="mem-total-pairs">8</strong></span>
                 <span>Meilleur : <strong id="mem-best">—</strong></span>
             </div>
-            <div class="memory-board" id="memory-board"></div>
+            <div class="memory-board" id="memory-board" style="grid-template-columns:repeat(4,1fr)"></div>
             <div class="game-status" id="mem-status">Retourne les parchemins !</div>
             <button class="game-btn" onclick="memoryReset()">🃏 Mélanger</button>
         </div>
     </div>
 
-</div>
+    <!-- ══════ PUISSANCE 4 ══════ -->
+    <div class="game-card">
+        <div class="game-card-header">
+            <span class="game-icon">🔴</span>
+            <div>
+                <div class="game-card-title">Puissance Quatre</div>
+                <div class="game-card-sub">Aligne 4 joyaux en premier</div>
+            </div>
+        </div>
+        <div class="game-area">
+            <div class="mode-toggle">
+                <button class="mtog-btn active" data-mode="bot" id="p4-mode-bot" onclick="setP4Mode('bot')">🤖 vs Gardien</button>
+                <button class="mtog-btn" data-mode="local" id="p4-mode-local" onclick="setP4Mode('local')">👥 1v1 Local</button>
+            </div>
+            <div class="score-row">
+                <div class="score-item"><span class="score-val" id="p4-score-r">0</span><span class="score-lbl" id="p4-lbl-r">VOUS</span></div>
+                <span class="score-vs">VS</span>
+                <div class="score-item"><span class="score-val" id="p4-score-y">0</span><span class="score-lbl" id="p4-lbl-y">BOT</span></div>
+            </div>
+            <div class="p4-wrapper">
+                <div class="p4-drop-btns" id="p4-drop-btns">
+                    <button class="p4-drop-btn" onclick="p4Drop(0)">▼</button>
+                    <button class="p4-drop-btn" onclick="p4Drop(1)">▼</button>
+                    <button class="p4-drop-btn" onclick="p4Drop(2)">▼</button>
+                    <button class="p4-drop-btn" onclick="p4Drop(3)">▼</button>
+                    <button class="p4-drop-btn" onclick="p4Drop(4)">▼</button>
+                    <button class="p4-drop-btn" onclick="p4Drop(5)">▼</button>
+                    <button class="p4-drop-btn" onclick="p4Drop(6)">▼</button>
+                </div>
+                <div id="p4-board"></div>
+            </div>
+            <div class="p4-legend">
+                <span><div class="p4-dot red"></div> <span id="p4-leg-r">Vous</span></span>
+                <span><div class="p4-dot yellow"></div> <span id="p4-leg-y">Gardien</span></span>
+            </div>
+            <div class="game-status" id="p4-status">Lance une partie !</div>
+            <button class="game-btn" onclick="p4Reset()">🔴 Nouvelle Partie</button>
+        </div>
+    </div>
 
-<footer>
+    <!-- ══════ PENDU ROYAL ══════ -->
+    <div class="game-card">
+        <div class="game-card-header">
+            <span class="game-icon">🪓</span>
+            <div>
+                <div class="game-card-title">Pendu Royal</div>
+                <div class="game-card-sub">Devine le mot avant l'échafaud</div>
+            </div>
+        </div>
+        <div class="game-area">
+            <div class="pendu-hint" id="pendu-hint">Thème : Monde médiéval fantastique</div>
+            <div class="pendu-layout">
+                <div class="pendu-svg-wrap">
+                    <svg id="pendu-svg" width="100" height="140" viewBox="0 0 100 140">
+                        <!-- Gallows frame (always visible) -->
+                        <line x1="8" y1="132" x2="90" y2="132" stroke="#8b6820" stroke-width="3"/>
+                        <line x1="25" y1="132" x2="25" y2="12" stroke="#8b6820" stroke-width="3"/>
+                        <line x1="25" y1="12" x2="68" y2="12" stroke="#8b6820" stroke-width="3"/>
+                        <line x1="68" y1="12" x2="68" y2="26" stroke="#8b6820" stroke-width="2.5"/>
+                        <!-- Body parts — hidden by default -->
+                        <circle id="ph-head" cx="68" cy="37" r="11" stroke="#e8d5a8" stroke-width="2.5" fill="none" visibility="hidden"/>
+                        <line id="ph-body" x1="68" y1="48" x2="68" y2="85" stroke="#e8d5a8" stroke-width="2.5" visibility="hidden"/>
+                        <line id="ph-arml" x1="68" y1="60" x2="50" y2="75" stroke="#e8d5a8" stroke-width="2.5" visibility="hidden"/>
+                        <line id="ph-armr" x1="68" y1="60" x2="86" y2="75" stroke="#e8d5a8" stroke-width="2.5" visibility="hidden"/>
+                        <line id="ph-legl" x1="68" y1="85" x2="50" y2="110" stroke="#e8d5a8" stroke-width="2.5" visibility="hidden"/>
+                        <line id="ph-legr" x1="68" y1="85" x2="86" y2="110" stroke="#e8d5a8" stroke-width="2.5" visibility="hidden"/>
+                    </svg>
+                </div>
+                <div class="pendu-right">
+                    <div class="pendu-errors">Erreurs : <strong id="pendu-errors">0</strong>/6</div>
+                    <div class="pendu-word" id="pendu-word"></div>
+                    <div class="pendu-keyboard" id="pendu-keyboard"></div>
+                </div>
+            </div>
+            <div class="game-status" id="pendu-status">Commence à deviner !</div>
+            <button class="game-btn" onclick="penduReset()">🪓 Nouveau Mot</button>
+        </div>
+    </div>
+
+    <!-- ══════ ROUTE ROYALE 3D ══════ -->
+    <div class="game-card" style="grid-column:1/-1;border-color:var(--or);box-shadow:0 0 40px rgba(198,168,74,0.15);">
+        <div class="game-card-header">
+            <span class="game-icon">🚗</span>
+            <div>
+                <div class="game-card-title">Route Royale <span style="color:#e8a060;font-size:.65rem;background:rgba(232,160,96,0.12);border:1px solid rgba(232,160,96,0.35);padding:2px 7px;margin-left:8px;letter-spacing:1px">🔥 NOUVEAU</span></div>
+                <div class="game-card-sub">Monde ouvert 3D — Conduis dans le Royaume</div>
+            </div>
+        </div>
+        <div class="game-area" style="text-align:center;padding:22px 20px;">
+            <div style="display:flex;justify-content:center;gap:28px;margin-bottom:14px;font-size:.8rem;color:var(--texte-doux);">
+                <div>🗺️<br><span style="font-size:.7rem">Monde ouvert</span></div>
+                <div>🎮<br><span style="font-size:.7rem">ZQSD + Nitro</span></div>
+                <div>⛶<br><span style="font-size:.7rem">Plein écran</span></div>
+                <div>🔊<br><span style="font-size:.7rem">Son moteur</span></div>
+                <div>🏙️<br><span style="font-size:.7rem">Cité médiévale</span></div>
+            </div>
+            <p style="color:var(--texte-doux);font-style:italic;font-size:.88rem;max-width:480px;margin:0 auto 18px;">
+                Pilote une voiture royale dans les rues de la cité médiévale. Monde ouvert de 800×800 m, nitro, compteur de vitesse, minimap et son moteur en direct.
+            </p>
+            <a href="conduite.html" style="text-decoration:none">
+                <button class="game-btn" style="max-width:280px;margin:0 auto;font-size:.88rem;padding:14px;border-color:var(--or);">🚗 Lancer Route Royale</button>
+            </a>
+        </div>
+    </div>
+
+</div>
     <div style="display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:12px">
         <div style="flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--or-profond),transparent)"></div>
         <span style="color:var(--or)">⚜️</span>
@@ -678,520 +516,566 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ─── PARTICLES ─── */
+/* ══════════════════════════════════════════
+   PARTICLES
+══════════════════════════════════════════ */
 const canvas = document.getElementById('particles');
 const ctx = canvas.getContext('2d');
 let particles = [];
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;}
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-function mkParticle() {
-    return { x: Math.random()*canvas.width, y: Math.random()*canvas.height,
-             size: Math.random()*2+0.5, speedX: (Math.random()-0.5)*0.3,
-             speedY: -(Math.random()*0.5+0.2), opacity: Math.random()*0.5+0.1,
-             life: 0, maxLife: Math.random()*200+100,
-             color: Math.random()>0.7?'#e8c96a':'#c6a84a' };
-}
-for(let i=0;i<60;i++) particles.push(mkParticle());
-(function animP() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p,i)=>{
-        p.life++; p.x+=p.speedX; p.y+=p.speedY;
-        const pr=p.life/p.maxLife;
-        const op=pr<0.1?pr*10*p.opacity:pr>0.8?(1-pr)*5*p.opacity:p.opacity;
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
-        ctx.fillStyle=p.color; ctx.globalAlpha=Math.max(0,op); ctx.fill(); ctx.globalAlpha=1;
-        if(p.life>=p.maxLife||p.y<-10) particles[i]=mkParticle();
-    });
-    requestAnimationFrame(animP);
-})();
+window.addEventListener('resize',resizeCanvas);
+function mkParticle(){return{x:Math.random()*canvas.width,y:Math.random()*canvas.height,size:Math.random()*2+0.5,speedX:(Math.random()-0.5)*0.3,speedY:-(Math.random()*0.5+0.2),opacity:Math.random()*0.5+0.1,life:0,maxLife:Math.random()*200+100,color:Math.random()>0.7?'#e8c96a':'#c6a84a'};}
+for(let i=0;i<60;i++)particles.push(mkParticle());
+(function animP(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach((p,i)=>{p.life++;p.x+=p.speedX;p.y+=p.speedY;const pr=p.life/p.maxLife;const op=pr<0.1?pr*10*p.opacity:pr>0.8?(1-pr)*5*p.opacity:p.opacity;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fillStyle=p.color;ctx.globalAlpha=Math.max(0,op);ctx.fill();ctx.globalAlpha=1;if(p.life>=p.maxLife||p.y<-10)particles[i]=mkParticle();});requestAnimationFrame(animP);})();
 
-/* ─── DIFFICULTY ─── */
+/* ══════════════════════════════════════════
+   DIFFICULTY & TOAST
+══════════════════════════════════════════ */
 let difficulty = 'easy';
-function setDifficulty(d) {
-    difficulty = d;
-    document.querySelectorAll('.diff-btn').forEach(b => b.classList.toggle('active', b.dataset.diff === d));
-    showToast({ easy:'Mode Écuyer activé 🌿', medium:'Mode Chevalier activé ⚔️', hard:'Mode Seigneur activé 💀' }[d]);
-    morpionReset(); pfcReset(); snakeApplyDiff();
+function setDifficulty(d){
+    difficulty=d;
+    document.querySelectorAll('.diff-btn').forEach(b=>b.classList.toggle('active',b.dataset.diff===d));
+    showToast({easy:'Mode Écuyer activé 🌿',medium:'Mode Chevalier activé ⚔️',hard:'Mode Seigneur activé 💀'}[d]);
+    morpionReset();pfcReset();snakeApplyDiff();memoryReset();
 }
-
-/* ─── TOAST ─── */
 let toastTimer;
-function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg; t.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
-}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200);}
 
-/* ════════════════════════════════════════
+/* ══════════════════════════════════════════
    MORPION
-════════════════════════════════════════ */
-let morpBoard = Array(9).fill(null);
-let morpPlayerTurn = true;
-let morpLocked = false;
-let morpScoreP = 0, morpScoreB = 0;
-const WINS = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+══════════════════════════════════════════ */
+let morpBoard=Array(9).fill(null),morpPlayerTurn=true,morpLocked=false;
+let morpScoreP=0,morpScoreB=0,morpMode='bot',morpLocalPlayer=1;
+const WINS=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
 
-function morpionClick(i) {
-    if (!morpPlayerTurn || morpLocked || morpBoard[i]) return;
-    morpBoard[i] = 'X';
-    morpRender();
-    const w = morpCheck();
-    if (w) { morpEnd(w, 'X'); return; }
-    if (morpBoard.every(c=>c)) { morpEnd(null, null); return; }
-    morpPlayerTurn = false;
-    morpLocked = true;
-    document.getElementById('morp-status').textContent = 'Le Gardien réfléchit...';
-    setTimeout(morpBotPlay, difficulty==='easy'?300:difficulty==='medium'?600:900);
+function setMorpMode(m){
+    morpMode=m;
+    document.querySelectorAll('#morp-mode-bot,#morp-mode-local').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+    document.getElementById('morp-lbl-p').textContent=m==='local'?'J1':'VOUS';
+    document.getElementById('morp-lbl-b').textContent=m==='local'?'J2':'BOT';
+    morpionReset();
 }
 
-function morpBotPlay() {
-    let move = -1;
-    if (difficulty === 'easy') {
-        // Random avec légère préférence center
-        const empty = morpBoard.map((c,i)=>c===null?i:-1).filter(i=>i>=0);
-        move = empty[Math.floor(Math.random()*empty.length)];
-    } else if (difficulty === 'medium') {
-        move = morpFindWin('O') ?? morpFindWin('X') ?? morpRandMove();
-    } else {
-        // Minimax
-        move = morpMinimax(morpBoard, true).index;
+function morpionClick(i){
+    if(morpLocked||morpBoard[i])return;
+    if(morpMode==='bot'&&!morpPlayerTurn)return;
+    const sym=morpMode==='local'?(morpLocalPlayer===1?'X':'O'):'X';
+    morpBoard[i]=sym;morpRender();
+    const w=morpCheck();
+    if(w){morpEnd(w,sym);return;}
+    if(morpBoard.every(c=>c)){morpEnd(null,null);return;}
+    if(morpMode==='local'){
+        morpLocalPlayer=morpLocalPlayer===1?2:1;
+        document.getElementById('morp-status').textContent=`J${morpLocalPlayer} (${morpLocalPlayer===1?'✕':'◯'}) à toi !`;
+    }else{
+        morpPlayerTurn=false;morpLocked=true;
+        document.getElementById('morp-status').textContent='Le Gardien réfléchit...';
+        setTimeout(morpBotPlay,{easy:300,medium:600,hard:900}[difficulty]);
     }
-    morpBoard[move] = 'O';
-    morpRender();
-    const w = morpCheck();
-    if (w) { morpEnd(w, 'O'); return; }
-    if (morpBoard.every(c=>c)) { morpEnd(null, null); return; }
-    morpPlayerTurn = true;
-    morpLocked = false;
-    document.getElementById('morp-status').textContent = 'À toi de jouer !';
 }
 
-function morpFindWin(player) {
-    for (let i=0; i<9; i++) {
-        if (morpBoard[i]) continue;
-        morpBoard[i] = player;
-        if (morpCheck()) { morpBoard[i]=null; return i; }
-        morpBoard[i] = null;
-    }
-    return null;
+function morpBotPlay(){
+    let move=-1;
+    if(difficulty==='easy'){const e=morpBoard.map((c,i)=>c===null?i:-1).filter(i=>i>=0);move=e[Math.floor(Math.random()*e.length)];}
+    else if(difficulty==='medium'){move=morpFindWin('O')??morpFindWin('X')??morpRandMove();}
+    else{move=morpMinimax(morpBoard,true).index;}
+    morpBoard[move]='O';morpRender();
+    const w=morpCheck();
+    if(w){morpEnd(w,'O');return;}
+    if(morpBoard.every(c=>c)){morpEnd(null,null);return;}
+    morpPlayerTurn=true;morpLocked=false;
+    document.getElementById('morp-status').textContent='À toi de jouer !';
 }
 
-function morpRandMove() {
-    const center = [4,0,2,6,8,1,3,5,7];
-    for (const i of center) if (!morpBoard[i]) return i;
-}
+function morpFindWin(p){for(let i=0;i<9;i++){if(morpBoard[i])continue;morpBoard[i]=p;if(morpCheck()){morpBoard[i]=null;return i;}morpBoard[i]=null;}return null;}
+function morpRandMove(){const c=[4,0,2,6,8,1,3,5,7];for(const i of c)if(!morpBoard[i])return i;}
+function morpMinimax(board,isBot){const e=board.map((c,i)=>c===null?i:-1).filter(i=>i>=0);const w=morpCheckBoard(board);if(w==='O')return{score:10};if(w==='X')return{score:-10};if(!e.length)return{score:0};const p=[];for(const i of e){board[i]=isBot?'O':'X';const r=morpMinimax(board,!isBot);p.push({index:i,score:r.score});board[i]=null;}return p.reduce((b,x)=>isBot?(x.score>b.score?x:b):(x.score<b.score?x:b));}
+function morpCheckBoard(board){for(const[a,b,c]of WINS){if(board[a]&&board[a]===board[b]&&board[a]===board[c])return board[a];}return null;}
+function morpCheck(){return morpCheckBoard(morpBoard);}
 
-function morpMinimax(board, isBot) {
-    const empty = board.map((c,i)=>c===null?i:-1).filter(i=>i>=0);
-    const win = morpCheckBoard(board);
-    if (win === 'O') return { score: 10 };
-    if (win === 'X') return { score: -10 };
-    if (!empty.length) return { score: 0 };
-    const plays = [];
-    for (const i of empty) {
-        board[i] = isBot ? 'O' : 'X';
-        const result = morpMinimax(board, !isBot);
-        plays.push({ index: i, score: result.score });
-        board[i] = null;
-    }
-    return plays.reduce((best, p) => isBot
-        ? (p.score > best.score ? p : best)
-        : (p.score < best.score ? p : best));
-}
-
-function morpCheckBoard(board) {
-    for (const [a,b,c] of WINS) {
-        if (board[a] && board[a]===board[b] && board[a]===board[c]) return board[a];
-    }
-    return null;
-}
-
-function morpCheck() {
-    return morpCheckBoard(morpBoard);
-}
-
-function morpEnd(winCombo, winner) {
-    morpLocked = true;
-    const status = document.getElementById('morp-status');
-    const cells = document.querySelectorAll('.morpion-cell');
-    if (winner === 'X') {
-        morpScoreP++;
-        document.getElementById('morp-score-p').textContent = morpScoreP;
-        status.textContent = '👑 Victoire ! Tu as vaincu le Gardien !';
-        status.className = 'game-status win';
-        // Highlight winning cells
-        for (const [a,b,c] of WINS) {
-            if (morpBoard[a]==='X'&&morpBoard[b]==='X'&&morpBoard[c]==='X') {
-                [a,b,c].forEach(i => cells[i].classList.add('win-cell'));
-            }
+function morpEnd(winCombo,winner){
+    morpLocked=true;
+    const status=document.getElementById('morp-status');
+    const cells=document.querySelectorAll('.morpion-cell');
+    if(winner){
+        const isX=winner==='X';
+        if(isX){morpScoreP++;document.getElementById('morp-score-p').textContent=morpScoreP;}
+        else{morpScoreB++;document.getElementById('morp-score-b').textContent=morpScoreB;}
+        if(morpMode==='local'){
+            const wj=isX?'J1':'J2';
+            status.textContent=`👑 ${wj} remporte la manche !`;
+            status.className='game-status win';
+            showToast(`👑 ${wj} gagne !`);
+        }else{
+            if(isX){status.textContent='👑 Victoire ! Tu as vaincu le Gardien !';status.className='game-status win';showToast('⚔️ Victoire Royale !');}
+            else{status.textContent='💀 Défaite... Le Gardien t\'a vaincu.';status.className='game-status lose';}
         }
-        showToast('⚔️ Victoire Royale !');
-    } else if (winner === 'O') {
-        morpScoreB++;
-        document.getElementById('morp-score-b').textContent = morpScoreB;
-        status.textContent = '💀 Défaite... Le Gardien t\'a vaincu.';
-        status.className = 'game-status lose';
-        for (const [a,b,c] of WINS) {
-            if (morpBoard[a]==='O'&&morpBoard[b]==='O'&&morpBoard[c]==='O') {
-                [a,b,c].forEach(i => cells[i].classList.add('win-cell'));
-            }
-        }
-    } else {
-        status.textContent = '🤝 Égalité ! Les deux camps sont à parts égales.';
-        status.className = 'game-status draw';
+        for(const[a,b,c]of WINS){if(morpBoard[a]===winner&&morpBoard[b]===winner&&morpBoard[c]===winner){[a,b,c].forEach(i=>cells[i].classList.add('win-cell'));}}
+    }else{
+        status.textContent='🤝 Égalité !';status.className='game-status draw';
     }
 }
 
-function morpRender() {
-    const cells = document.querySelectorAll('.morpion-cell');
-    morpBoard.forEach((val, i) => {
-        cells[i].textContent = val === 'X' ? '✕' : val === 'O' ? '◯' : '';
-        cells[i].className = 'morpion-cell' + (val ? ' taken '+(val==='X'?'x':'o') : '');
-        cells[i].onclick = val ? null : () => morpionClick(i);
-    });
+function morpRender(){
+    const cells=document.querySelectorAll('.morpion-cell');
+    morpBoard.forEach((v,i)=>{cells[i].textContent=v==='X'?'✕':v==='O'?'◯':'';cells[i].className='morpion-cell'+(v?' taken '+(v==='X'?'x':'o'):'');cells[i].onclick=v?null:()=>morpionClick(i);});
 }
-
-function morpionReset() {
-    morpBoard = Array(9).fill(null);
-    morpPlayerTurn = true;
-    morpLocked = false;
-    morpRender();
-    const status = document.getElementById('morp-status');
-    status.textContent = 'À toi de jouer !';
-    status.className = 'game-status';
+function morpionReset(){
+    morpBoard=Array(9).fill(null);morpPlayerTurn=true;morpLocked=false;morpLocalPlayer=1;morpRender();
+    const s=document.getElementById('morp-status');
+    s.textContent=morpMode==='local'?'J1 (✕) commence !':'À toi de jouer !';s.className='game-status';
 }
-
 morpionReset();
 
-/* ════════════════════════════════════════
+/* ══════════════════════════════════════════
    SNAKE
-════════════════════════════════════════ */
-const SC = document.getElementById('snake-canvas');
-const SCX = SC.getContext('2d');
-const GRID = 20;
-const COLS = SC.width / GRID;
-const ROWS = SC.height / GRID;
-
-let snake = [], food = {}, snakeDirQ = [], snakeRunning = false, snakeTimer = null;
-let snakeScore = 0, snakeBest = parseInt(localStorage.getItem('snakeBest')||'0');
-let snakeCurrentDir = {x:1, y:0};
-
-document.getElementById('snake-best').textContent = snakeBest;
-
-function snakeApplyDiff() {
-    // speeds handled in snakeStep interval
+══════════════════════════════════════════ */
+const SC=document.getElementById('snake-canvas'),SCX=SC.getContext('2d');
+const GRID=20,COLS=SC.width/GRID,ROWS=SC.height/GRID;
+let snake=[],food={},snakeDirQ=[],snakeRunning=false,snakeTimer=null;
+let snakeScore=0,snakeBest=parseInt(localStorage.getItem('snakeBest')||'0');
+let snakeCurrentDir={x:1,y:0};
+document.getElementById('snake-best').textContent=snakeBest;
+function snakeApplyDiff(){}
+function snakeGetSpeed(){return Math.max(50,{easy:180,medium:130,hard:85}[difficulty]-snakeScore*2);}
+function snakeStart(){
+    if(snakeRunning){snakeStop();return;}
+    snake=[{x:5,y:5},{x:4,y:5},{x:3,y:5}];snakeDirQ=[{x:1,y:0}];snakeCurrentDir={x:1,y:0};snakeScore=0;
+    document.getElementById('snake-score').textContent=0;document.getElementById('snake-level').textContent=1;
+    document.getElementById('snake-status').textContent='Mange les joyaux !';document.getElementById('snake-status').className='game-status';
+    document.getElementById('snake-start-btn').textContent='⏹ Arrêter';
+    snakePlaceFood();snakeRunning=true;clearInterval(snakeTimer);snakeTimer=setInterval(snakeStep,snakeGetSpeed());
 }
-
-function snakeGetSpeed() {
-    const base = { easy: 180, medium: 130, hard: 85 }[difficulty];
-    return Math.max(50, base - snakeScore * 2);
-}
-
-function snakeStart() {
-    if (snakeRunning) { snakeStop(); return; }
-    snake = [{x:5,y:5},{x:4,y:5},{x:3,y:5}];
-    snakeDirQ = [{x:1,y:0}];
-    snakeCurrentDir = {x:1,y:0};
-    snakeScore = 0;
-    document.getElementById('snake-score').textContent = 0;
-    document.getElementById('snake-level').textContent = 1;
-    document.getElementById('snake-status').textContent = 'Mange les joyaux !';
-    document.getElementById('snake-status').className = 'game-status';
-    document.getElementById('snake-start-btn').textContent = '⏹ Arrêter';
-    snakePlaceFood();
-    snakeRunning = true;
-    clearInterval(snakeTimer);
-    snakeTimer = setInterval(snakeStep, snakeGetSpeed());
-}
-
-function snakeStop() {
-    clearInterval(snakeTimer);
-    snakeRunning = false;
-    document.getElementById('snake-start-btn').textContent = '🐍 Démarrer';
-}
-
-function snakePlaceFood() {
-    let pos;
-    do { pos = {x: Math.floor(Math.random()*COLS), y: Math.floor(Math.random()*ROWS)}; }
-    while (snake.some(s=>s.x===pos.x&&s.y===pos.y));
-    food = pos;
-}
-
-function snakeDir(dx, dy) {
-    if (!snakeRunning) return;
-    const last = snakeDirQ[snakeDirQ.length-1] || snakeCurrentDir;
-    if (last.x===-dx && last.y===-dy) return; // no reverse
-    snakeDirQ.push({x:dx, y:dy});
-}
-
-document.addEventListener('keydown', e => {
-    const map = { ArrowUp:{x:0,y:-1}, ArrowDown:{x:0,y:1}, ArrowLeft:{x:-1,y:0}, ArrowRight:{x:1,y:0} };
-    if (map[e.key]) { e.preventDefault(); snakeDir(map[e.key].x, map[e.key].y); }
-    if (e.key === ' ' && !snakeRunning) snakeStart();
-});
-
-function snakeStep() {
-    if (snakeDirQ.length) snakeCurrentDir = snakeDirQ.shift();
-    const head = { x: snake[0].x + snakeCurrentDir.x, y: snake[0].y + snakeCurrentDir.y };
-
-    // Wall collision
-    if (head.x < 0 || head.x >= COLS || head.y < 0 || head.y >= ROWS) { snakeDie(); return; }
-    // Self collision
-    if (snake.some(s=>s.x===head.x&&s.y===head.y)) { snakeDie(); return; }
-
+function snakeStop(){clearInterval(snakeTimer);snakeRunning=false;document.getElementById('snake-start-btn').textContent='🐍 Démarrer';}
+function snakePlaceFood(){let pos;do{pos={x:Math.floor(Math.random()*COLS),y:Math.floor(Math.random()*ROWS)};}while(snake.some(s=>s.x===pos.x&&s.y===pos.y));food=pos;}
+function snakeDir(dx,dy){if(!snakeRunning)return;const last=snakeDirQ[snakeDirQ.length-1]||snakeCurrentDir;if(last.x===-dx&&last.y===-dy)return;snakeDirQ.push({x:dx,y:dy});}
+document.addEventListener('keydown',e=>{const map={ArrowUp:{x:0,y:-1},ArrowDown:{x:0,y:1},ArrowLeft:{x:-1,y:0},ArrowRight:{x:1,y:0}};if(map[e.key]){e.preventDefault();snakeDir(map[e.key].x,map[e.key].y);}if(e.key===' '&&!snakeRunning)snakeStart();});
+function snakeStep(){
+    if(snakeDirQ.length)snakeCurrentDir=snakeDirQ.shift();
+    const head={x:snake[0].x+snakeCurrentDir.x,y:snake[0].y+snakeCurrentDir.y};
+    if(head.x<0||head.x>=COLS||head.y<0||head.y>=ROWS){snakeDie();return;}
+    if(snake.some(s=>s.x===head.x&&s.y===head.y)){snakeDie();return;}
     snake.unshift(head);
-    if (head.x === food.x && head.y === food.y) {
-        snakeScore++;
-        document.getElementById('snake-score').textContent = snakeScore;
-        document.getElementById('snake-level').textContent = Math.floor(snakeScore/5)+1;
-        if (snakeScore > snakeBest) {
-            snakeBest = snakeScore;
-            localStorage.setItem('snakeBest', snakeBest);
-            document.getElementById('snake-best').textContent = snakeBest;
-        }
-        snakePlaceFood();
-        // Speed up
-        clearInterval(snakeTimer);
-        snakeTimer = setInterval(snakeStep, snakeGetSpeed());
-    } else {
-        snake.pop();
-    }
+    if(head.x===food.x&&head.y===food.y){
+        snakeScore++;document.getElementById('snake-score').textContent=snakeScore;document.getElementById('snake-level').textContent=Math.floor(snakeScore/5)+1;
+        if(snakeScore>snakeBest){snakeBest=snakeScore;localStorage.setItem('snakeBest',snakeBest);document.getElementById('snake-best').textContent=snakeBest;}
+        snakePlaceFood();clearInterval(snakeTimer);snakeTimer=setInterval(snakeStep,snakeGetSpeed());
+    }else{snake.pop();}
     snakeDraw();
 }
+function snakeDie(){clearInterval(snakeTimer);snakeRunning=false;document.getElementById('snake-start-btn').textContent='🐍 Rejouer';const s=document.getElementById('snake-status');s.textContent=`💀 Game Over — Score : ${snakeScore}`;s.className='game-status lose';snakeDraw(true);}
+function snakeDraw(dead=false){
+    SCX.fillStyle='#080604';SCX.fillRect(0,0,SC.width,SC.height);
+    SCX.strokeStyle='rgba(198,168,74,0.04)';SCX.lineWidth=0.5;
+    for(let x=0;x<=COLS;x++){SCX.beginPath();SCX.moveTo(x*GRID,0);SCX.lineTo(x*GRID,SC.height);SCX.stroke();}
+    for(let y=0;y<=ROWS;y++){SCX.beginPath();SCX.moveTo(0,y*GRID);SCX.lineTo(SC.width,y*GRID);SCX.stroke();}
+    SCX.fillStyle=dead?'#553333':'#e8c96a';SCX.shadowColor=dead?'transparent':'rgba(232,201,106,0.8)';SCX.shadowBlur=10;SCX.fillRect(food.x*GRID+2,food.y*GRID+2,GRID-4,GRID-4);SCX.shadowBlur=0;
+    snake.forEach((seg,i)=>{const isHead=i===0;const ratio=1-(i/snake.length)*0.6;if(dead){SCX.fillStyle=`rgba(139,32,32,${ratio})`;}else{const r=Math.floor(100+98*ratio);const g=Math.floor(80+88*ratio);const b=Math.floor(20+54*ratio);SCX.fillStyle=`rgb(${r},${g},${b})`;}SCX.fillRect(seg.x*GRID+1,seg.y*GRID+1,GRID-2,GRID-2);if(isHead&&!dead){SCX.fillStyle='#0d0b09';const ex=snakeCurrentDir.x===0?4:(snakeCurrentDir.x>0?GRID-6:2);const ey=snakeCurrentDir.y===0?4:(snakeCurrentDir.y>0?GRID-6:2);SCX.fillRect(seg.x*GRID+ex,seg.y*GRID+ey,3,3);SCX.fillRect(seg.x*GRID+(GRID-ex-3),seg.y*GRID+(GRID-ey-3),3,3);}});
+}
+SCX.fillStyle='#080604';SCX.fillRect(0,0,SC.width,SC.height);SCX.fillStyle='rgba(198,168,74,0.2)';SCX.font='14px Cinzel,serif';SCX.textAlign='center';SCX.fillText('Appuie sur Démarrer',SC.width/2,SC.height/2);
 
-function snakeDie() {
-    clearInterval(snakeTimer);
-    snakeRunning = false;
-    document.getElementById('snake-start-btn').textContent = '🐍 Rejouer';
-    const status = document.getElementById('snake-status');
-    status.textContent = `💀 Game Over — Score : ${snakeScore}`;
-    status.className = 'game-status lose';
-    snakeDraw(true);
+/* ══════════════════════════════════════════
+   PIERRE FEUILLE CISEAUX
+══════════════════════════════════════════ */
+const PFC_MODES = {
+    classique:{name:'Classique',sub:'Pierre, Parchemin, Dague',symbols:['rock','paper','scissors'],emoji:{rock:'🪨',paper:'📜',scissors:'🗡️'},names:{rock:'Pierre',paper:'Parchemin',scissors:'Dague'},beats:{rock:['scissors'],paper:['rock'],scissors:['paper']}},
+    puits:{name:'Le Puits',sub:'Pierre, Parchemin, Dague, Puits',symbols:['rock','paper','scissors','well'],emoji:{rock:'🪨',paper:'📜',scissors:'🗡️',well:'🕳️'},names:{rock:'Pierre',paper:'Parchemin',scissors:'Dague',well:'Puits'},beats:{rock:['scissors'],paper:['rock','well'],scissors:['paper'],well:['rock','scissors']}},
+    ls:{name:'Lézard & Spock',sub:'Pierre, Feuille, Ciseaux, Lézard, Spock',symbols:['rock','paper','scissors','lizard','spock'],emoji:{rock:'🪨',paper:'📜',scissors:'✂️',lizard:'🦎',spock:'🖖'},names:{rock:'Pierre',paper:'Feuille',scissors:'Ciseaux',lizard:'Lézard',spock:'Spock'},beats:{rock:['scissors','lizard'],paper:['rock','spock'],scissors:['paper','lizard'],lizard:['paper','spock'],spock:['rock','scissors']}},
+    chaos:{name:'Mode Chaos',sub:'7 symboles — chaos total',symbols:['rock','paper','scissors','lizard','spock','dynamite','water'],emoji:{rock:'🪨',paper:'📜',scissors:'✂️',lizard:'🦎',spock:'🖖',dynamite:'🧨',water:'💧'},names:{rock:'Pierre',paper:'Feuille',scissors:'Ciseaux',lizard:'Lézard',spock:'Spock',dynamite:'Dynamite',water:'Eau'},beats:{rock:['scissors','lizard'],paper:['rock','spock'],scissors:['paper','lizard'],lizard:['paper','spock'],spock:['rock','scissors'],dynamite:['rock','paper','scissors','lizard'],water:['dynamite','spock']}}
+};
+
+let currentPfcMode='classique';
+let pfcScoreP=0,pfcScoreB=0,pfcScoreDraw=0,pfcLocked=false;
+let pfcGameMode='bot'; // 'bot' | 'local'
+let pfcLocalPhase='p1'; // 'p1' | 'pass' | 'p2' | 'result'
+let pfcP1Choice=null,pfcP2Choice=null;
+let pfcBotMemory={};
+
+function openPfcModal(){document.getElementById('pfc-modal').classList.remove('hidden');}
+function closePfcModal(){document.getElementById('pfc-modal').classList.add('hidden');}
+
+function setPfcMode(m){
+    currentPfcMode=m;
+    document.querySelectorAll('.mode-card').forEach(c=>c.classList.remove('active'));
+    document.getElementById('mc-'+m).classList.add('active');
+    const mode=PFC_MODES[m];
+    document.getElementById('pfc-mode-label').textContent=mode.sub;
+    pfcBotMemory={};mode.symbols.forEach(s=>pfcBotMemory[s]=0);
+    pfcReset();closePfcModal();
+    showToast(`Mode : ${mode.name} activé !`);
 }
 
-function snakeDraw(dead=false) {
-    SCX.fillStyle = '#080604';
-    SCX.fillRect(0, 0, SC.width, SC.height);
+function setPfcGameMode(m){
+    pfcGameMode=m;
+    document.querySelectorAll('#pfc-mode-bot,#pfc-mode-local').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+    const isLocal=m==='local';
+    document.getElementById('pfc-lbl-p').textContent=isLocal?'J1':'VOUS';
+    document.getElementById('pfc-lbl-b').textContent=isLocal?'J2':'BOT';
+    document.getElementById('pfc-who-p').textContent=isLocal?'J1':'VOUS';
+    document.getElementById('pfc-who-b').textContent=isLocal?'J2':'BOT';
+    document.getElementById('pfc-leg-y')?.textContent;
+    pfcReset();
+}
 
-    // Grid subtle
-    SCX.strokeStyle = 'rgba(198,168,74,0.04)';
-    SCX.lineWidth = 0.5;
-    for (let x=0;x<=COLS;x++) { SCX.beginPath();SCX.moveTo(x*GRID,0);SCX.lineTo(x*GRID,SC.height);SCX.stroke(); }
-    for (let y=0;y<=ROWS;y++) { SCX.beginPath();SCX.moveTo(0,y*GRID);SCX.lineTo(SC.width,y*GRID);SCX.stroke(); }
-
-    // Food
-    SCX.fillStyle = dead ? '#553333' : '#e8c96a';
-    SCX.shadowColor = dead ? 'transparent' : 'rgba(232,201,106,0.8)';
-    SCX.shadowBlur = 10;
-    SCX.fillRect(food.x*GRID+2, food.y*GRID+2, GRID-4, GRID-4);
-    SCX.shadowBlur = 0;
-
-    // Snake
-    snake.forEach((seg, i) => {
-        const isHead = i === 0;
-        const ratio = 1 - (i / snake.length) * 0.6;
-        if (dead) {
-            SCX.fillStyle = `rgba(139,32,32,${ratio})`;
-        } else {
-            const r = Math.floor(100 + 98 * ratio);
-            const g = Math.floor(80 + 88 * ratio);
-            const b = Math.floor(20 + 54 * ratio);
-            SCX.fillStyle = `rgb(${r},${g},${b})`;
-        }
-        SCX.fillRect(seg.x*GRID+1, seg.y*GRID+1, GRID-2, GRID-2);
-        if (isHead && !dead) {
-            // Eyes
-            SCX.fillStyle = '#0d0b09';
-            const ex = snakeCurrentDir.x === 0 ? 4 : (snakeCurrentDir.x > 0 ? GRID-6 : 2);
-            const ey = snakeCurrentDir.y === 0 ? 4 : (snakeCurrentDir.y > 0 ? GRID-6 : 2);
-            SCX.fillRect(seg.x*GRID+ex, seg.y*GRID+ey, 3, 3);
-            SCX.fillRect(seg.x*GRID+(GRID-ex-3), seg.y*GRID+(GRID-ey-3), 3, 3);
-        }
+function pfcBuildChoices(){
+    const mode=PFC_MODES[currentPfcMode];
+    const container=document.getElementById('pfc-choices');
+    container.innerHTML='';
+    mode.symbols.forEach(s=>{
+        const btn=document.createElement('button');
+        btn.className='pfc-btn';btn.id='pfc-'+s;
+        btn.innerHTML=`${mode.emoji[s]}<span class="pfc-btn-lbl">${mode.names[s]}</span>`;
+        btn.onclick=()=>pfcPlay(s);
+        container.appendChild(btn);
     });
 }
 
-// Initial draw
-SCX.fillStyle = '#080604'; SCX.fillRect(0,0,SC.width,SC.height);
-SCX.fillStyle = 'rgba(198,168,74,0.2)'; SCX.font = '14px Cinzel,serif';
-SCX.textAlign = 'center'; SCX.fillText('Appuie sur Démarrer', SC.width/2, SC.height/2);
-
-/* ════════════════════════════════════════
-   PIERRE FEUILLE CISEAUX
-════════════════════════════════════════ */
-let pfcScoreP=0, pfcScoreB=0, pfcScoreDraw=0;
-let pfcLocked=false;
-const PFC_BEATS = { rock:'scissors', scissors:'paper', paper:'rock' };
-const PFC_EMOJI = { rock:'🪨', paper:'📜', scissors:'🗡️' };
-const PFC_NAMES = { rock:'Pierre', paper:'Parchemin', scissors:'Dague' };
-
-// Bot memory for hard mode
-let pfcBotMemory = { rock:0, paper:0, scissors:0 };
-
-function pfcPlay(choice) {
-    if (pfcLocked) return;
-    pfcLocked = true;
-
-    // Highlight player choice
-    document.querySelectorAll('.pfc-btn').forEach(b => b.classList.remove('chosen'));
-    document.getElementById('pfc-'+choice).classList.add('chosen');
-
-    document.getElementById('pfc-p-emoji').textContent = PFC_EMOJI[choice];
-    document.getElementById('pfc-b-emoji').textContent = '❓';
-
-    // Bot "thinking" animation
-    let frames = 0;
-    const thinks = ['🪨','📜','🗡️'];
-    const thinkTimer = setInterval(() => {
-        document.getElementById('pfc-b-emoji').textContent = thinks[frames%3];
-        frames++;
-    }, 120);
-
-    const delay = { easy:500, medium:700, hard:900 }[difficulty];
-
-    setTimeout(() => {
-        clearInterval(thinkTimer);
-        const botChoice = pfcBotChoice(choice);
-        document.getElementById('pfc-b-emoji').textContent = PFC_EMOJI[botChoice];
-
-        // Update memory
-        pfcBotMemory[choice]++;
-
-        const status = document.getElementById('pfc-status');
-        if (PFC_BEATS[choice] === botChoice) {
-            pfcScoreP++;
-            document.getElementById('pfc-score-p').textContent = pfcScoreP;
-            status.textContent = `⚔️ ${PFC_NAMES[choice]} brise ${PFC_NAMES[botChoice]} ! Victoire !`;
-            status.className = 'game-status win';
-            showToast('👑 Tu remportes ce duel !');
-        } else if (PFC_BEATS[botChoice] === choice) {
-            pfcScoreB++;
-            document.getElementById('pfc-score-b').textContent = pfcScoreB;
-            status.textContent = `💀 ${PFC_NAMES[botChoice]} domine ${PFC_NAMES[choice]}... Défaite.`;
-            status.className = 'game-status lose';
-        } else {
-            pfcScoreDraw++;
-            document.getElementById('pfc-score-d').textContent = pfcScoreDraw;
-            status.textContent = '🤝 Égalité ! Les deux champions choisissent pareil.';
-            status.className = 'game-status draw';
-        }
-
-        setTimeout(() => { pfcLocked = false; document.querySelectorAll('.pfc-btn').forEach(b=>b.classList.remove('chosen')); }, 1000);
-    }, delay);
+function pfcPlay(choice){
+    if(pfcLocked)return;
+    const mode=PFC_MODES[currentPfcMode];
+    if(pfcGameMode==='local'){
+        pfcLocalPlay(choice);return;
+    }
+    // vs Bot
+    pfcLocked=true;
+    document.querySelectorAll('.pfc-btn').forEach(b=>b.classList.remove('chosen'));
+    document.getElementById('pfc-'+choice)?.classList.add('chosen');
+    document.getElementById('pfc-p-emoji').textContent=mode.emoji[choice];
+    document.getElementById('pfc-b-emoji').textContent='❓';
+    const thinks=mode.symbols.map(s=>mode.emoji[s]);
+    let fr=0;const thinkT=setInterval(()=>{document.getElementById('pfc-b-emoji').textContent=thinks[fr%thinks.length];fr++;},120);
+    const delay={easy:500,medium:700,hard:900}[difficulty];
+    setTimeout(()=>{
+        clearInterval(thinkT);
+        const botChoice=pfcBotChoice(choice);
+        document.getElementById('pfc-b-emoji').textContent=mode.emoji[botChoice];
+        pfcBotMemory[choice]=(pfcBotMemory[choice]||0)+1;
+        pfcResolve(choice,botChoice,false);
+        setTimeout(()=>{pfcLocked=false;document.querySelectorAll('.pfc-btn').forEach(b=>b.classList.remove('chosen'));},1000);
+    },delay);
 }
 
-function pfcBotChoice(playerChoice) {
-    if (difficulty === 'easy') {
-        return ['rock','paper','scissors'][Math.floor(Math.random()*3)];
-    } else if (difficulty === 'medium') {
-        // 50% random, 50% counter
-        if (Math.random() < 0.5) return ['rock','paper','scissors'][Math.floor(Math.random()*3)];
-        return Object.keys(PFC_BEATS).find(k => PFC_BEATS[k] === playerChoice);
-    } else {
-        // Hard: predict based on player history + sometimes counter
-        const total = pfcBotMemory.rock + pfcBotMemory.paper + pfcBotMemory.scissors;
-        if (total < 3) return ['rock','paper','scissors'][Math.floor(Math.random()*3)];
-        // Find player's most used
-        const mostUsed = Object.entries(pfcBotMemory).reduce((a,b) => b[1]>a[1]?b:a)[0];
-        // Counter it
-        return Object.keys(PFC_BEATS).find(k => PFC_BEATS[k] === mostUsed);
+function pfcLocalPlay(choice){
+    const mode=PFC_MODES[currentPfcMode];
+    if(pfcLocalPhase==='p1'){
+        pfcP1Choice=choice;
+        document.getElementById('pfc-p-emoji').textContent='🛡️';
+        document.getElementById('pfc-b-emoji').textContent='❓';
+        pfcLocalPhase='pass';
+        document.getElementById('pfc-cover-icon').textContent='🛡️';
+        document.getElementById('pfc-cover-msg').innerHTML=`✅ J1 a choisi !<br>Couvrez l'écran puis passez à <strong style="color:var(--or-clair)">J2</strong>.`;
+        document.getElementById('pfc-cover').classList.remove('hidden');
+    } else if(pfcLocalPhase==='p2'){
+        pfcP2Choice=choice;
+        pfcLocalPhase='result';
+        document.getElementById('pfc-p-emoji').textContent=mode.emoji[pfcP1Choice];
+        document.getElementById('pfc-b-emoji').textContent=mode.emoji[pfcP2Choice];
+        pfcResolve(pfcP1Choice,pfcP2Choice,true);
+        pfcLocalPhase='p1';
+        document.getElementById('pfc-turn-label').textContent='J1, choisis ton arme !';
     }
 }
 
-function pfcReset() {
-    pfcScoreP=0; pfcScoreB=0; pfcScoreDraw=0; pfcLocked=false;
-    pfcBotMemory = {rock:0, paper:0, scissors:0};
-    document.getElementById('pfc-score-p').textContent=0;
-    document.getElementById('pfc-score-b').textContent=0;
-    document.getElementById('pfc-score-d').textContent=0;
-    document.getElementById('pfc-p-emoji').textContent='❓';
-    document.getElementById('pfc-b-emoji').textContent='❓';
-    const status = document.getElementById('pfc-status');
-    status.textContent='Choisis ton arme !';
-    status.className='game-status';
-    document.querySelectorAll('.pfc-btn').forEach(b=>b.classList.remove('chosen'));
+function pfcCoverNext(){
+    // J2 est prêt — cache l'écran de transition et laisse J2 choisir
+    pfcLocalPhase='p2';
+    document.getElementById('pfc-cover').classList.add('hidden');
+    document.getElementById('pfc-turn-label').textContent='J2, choisis ton arme !';
 }
 
-/* ════════════════════════════════════════
+function pfcResolve(p,b,isLocal){
+    const mode=PFC_MODES[currentPfcMode];
+    const status=document.getElementById('pfc-status');
+    const pBeats=mode.beats[p]||[];const bBeats=mode.beats[b]||[];
+    if(pBeats.includes(b)){
+        pfcScoreP++;document.getElementById('pfc-score-p').textContent=pfcScoreP;
+        if(isLocal){status.textContent=`⚔️ ${mode.names[p]} > ${mode.names[b]} — J1 gagne !`;showToast('👑 J1 remporte le duel !');}
+        else{status.textContent=`⚔️ ${mode.names[p]} bat ${mode.names[b]} ! Victoire !`;showToast('👑 Tu remportes ce duel !');}
+        status.className='game-status win';
+    }else if(bBeats.includes(p)){
+        pfcScoreB++;document.getElementById('pfc-score-b').textContent=pfcScoreB;
+        if(isLocal){status.textContent=`⚔️ ${mode.names[b]} > ${mode.names[p]} — J2 gagne !`;showToast('👑 J2 remporte le duel !');}
+        else{status.textContent=`💀 ${mode.names[b]} domine ${mode.names[p]}... Défaite.`;}
+        status.className='game-status lose';
+    }else{
+        pfcScoreDraw++;document.getElementById('pfc-score-d').textContent=pfcScoreDraw;
+        status.textContent='🤝 Égalité !';status.className='game-status draw';
+    }
+}
+
+function pfcBotChoice(playerChoice){
+    const mode=PFC_MODES[currentPfcMode];const syms=mode.symbols;
+    if(difficulty==='easy')return syms[Math.floor(Math.random()*syms.length)];
+    if(difficulty==='medium'){
+        if(Math.random()<0.5)return syms[Math.floor(Math.random()*syms.length)];
+        return syms.find(k=>mode.beats[k]?.includes(playerChoice))||syms[Math.floor(Math.random()*syms.length)];
+    }
+    const total=Object.values(pfcBotMemory).reduce((a,b)=>a+b,0);
+    if(total<3)return syms[Math.floor(Math.random()*syms.length)];
+    const mostUsed=Object.entries(pfcBotMemory).reduce((a,b)=>b[1]>a[1]?b:a)[0];
+    return syms.find(k=>mode.beats[k]?.includes(mostUsed))||syms[Math.floor(Math.random()*syms.length)];
+}
+
+function pfcReset(){
+    pfcScoreP=0;pfcScoreB=0;pfcScoreDraw=0;pfcLocked=false;pfcLocalPhase='p1';pfcP1Choice=null;pfcP2Choice=null;
+    const mode=PFC_MODES[currentPfcMode];pfcBotMemory={};mode.symbols.forEach(s=>pfcBotMemory[s]=0);
+    document.getElementById('pfc-score-p').textContent=0;document.getElementById('pfc-score-b').textContent=0;document.getElementById('pfc-score-d').textContent=0;
+    document.getElementById('pfc-p-emoji').textContent='❓';document.getElementById('pfc-b-emoji').textContent='❓';
+    document.getElementById('pfc-status').textContent='Choisis ton arme !';document.getElementById('pfc-status').className='game-status';
+    document.getElementById('pfc-cover').classList.add('hidden');
+    document.getElementById('pfc-turn-label').textContent=pfcGameMode==='local'?'J1, choisis ton arme !':'Choisis ton arme !';
+    document.querySelector('#pfc-cover .game-btn').textContent='J2 Prêt ? ▶';
+    document.querySelector('#pfc-cover .game-btn').onclick=pfcCoverNext;
+    document.querySelectorAll('.pfc-btn').forEach(b=>b.classList.remove('chosen'));
+    pfcBuildChoices();
+}
+pfcBuildChoices();
+
+/* ══════════════════════════════════════════
    MEMORY
-════════════════════════════════════════ */
-const MEM_SYMBOLS = ['⚔️','🛡️','👑','🏹','⚗️','🗡️','🔮','📜'];
-let memCards = [], memFlipped = [], memMatched = [], memMoves = 0, memLocked = false;
-let memBest = parseInt(localStorage.getItem('memBest')||'0');
+══════════════════════════════════════════ */
+const MEM_POOL=['⚔️','🛡️','👑','🏹','⚗️','🗡️','🔮','📜','🏰','⚜️','🐉','🦅'];
+let memCards=[],memFlipped=[],memMatched=[],memMoves=0,memLocked=false;
+let memBest=parseInt(localStorage.getItem('memBest')||'0');
+document.getElementById('mem-best').textContent=memBest||'—';
 
-document.getElementById('mem-best').textContent = memBest || '—';
-
-function memoryReset() {
-    const syms = [...MEM_SYMBOLS, ...MEM_SYMBOLS];
-    // Shuffle
+function memoryReset(){
+    const cfg={easy:{pairs:8,cols:4},medium:{pairs:10,cols:5},hard:{pairs:12,cols:6}}[difficulty];
+    const syms=[...MEM_POOL.slice(0,cfg.pairs),...MEM_POOL.slice(0,cfg.pairs)];
     for(let i=syms.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[syms[i],syms[j]]=[syms[j],syms[i]];}
-    memCards = syms;
-    memFlipped = [];
-    memMatched = [];
-    memMoves = 0;
-    memLocked = false;
-    document.getElementById('mem-moves').textContent = 0;
-    document.getElementById('mem-pairs').textContent = 0;
-    const status = document.getElementById('mem-status');
-    status.textContent = 'Retourne les parchemins !';
-    status.className = 'game-status';
+    memCards=syms;memFlipped=[];memMatched=[];memMoves=0;memLocked=false;
+    document.getElementById('mem-moves').textContent=0;
+    document.getElementById('mem-pairs').textContent=0;
+    document.getElementById('mem-total-pairs').textContent=cfg.pairs;
+    const board=document.getElementById('memory-board');
+    board.style.gridTemplateColumns=`repeat(${cfg.cols},1fr)`;
+    board.style.maxWidth=`${cfg.cols*54}px`;
+    const status=document.getElementById('mem-status');status.textContent='Retourne les parchemins !';status.className='game-status';
     memRender();
 }
 
-function memRender() {
-    const board = document.getElementById('memory-board');
-    board.innerHTML = '';
-    memCards.forEach((sym, i) => {
-        const card = document.createElement('div');
-        card.className = 'mem-card' + (memMatched.includes(i) ? ' matched flipped' : (memFlipped.includes(i) ? ' flipped' : ''));
-        card.innerHTML = `<div class="mem-back">✦</div><div class="mem-front">${sym}</div>`;
-        if (!memMatched.includes(i)) card.onclick = () => memFlip(i);
+function memRender(){
+    const board=document.getElementById('memory-board');board.innerHTML='';
+    memCards.forEach((sym,i)=>{
+        const card=document.createElement('div');
+        card.className='mem-card'+(memMatched.includes(i)?' matched flipped':(memFlipped.includes(i)?' flipped':''));
+        card.innerHTML=`<div class="mem-back">✦</div><div class="mem-front">${sym}</div>`;
+        if(!memMatched.includes(i))card.onclick=()=>memFlip(i);
         board.appendChild(card);
     });
 }
 
-function memFlip(i) {
-    if (memLocked || memFlipped.includes(i) || memMatched.includes(i)) return;
-    memFlipped.push(i);
-    memRender();
-
-    if (memFlipped.length === 2) {
-        memMoves++;
-        document.getElementById('mem-moves').textContent = memMoves;
-        memLocked = true;
-        const [a, b] = memFlipped;
-        if (memCards[a] === memCards[b]) {
-            memMatched.push(a, b);
-            memFlipped = [];
-            memLocked = false;
-            document.getElementById('mem-pairs').textContent = memMatched.length/2;
-            if (memMatched.length === 16) {
-                const status = document.getElementById('mem-status');
-                status.textContent = `🏆 Parfait ! Trouvé en ${memMoves} coups !`;
-                status.className = 'game-status win';
-                if (!memBest || memMoves < memBest) {
-                    memBest = memMoves;
-                    localStorage.setItem('memBest', memBest);
-                    document.getElementById('mem-best').textContent = memBest;
-                    showToast('👑 Nouveau record !');
-                } else {
-                    showToast('✅ Toutes les paires trouvées !');
-                }
+function memFlip(i){
+    if(memLocked||memFlipped.includes(i)||memMatched.includes(i))return;
+    memFlipped.push(i);memRender();
+    if(memFlipped.length===2){
+        memMoves++;document.getElementById('mem-moves').textContent=memMoves;memLocked=true;
+        const[a,b]=memFlipped;
+        if(memCards[a]===memCards[b]){
+            memMatched.push(a,b);memFlipped=[];memLocked=false;
+            const total=parseInt(document.getElementById('mem-total-pairs').textContent);
+            document.getElementById('mem-pairs').textContent=memMatched.length/2;
+            if(memMatched.length===total*2){
+                const s=document.getElementById('mem-status');s.textContent=`🏆 Parfait ! ${memMoves} coups !`;s.className='game-status win';
+                if(!memBest||memMoves<memBest){memBest=memMoves;localStorage.setItem('memBest',memBest);document.getElementById('mem-best').textContent=memBest;showToast('👑 Nouveau record !');}
+                else showToast('✅ Toutes les paires !');
             }
             memRender();
-        } else {
-            const delay = { easy:1200, medium:900, hard:600 }[difficulty];
-            setTimeout(() => {
-                memFlipped = [];
-                memLocked = false;
-                memRender();
-            }, delay);
+        }else{
+            setTimeout(()=>{memFlipped=[];memLocked=false;memRender();},{easy:1200,medium:900,hard:600}[difficulty]);
         }
     }
 }
-
 memoryReset();
+
+/* ══════════════════════════════════════════
+   PUISSANCE 4
+══════════════════════════════════════════ */
+const P4R=6,P4C=7;
+let p4Board,p4Turn,p4GameOver,p4ScoreR=0,p4ScoreY=0,p4Mode='bot',p4LocalTurn;
+
+function setP4Mode(m){
+    p4Mode=m;
+    document.querySelectorAll('#p4-mode-bot,#p4-mode-local').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));
+    const isL=m==='local';
+    document.getElementById('p4-lbl-r').textContent=isL?'J1':'VOUS';
+    document.getElementById('p4-lbl-y').textContent=isL?'J2':'BOT';
+    document.getElementById('p4-leg-r').textContent=isL?'J1 (🔴)':'Vous (🔴)';
+    document.getElementById('p4-leg-y').textContent=isL?'J2 (🟡)':'Gardien (🟡)';
+    p4Reset();
+}
+
+function p4Reset(){
+    p4Board=Array.from({length:P4R},()=>Array(P4C).fill(null));
+    p4Turn='R';p4GameOver=false;p4LocalTurn='R';
+    p4Render();
+    const s=document.getElementById('p4-status');
+    s.textContent=p4Mode==='local'?'J1 (🔴) commence !':'À toi de jouer !';s.className='game-status';
+    document.getElementById('p4-drop-btns').querySelectorAll('button').forEach(b=>b.disabled=false);
+}
+
+function p4Drop(col,isBot=false){
+    if(p4GameOver)return;
+    if(!isBot&&p4Mode==='bot'&&p4Turn!=='R')return;
+    let row=-1;for(let r=P4R-1;r>=0;r--){if(!p4Board[r][col]){row=r;break;}}
+    if(row===-1)return;
+    const player=isBot?'Y':(p4Mode==='local'?p4LocalTurn:'R');
+    p4Board[row][col]=player;p4Render();
+    const winCells=p4CheckWin(player);
+    if(winCells){p4End(player,winCells);return;}
+    if(p4IsFull()){p4End(null,null);return;}
+    if(p4Mode==='local'){
+        p4LocalTurn=p4LocalTurn==='R'?'Y':'R';
+        const jn=p4LocalTurn==='R'?1:2;const em=p4LocalTurn==='R'?'🔴':'🟡';
+        document.getElementById('p4-status').textContent=`J${jn} (${em}) à toi !`;
+    }else if(!isBot){
+        p4Turn='Y';document.getElementById('p4-status').textContent='Le Gardien réfléchit...';
+        document.getElementById('p4-drop-btns').querySelectorAll('button').forEach(b=>b.disabled=true);
+        setTimeout(p4BotPlay,{easy:400,medium:750,hard:1100}[difficulty]);
+    }else{
+        p4Turn='R';document.getElementById('p4-status').textContent='À toi de jouer !';
+        document.getElementById('p4-drop-btns').querySelectorAll('button').forEach(b=>b.disabled=false);
+    }
+}
+
+function p4BotPlay(){
+    if(p4GameOver)return;
+    let col=p4FindBest('Y');if(col===-1)col=p4FindBest('R');
+    if(col===-1){
+        if(difficulty==='hard'){col=p4Strategic();}
+        else{const pref=[3,2,4,1,5,0,6];for(const c of pref){if(p4Board[0][c]===null){col=c;break;}}}
+    }
+    p4Drop(col,true);
+}
+
+function p4FindBest(player){
+    for(let c=0;c<P4C;c++){let row=-1;for(let r=P4R-1;r>=0;r--){if(!p4Board[r][c]){row=r;break;}}if(row===-1)continue;p4Board[row][c]=player;const w=p4CheckWin(player);p4Board[row][c]=null;if(w)return c;}return -1;
+}
+
+function p4Strategic(){
+    // Prefer center, avoid giving opponent immediate win above our move
+    const pref=[3,2,4,1,5,0,6];
+    for(const c of pref){
+        let row=-1;for(let r=P4R-1;r>=0;r--){if(!p4Board[r][c]){row=r;break;}}
+        if(row===-1)continue;
+        // Check if placing here gives opponent a win on top
+        p4Board[row][c]='Y';
+        let bad=false;
+        if(row>0){p4Board[row-1][c]='R';if(p4CheckWin('R')){bad=true;}p4Board[row-1][c]=null;}
+        p4Board[row][c]=null;
+        if(!bad)return c;
+    }
+    for(const c of pref){if(p4Board[0][c]===null)return c;}
+    return 3;
+}
+
+function p4CheckWin(player){
+    const b=p4Board;
+    for(let r=0;r<P4R;r++)for(let c=0;c<=P4C-4;c++)if(b[r][c]===player&&b[r][c+1]===player&&b[r][c+2]===player&&b[r][c+3]===player)return[[r,c],[r,c+1],[r,c+2],[r,c+3]];
+    for(let r=0;r<=P4R-4;r++)for(let c=0;c<P4C;c++)if(b[r][c]===player&&b[r+1][c]===player&&b[r+2][c]===player&&b[r+3][c]===player)return[[r,c],[r+1,c],[r+2,c],[r+3,c]];
+    for(let r=0;r<=P4R-4;r++)for(let c=0;c<=P4C-4;c++)if(b[r][c]===player&&b[r+1][c+1]===player&&b[r+2][c+2]===player&&b[r+3][c+3]===player)return[[r,c],[r+1,c+1],[r+2,c+2],[r+3,c+3]];
+    for(let r=0;r<=P4R-4;r++)for(let c=3;c<P4C;c++)if(b[r][c]===player&&b[r+1][c-1]===player&&b[r+2][c-2]===player&&b[r+3][c-3]===player)return[[r,c],[r+1,c-1],[r+2,c-2],[r+3,c-3]];
+    return null;
+}
+
+function p4IsFull(){return p4Board[0].every(c=>c!==null);}
+
+function p4Render(winCells=[]){
+    const board=document.getElementById('p4-board');board.innerHTML='';
+    const ws=new Set(winCells.map(([r,c])=>`${r},${c}`));
+    for(let r=0;r<P4R;r++){for(let c=0;c<P4C;c++){const cell=document.createElement('div');cell.className='p4-cell';if(p4Board[r][c]==='R')cell.classList.add('red');else if(p4Board[r][c]==='Y')cell.classList.add('yellow');if(ws.has(`${r},${c}`))cell.classList.add('p4-win');board.appendChild(cell);}}
+}
+
+function p4End(player,winCells){
+    p4GameOver=true;
+    const s=document.getElementById('p4-status');
+    document.getElementById('p4-drop-btns').querySelectorAll('button').forEach(b=>b.disabled=true);
+    if(player){
+        p4Render(winCells);
+        const isR=player==='R';
+        if(isR){p4ScoreR++;document.getElementById('p4-score-r').textContent=p4ScoreR;}
+        else{p4ScoreY++;document.getElementById('p4-score-y').textContent=p4ScoreY;}
+        if(p4Mode==='local'){
+            const wj=isR?'J1 (🔴)':'J2 (🟡)';
+            s.textContent=`👑 ${wj} aligne 4 — Victoire !`;s.className='game-status win';showToast(`👑 ${wj} gagne !`);
+        }else{
+            if(isR){s.textContent='👑 Tu aligne 4 — Victoire !';s.className='game-status win';showToast('🔴 Puissance 4 !');}
+            else{s.textContent='💀 Le Gardien aligne 4 — Défaite.';s.className='game-status lose';}
+        }
+    }else{s.textContent='🤝 Grille pleine — Match nul !';s.className='game-status draw';}
+}
+
+p4Reset();
+
+/* ══════════════════════════════════════════
+   PENDU ROYAL
+══════════════════════════════════════════ */
+const PENDU_WORDS=['EPEE','CHATEAU','DRAGON','CHEVALIER','BOUCLIER','COURONNE','PARCHEMIN','SORCIER','CATAPULTE','DONJON','ARBALETE','HEAUME','PALADIN','BARDE','ALCHIMISTE','GRIMOIRE','COTTE','ECUYER','HALLEBARDE','BASILIC','LICORNE','TOURELLE','CROISADE','FLAMBEAU','TRIDENT','BRIGAND','ENCHANTEUR','MANGONEL','ORIFLAMME','FAUCHEUR'];
+const PENDU_PARTS=['ph-head','ph-body','ph-arml','ph-armr','ph-legl','ph-legr'];
+let penduWord='',penduGuessed=[],penduErrors=0,penduOver=false;
+
+function penduReset(){
+    penduWord=PENDU_WORDS[Math.floor(Math.random()*PENDU_WORDS.length)];
+    penduGuessed=[];penduErrors=0;penduOver=false;
+    PENDU_PARTS.forEach(id=>document.getElementById(id).setAttribute('visibility','hidden'));
+    document.getElementById('pendu-errors').textContent=0;
+    const s=document.getElementById('pendu-status');s.textContent='Commence à deviner !';s.className='game-status';
+    penduRenderWord();penduBuildKeyboard();
+}
+
+function penduRenderWord(){
+    const div=document.getElementById('pendu-word');div.innerHTML='';
+    penduWord.split('').forEach(l=>{
+        const span=document.createElement('div');span.className='pendu-letter';
+        span.textContent=penduGuessed.includes(l)?l:'';
+        div.appendChild(span);
+    });
+}
+
+function penduBuildKeyboard(){
+    const kb=document.getElementById('pendu-keyboard');kb.innerHTML='';
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('').forEach(l=>{
+        const btn=document.createElement('button');btn.className='pendu-key';btn.textContent=l;
+        btn.onclick=()=>penduGuess(l);
+        kb.appendChild(btn);
+    });
+}
+
+function penduGuess(letter){
+    if(penduOver||penduGuessed.includes(letter))return;
+    penduGuessed.push(letter);
+    const btn=document.querySelector(`.pendu-key:not([disabled])`);
+    // find and disable the clicked key
+    document.querySelectorAll('.pendu-key').forEach(b=>{
+        if(b.textContent===letter){
+            b.disabled=true;
+            if(penduWord.includes(letter)){b.classList.add('correct');}
+            else{b.classList.add('wrong');}
+        }
+    });
+    if(!penduWord.includes(letter)){
+        penduErrors++;
+        document.getElementById('pendu-errors').textContent=penduErrors;
+        if(penduErrors<=PENDU_PARTS.length){document.getElementById(PENDU_PARTS[penduErrors-1]).setAttribute('visibility','visible');}
+    }
+    penduRenderWord();
+    // Check win/lose
+    const allFound=penduWord.split('').every(l=>penduGuessed.includes(l));
+    const s=document.getElementById('pendu-status');
+    if(allFound){
+        penduOver=true;s.textContent=`🏆 Bravo ! Le mot était "${penduWord}" !`;s.className='game-status win';
+        showToast('👑 Mot trouvé !');
+    }else if(penduErrors>=6){
+        penduOver=true;
+        // Reveal full word
+        document.querySelectorAll('#pendu-word .pendu-letter').forEach((span,i)=>span.textContent=penduWord[i]);
+        s.textContent=`💀 Pendu ! Le mot était "${penduWord}"`;s.className='game-status lose';
+        showToast('💀 Condamné !');
+    }
+}
+
+penduReset();
 </script>
 </body>
 </html>
