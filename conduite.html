@@ -10,10 +10,9 @@
 </head>
 <body>
 
-<!-- Canvas 3D -->
 <canvas id="c"></canvas>
 
-<!-- Écran de chargement -->
+<!-- LOADING -->
 <div id="loading">
     <div class="load-inner">
         <div class="load-car">🚗</div>
@@ -27,17 +26,133 @@
     </div>
 </div>
 
-<!-- HUD principal -->
-<div id="hud" class="hidden">
+<!-- ══════════════════════════════════
+     SETUP SCREEN
+══════════════════════════════════ -->
+<div id="setup-screen" class="hidden">
+    <div class="setup-bg"></div>
+    <div class="setup-container">
+        <div class="setup-header">
+            <div class="setup-emblem">⚔️</div>
+            <div class="setup-title">ROUTE ROYALE</div>
+            <div class="setup-sub">Configurez votre course</div>
+        </div>
 
-    <!-- Barre du haut -->
+        <!-- MODE -->
+        <div class="setup-section">
+            <div class="setup-section-title">⚔ Mode de jeu</div>
+            <div class="mode-btns">
+                <button class="mode-btn active" id="mode-solo" onclick="setMode('solo')">
+                    <span class="mode-icon">🏎️</span>
+                    <span class="mode-label">Solo</span>
+                    <span class="mode-desc">1 joueur</span>
+                </button>
+                <button class="mode-btn" id="mode-multi" onclick="setMode('multi')">
+                    <span class="mode-icon">⚔️</span>
+                    <span class="mode-label">2 Joueurs</span>
+                    <span class="mode-desc">Écran partagé</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- WORLD -->
+        <div class="setup-section">
+            <div class="setup-section-title">🌍 Monde</div>
+            <div class="world-grid">
+                <button class="world-btn active" onclick="setWorld('city')" data-world="city">
+                    <span class="world-icon">🏙️</span>
+                    <span class="world-name">Cité Royale</span>
+                    <span class="world-desc">Routes, bâtiments, rampes</span>
+                </button>
+                <button class="world-btn" onclick="setWorld('desert')" data-world="desert">
+                    <span class="world-icon">🏜️</span>
+                    <span class="world-name">Désert Ardent</span>
+                    <span class="world-desc">Dunes, canyons, vitesse</span>
+                </button>
+                <button class="world-btn" onclick="setWorld('snow')" data-world="snow">
+                    <span class="world-icon">❄️</span>
+                    <span class="world-name">Toundra Glacée</span>
+                    <span class="world-desc">Glace, dérapage, froid</span>
+                </button>
+                <button class="world-btn" onclick="setWorld('night')" data-world="night">
+                    <span class="world-icon">🌙</span>
+                    <span class="world-name">Nuit Noire</span>
+                    <span class="world-desc">Néons, ville nocturne</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- PLAYERS CONFIG -->
+        <div class="setup-section">
+            <div class="setup-section-title">🚗 Véhicules</div>
+            <div id="players-config">
+                <!-- Player 1 -->
+                <div class="player-config" id="p1-config">
+                    <div class="player-config-header p1-header">
+                        <span class="player-badge p1-badge">J1</span>
+                        <span class="player-config-name">Joueur 1 — Rouge</span>
+                        <span class="player-keys">ZQSD + Shift (Nitro)</span>
+                    </div>
+                    <div class="car-grid" id="car-grid-p1">
+                        <!-- filled by JS -->
+                    </div>
+                </div>
+                <!-- Player 2 -->
+                <div class="player-config hidden" id="p2-config">
+                    <div class="player-config-header p2-header">
+                        <span class="player-badge p2-badge">J2</span>
+                        <span class="player-config-name">Joueur 2 — Bleu</span>
+                        <span class="player-keys">↑↓←→ + Ctrl (Nitro)</span>
+                    </div>
+                    <div class="car-grid" id="car-grid-p2">
+                        <!-- filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW MODE -->
+        <div class="setup-section">
+            <div class="setup-section-title">🎥 Vue caméra</div>
+            <div class="view-grid">
+                <button class="view-btn active" onclick="setView('third')" data-view="third">
+                    <span class="view-icon">📷</span>
+                    <span class="view-name">3e Personne</span>
+                    <span class="view-desc">Vue arrière (défaut)</span>
+                </button>
+                <button class="view-btn" onclick="setView('first')" data-view="first">
+                    <span class="view-icon">👁️</span>
+                    <span class="view-name">1ère Personne</span>
+                    <span class="view-desc">Vue cockpit</span>
+                </button>
+                <button class="view-btn" onclick="setView('top')" data-view="top">
+                    <span class="view-icon">🗺️</span>
+                    <span class="view-name">Vue du Ciel</span>
+                    <span class="view-desc">Au-dessus du véhicule</span>
+                </button>
+                <button class="view-btn" onclick="setView('hood')" data-view="hood">
+                    <span class="view-icon">🚗</span>
+                    <span class="view-name">Capot</span>
+                    <span class="view-desc">Vue sur le capot</span>
+                </button>
+            </div>
+        </div>
+
+        <button class="setup-start-btn" onclick="startGame()">
+            ▶ LANCER LA COURSE
+        </button>
+        <a href="jeux.html" class="setup-back-link">← Retour à l'Arène</a>
+    </div>
+</div>
+
+<!-- HUD (Solo) -->
+<div id="hud" class="hidden">
     <div id="top-bar">
-        <a href="jeux.html" id="back-link">← Quitter</a>
+        <a href="#" id="back-link" onclick="showSetup()">← Menu</a>
         <div id="top-title">⚔️ ROUTE ROYALE</div>
         <div id="sound-btn" onclick="toggleMute()">🔊</div>
     </div>
 
-    <!-- Compteur de vitesse -->
     <div id="speedo-wrap">
         <canvas id="speedo-canvas" width="170" height="170"></canvas>
         <div id="speed-num">0</div>
@@ -45,47 +160,57 @@
         <div id="gear-label">AUTO</div>
     </div>
 
-    <!-- Barre Nitro -->
     <div id="nitro-wrap">
         <div id="nitro-icon">⚡</div>
-        <div id="nitro-track">
-            <div id="nitro-fill"></div>
-        </div>
-        <div id="nitro-text">NITRO</div>
+        <div id="nitro-track"><div id="nitro-fill"></div></div>
+        <div id="nitro-text">NITRO P1</div>
     </div>
 
-    <!-- Flash NITRO actif -->
     <div id="nitro-flash" class="hidden">⚡ NITRO ⚡</div>
 
-    <!-- Minimap -->
     <div id="minimap-wrap">
         <div id="minimap-label">Carte</div>
         <canvas id="minimap-canvas" width="160" height="160"></canvas>
     </div>
 
-    <!-- Contrôles -->
     <div id="controls-hint">
-        <div class="ctrl-row"><kbd>Z Q S D</kbd> Conduire</div>
-        <div class="ctrl-row"><kbd>⇧</kbd> Nitro</div>
+        <div class="ctrl-row"><kbd>Z Q S D</kbd> Conduire J1</div>
+        <div class="ctrl-row"><kbd>⇧</kbd> Nitro J1</div>
+        <div class="ctrl-row"><kbd>↑↓←→</kbd> Conduire J2</div>
+        <div class="ctrl-row"><kbd>Ctrl</kbd> Nitro J2</div>
+        <div class="ctrl-row"><kbd>V</kbd> Vue caméra</div>
         <div class="ctrl-row"><kbd>F</kbd> Plein écran</div>
-        <div class="ctrl-row"><kbd>M</kbd> Son</div>
         <div class="ctrl-row"><kbd>Échap</kbd> Pause</div>
     </div>
 
-    <!-- Effet vignette Nitro -->
     <div id="nitro-vignette"></div>
-    <!-- Effet vitesse -->
     <div id="speed-lines"></div>
+
+    <!-- Split screen P2 HUD (bottom) -->
+    <div id="p2-hud-bar" class="hidden">
+        <div id="p2-speedo-wrap">
+            <canvas id="p2-speedo-canvas" width="120" height="120"></canvas>
+            <div id="p2-speed-num">0</div>
+            <div id="p2-speed-unit">KM/H</div>
+        </div>
+        <div id="p2-nitro-wrap">
+            <div id="p2-nitro-icon">⚡</div>
+            <div id="p2-nitro-track"><div id="p2-nitro-fill"></div></div>
+            <div id="p2-nitro-text">NITRO J2</div>
+        </div>
+    </div>
 </div>
 
-<!-- Menu Pause -->
+<!-- PAUSE MENU -->
 <div id="pause-menu" class="hidden">
     <div class="pause-box">
         <div class="pause-emblem">⚜️</div>
         <div class="pause-title">PAUSE</div>
         <button class="pause-btn" onclick="resumeGame()">▶ Reprendre</button>
+        <button class="pause-btn" onclick="cycleView()">🎥 Changer Vue</button>
         <button class="pause-btn" onclick="toggleFullscreen()">⛶ Plein Écran</button>
         <button class="pause-btn" onclick="toggleMute()" id="mute-btn-pause">🔊 Son activé</button>
+        <button class="pause-btn" onclick="showSetup()">⚙️ Paramètres</button>
         <a href="jeux.html" style="text-decoration:none;display:block">
             <button class="pause-btn pause-quit">← Quitter l'Arène</button>
         </a>
