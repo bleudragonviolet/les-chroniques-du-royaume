@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Route Royale — Monde Ouvert 3D</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="conduite.css">
 </head>
 <body>
-
 <canvas id="c"></canvas>
 
 <!-- LOADING -->
@@ -18,206 +17,223 @@
         <div class="load-car">🚗</div>
         <div class="load-title">ROUTE ROYALE</div>
         <div class="load-sub">Monde Ouvert — Les Chroniques du Royaume</div>
-        <div class="load-bar-wrap">
-            <div class="load-bar" id="load-bar"></div>
-            <div class="load-glow"></div>
-        </div>
-        <div class="load-status" id="load-status">Initialisation du moteur...</div>
+        <div class="load-bar-wrap"><div class="load-bar" id="load-bar"></div><div class="load-glow"></div></div>
+        <div class="load-status" id="load-status">Initialisation...</div>
     </div>
 </div>
 
-<!-- ══════════════════════════════════
-     SETUP SCREEN
-══════════════════════════════════ -->
+<!-- SETUP SCREEN -->
 <div id="setup-screen" class="hidden">
     <div class="setup-bg"></div>
     <div class="setup-container">
         <div class="setup-header">
             <div class="setup-emblem">⚔️</div>
             <div class="setup-title">ROUTE ROYALE</div>
-            <div class="setup-sub">Configurez votre course</div>
+            <div class="setup-sub">Configurez votre session</div>
+        </div>
+        <div class="tab-bar">
+            <button class="tab-btn active" id="tab-local-btn" onclick="showTab('local')">⚔ Local</button>
+            <button class="tab-btn" id="tab-multi-btn" onclick="showTab('multi')">🌐 Multijoueur</button>
         </div>
 
-        <!-- MODE -->
-        <div class="setup-section">
-            <div class="setup-section-title">⚔ Mode de jeu</div>
-            <div class="mode-btns">
-                <button class="mode-btn active" id="mode-solo" onclick="setMode('solo')">
-                    <span class="mode-icon">🏎️</span>
-                    <span class="mode-label">Solo</span>
-                    <span class="mode-desc">1 joueur</span>
-                </button>
-                <button class="mode-btn" id="mode-multi" onclick="setMode('multi')">
-                    <span class="mode-icon">⚔️</span>
-                    <span class="mode-label">2 Joueurs</span>
-                    <span class="mode-desc">Écran partagé</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- WORLD -->
-        <div class="setup-section">
-            <div class="setup-section-title">🌍 Monde</div>
-            <div class="world-grid">
-                <button class="world-btn active" onclick="setWorld('city')" data-world="city">
-                    <span class="world-icon">🏙️</span>
-                    <span class="world-name">Cité Royale</span>
-                    <span class="world-desc">Routes, bâtiments, rampes</span>
-                </button>
-                <button class="world-btn" onclick="setWorld('desert')" data-world="desert">
-                    <span class="world-icon">🏜️</span>
-                    <span class="world-name">Désert Ardent</span>
-                    <span class="world-desc">Dunes, canyons, vitesse</span>
-                </button>
-                <button class="world-btn" onclick="setWorld('snow')" data-world="snow">
-                    <span class="world-icon">❄️</span>
-                    <span class="world-name">Toundra Glacée</span>
-                    <span class="world-desc">Glace, dérapage, froid</span>
-                </button>
-                <button class="world-btn" onclick="setWorld('night')" data-world="night">
-                    <span class="world-icon">🌙</span>
-                    <span class="world-name">Nuit Noire</span>
-                    <span class="world-desc">Néons, ville nocturne</span>
-                </button>
-            </div>
-        </div>
-
-        <!-- PLAYERS CONFIG -->
-        <div class="setup-section">
-            <div class="setup-section-title">🚗 Véhicules</div>
-            <div id="players-config">
-                <!-- Player 1 -->
-                <div class="player-config" id="p1-config">
-                    <div class="player-config-header p1-header">
-                        <span class="player-badge p1-badge">J1</span>
-                        <span class="player-config-name">Joueur 1 — Rouge</span>
-                        <span class="player-keys">ZQSD + Shift (Nitro)</span>
-                    </div>
-                    <div class="car-grid" id="car-grid-p1">
-                        <!-- filled by JS -->
-                    </div>
-                </div>
-                <!-- Player 2 -->
-                <div class="player-config hidden" id="p2-config">
-                    <div class="player-config-header p2-header">
-                        <span class="player-badge p2-badge">J2</span>
-                        <span class="player-config-name">Joueur 2 — Bleu</span>
-                        <span class="player-keys">↑↓←→ + Ctrl (Nitro)</span>
-                    </div>
-                    <div class="car-grid" id="car-grid-p2">
-                        <!-- filled by JS -->
-                    </div>
+        <!-- LOCAL -->
+        <div id="tab-local" class="tab-content">
+            <div class="setup-section">
+                <div class="setup-section-title">⚔ Mode</div>
+                <div class="mode-btns">
+                    <button class="mode-btn active" id="mode-solo" onclick="setMode('solo')"><span class="mode-icon">🏎️</span><span class="mode-label">Solo</span></button>
+                    <button class="mode-btn" id="mode-split" onclick="setMode('split')"><span class="mode-icon">⚔️</span><span class="mode-label">2 Joueurs</span></button>
                 </div>
             </div>
+            <div class="setup-section">
+                <div class="setup-section-title">🌍 Monde</div>
+                <div class="world-grid">
+                    <button class="world-btn active" onclick="setWorld('city')" data-world="city"><span class="world-icon">🏙️</span><span class="world-name">Cité</span></button>
+                    <button class="world-btn" onclick="setWorld('desert')" data-world="desert"><span class="world-icon">🏜️</span><span class="world-name">Désert</span></button>
+                    <button class="world-btn" onclick="setWorld('snow')" data-world="snow"><span class="world-icon">❄️</span><span class="world-name">Neige</span></button>
+                    <button class="world-btn" onclick="setWorld('night')" data-world="night"><span class="world-icon">🌙</span><span class="world-name">Nuit</span></button>
+                </div>
+            </div>
+            <!-- QUALITY -->
+            <div class="setup-section">
+                <div class="setup-section-title">🎨 Qualité graphique</div>
+                <div class="qual-grid">
+                    <button class="qual-btn" onclick="setQuality('pixel')" data-q="pixel"><span>🕹️</span><span>Pixel</span><span class="qual-desc">Rétro, rapide</span></button>
+                    <button class="qual-btn active" onclick="setQuality('normal')" data-q="normal"><span>✅</span><span>Normal</span><span class="qual-desc">Équilibré</span></button>
+                    <button class="qual-btn" onclick="setQuality('high')" data-q="high"><span>💎</span><span>Haute</span><span class="qual-desc">Beau mais lourd</span></button>
+                </div>
+            </div>
+            <!-- KEYBOARD LAYOUT -->
+            <div class="setup-section">
+                <div class="setup-section-title">⌨️ Disposition clavier — Joueur 1</div>
+                <div class="key-grid">
+                    <button class="key-btn active" onclick="setKeyLayout('azerty')" data-kl="azerty">🇫🇷 AZERTY<br><span class="key-desc">Z Q S D</span></button>
+                    <button class="key-btn" onclick="setKeyLayout('qwerty')" data-kl="qwerty">🇬🇧 QWERTY<br><span class="key-desc">W A S D</span></button>
+                </div>
+            </div>
+            <div class="setup-section">
+                <div class="setup-section-title">🚗 Joueur 1 <span class="badge-p1">●</span></div>
+                <input class="name-input" id="p1-name" type="text" maxlength="12" placeholder="Votre nom..." value="Joueur 1">
+                <div class="car-grid" id="car-grid-p1"></div>
+            </div>
+            <div class="setup-section" id="p2-section" style="display:none">
+                <div class="setup-section-title">🚗 Joueur 2 <span class="badge-p2">●</span></div>
+                <input class="name-input" id="p2-name" type="text" maxlength="12" placeholder="Nom J2..." value="Joueur 2">
+                <div class="car-grid" id="car-grid-p2"></div>
+            </div>
+            <div class="setup-section">
+                <div class="setup-section-title">🎥 Caméra</div>
+                <div class="view-grid">
+                    <button class="view-btn active" onclick="setView('third')" data-view="third"><span>📷</span><span>3e Personne</span></button>
+                    <button class="view-btn" onclick="setView('first')" data-view="first"><span>👁️</span><span>Cockpit</span></button>
+                    <button class="view-btn" onclick="setView('top')" data-view="top"><span>🗺️</span><span>Ciel</span></button>
+                    <button class="view-btn" onclick="setView('hood')" data-view="hood"><span>🚘</span><span>Capot</span></button>
+                </div>
+            </div>
+            <button class="setup-start-btn" onclick="startLocalGame()">▶ LANCER</button>
+            <a href="jeux.html" class="setup-back-link">← Retour à l'Arène</a>
         </div>
 
-        <!-- VIEW MODE -->
-        <div class="setup-section">
-            <div class="setup-section-title">🎥 Vue caméra</div>
-            <div class="view-grid">
-                <button class="view-btn active" onclick="setView('third')" data-view="third">
-                    <span class="view-icon">📷</span>
-                    <span class="view-name">3e Personne</span>
-                    <span class="view-desc">Vue arrière (défaut)</span>
-                </button>
-                <button class="view-btn" onclick="setView('first')" data-view="first">
-                    <span class="view-icon">👁️</span>
-                    <span class="view-name">1ère Personne</span>
-                    <span class="view-desc">Vue cockpit</span>
-                </button>
-                <button class="view-btn" onclick="setView('top')" data-view="top">
-                    <span class="view-icon">🗺️</span>
-                    <span class="view-name">Vue du Ciel</span>
-                    <span class="view-desc">Au-dessus du véhicule</span>
-                </button>
-                <button class="view-btn" onclick="setView('hood')" data-view="hood">
-                    <span class="view-icon">🚗</span>
-                    <span class="view-name">Capot</span>
-                    <span class="view-desc">Vue sur le capot</span>
-                </button>
+        <!-- MULTI -->
+        <div id="tab-multi" class="tab-content hidden">
+            <div class="setup-section">
+                <div class="setup-section-title">👤 Votre profil</div>
+                <input class="name-input" id="multi-name" type="text" maxlength="12" placeholder="Votre pseudo..." value="Pilote">
+                <div class="car-grid" id="car-grid-multi"></div>
+            </div>
+            <div class="setup-section">
+                <div class="setup-section-title">🏠 Créer une partie</div>
+                <div class="field-row"><label class="field-label">Nom du lobby</label><input class="name-input" id="lobby-name" type="text" maxlength="20" value="Course Royale"></div>
+                <div class="field-row"><label class="field-label">Mot de passe (optionnel)</label><input class="name-input" id="lobby-pass" type="password" maxlength="20" placeholder="Laisser vide = public"></div>
+                <div class="field-row"><label class="field-label">Max joueurs</label><div class="num-selector"><button onclick="changeMaxPlayers(-1)">−</button><span id="max-players-val">4</span><button onclick="changeMaxPlayers(+1)">+</button></div></div>
+                <div class="field-row"><label class="field-label">Monde</label><div class="world-grid"><button class="world-btn active" onclick="setWorldMulti('city')" data-wm="city"><span class="world-icon">🏙️</span><span class="world-name">Cité</span></button><button class="world-btn" onclick="setWorldMulti('desert')" data-wm="desert"><span class="world-icon">🏜️</span><span class="world-name">Désert</span></button><button class="world-btn" onclick="setWorldMulti('snow')" data-wm="snow"><span class="world-icon">❄️</span><span class="world-name">Neige</span></button><button class="world-btn" onclick="setWorldMulti('night')" data-wm="night"><span class="world-icon">🌙</span><span class="world-name">Nuit</span></button></div></div>
+                <button class="setup-start-btn green-btn" id="host-btn" onclick="hostGame()">🏠 CRÉER LA PARTIE</button>
+            </div>
+            <div class="setup-section">
+                <div class="setup-section-title">🔗 Rejoindre une partie</div>
+                <div class="field-row"><label class="field-label">Code de session</label><input class="name-input" id="join-code" type="text" maxlength="40" placeholder="Collez le code ici..."></div>
+                <div class="field-row"><label class="field-label">Mot de passe (si requis)</label><input class="name-input" id="join-pass" type="password" maxlength="20" placeholder=""></div>
+                <button class="setup-start-btn" id="join-btn" onclick="joinGame()">🔗 REJOINDRE</button>
             </div>
         </div>
-
-        <button class="setup-start-btn" onclick="startGame()">
-            ▶ LANCER LA COURSE
-        </button>
-        <a href="jeux.html" class="setup-back-link">← Retour à l'Arène</a>
     </div>
 </div>
 
-<!-- HUD (Solo) -->
+<!-- LOBBY (host) -->
+<div id="lobby-screen" class="hidden">
+    <div class="setup-bg"></div>
+    <div class="lobby-container">
+        <div class="lobby-header"><div class="lobby-title" id="lobby-display-name">Lobby</div><div class="lobby-sub">En attente des joueurs...</div></div>
+        <div class="lobby-code-box"><div class="code-label">CODE — Partagez-le à vos amis</div><div class="lobby-code" id="lobby-code-display">Génération...</div><button class="copy-btn" onclick="copyCode()">📋 Copier le code</button></div>
+        <div class="lobby-info-row">Monde : <strong id="lob-world-name">Cité</strong> &nbsp;|&nbsp; Max : <strong id="lob-max">4</strong> joueurs <span id="lob-pass-tag" style="display:none">&nbsp;| 🔒 MDP requis</span></div>
+        <div class="lobby-section-title">Joueurs (<span id="lob-count">0</span>/<span id="lob-max2">4</span>)</div>
+        <div id="lobby-players-list" class="players-list"></div>
+        <div class="lobby-actions"><button class="setup-start-btn" onclick="startMultiGame()">▶ DÉMARRER</button><button class="pause-btn red-btn" onclick="cancelLobby()">✕ Annuler</button></div>
+        <div id="lobby-msg" class="lobby-status-msg"></div>
+    </div>
+</div>
+
+<!-- JOIN WAITING -->
+<div id="join-waiting" class="hidden">
+    <div class="setup-bg"></div>
+    <div class="lobby-container">
+        <div class="lobby-header"><div class="lobby-title" id="join-lobby-title">Connexion...</div><div class="lobby-sub" id="join-lobby-sub">Connexion au lobby...</div></div>
+        <div class="lobby-info-row">Monde : <strong id="join-world-disp">—</strong></div>
+        <div class="lobby-section-title">Joueurs</div>
+        <div id="join-players-list" class="players-list"></div>
+        <div id="join-msg" class="lobby-status-msg">En attente du démarrage...</div>
+        <button class="pause-btn red-btn" style="margin-top:16px" onclick="cancelJoin()">✕ Quitter</button>
+    </div>
+</div>
+
+<!-- HUD -->
 <div id="hud" class="hidden">
     <div id="top-bar">
-        <a href="#" id="back-link" onclick="showSetup()">← Menu</a>
+        <button id="back-link" onclick="backToSetup()">← Menu</button>
         <div id="top-title">⚔️ ROUTE ROYALE</div>
         <div id="sound-btn" onclick="toggleMute()">🔊</div>
     </div>
-
     <div id="speedo-wrap">
         <canvas id="speedo-canvas" width="170" height="170"></canvas>
         <div id="speed-num">0</div>
         <div id="speed-unit">KM/H</div>
         <div id="gear-label">AUTO</div>
     </div>
-
     <div id="nitro-wrap">
         <div id="nitro-icon">⚡</div>
         <div id="nitro-track"><div id="nitro-fill"></div></div>
-        <div id="nitro-text">NITRO P1</div>
+        <div id="nitro-text">NITRO</div>
     </div>
-
     <div id="nitro-flash" class="hidden">⚡ NITRO ⚡</div>
-
-    <div id="minimap-wrap">
-        <div id="minimap-label">Carte</div>
-        <canvas id="minimap-canvas" width="160" height="160"></canvas>
-    </div>
-
+    <div id="minimap-wrap"><div id="minimap-label">Carte</div><canvas id="minimap-canvas" width="150" height="150"></canvas></div>
     <div id="controls-hint">
-        <div class="ctrl-row"><kbd>Z Q S D</kbd> Conduire J1</div>
-        <div class="ctrl-row"><kbd>⇧</kbd> Nitro J1</div>
-        <div class="ctrl-row"><kbd>↑↓←→</kbd> Conduire J2</div>
+        <div class="ctrl-row"><kbd id="ctrl-fwd">Z</kbd>/<kbd id="ctrl-left">Q</kbd>/<kbd id="ctrl-back">S</kbd>/<kbd id="ctrl-right">D</kbd> J1</div>
+        <div class="ctrl-row"><kbd>⇧</kbd> Nitro J1 &nbsp;<kbd>Espace</kbd> Dérapage J1</div>
+        <div class="ctrl-row"><kbd>↑↓←→</kbd> J2 &nbsp;<kbd>.</kbd> Dérapage J2</div>
         <div class="ctrl-row"><kbd>Ctrl</kbd> Nitro J2</div>
-        <div class="ctrl-row"><kbd>V</kbd> Vue caméra</div>
-        <div class="ctrl-row"><kbd>F</kbd> Plein écran</div>
+        <div class="ctrl-row"><kbd>V</kbd> Vue &nbsp;<kbd>F2</kbd> Console</div>
         <div class="ctrl-row"><kbd>Échap</kbd> Pause</div>
     </div>
-
     <div id="nitro-vignette"></div>
     <div id="speed-lines"></div>
-
-    <!-- Split screen P2 HUD (bottom) -->
+    <div id="view-label"></div>
+    <!-- Stuck arrow -->
+    <div id="stuck-arrow">⬆ BLOQUÉ — <span id="stuck-countdown">5</span>s</div>
+    <!-- P2 HUD -->
     <div id="p2-hud-bar" class="hidden">
-        <div id="p2-speedo-wrap">
-            <canvas id="p2-speedo-canvas" width="120" height="120"></canvas>
-            <div id="p2-speed-num">0</div>
-            <div id="p2-speed-unit">KM/H</div>
-        </div>
-        <div id="p2-nitro-wrap">
-            <div id="p2-nitro-icon">⚡</div>
-            <div id="p2-nitro-track"><div id="p2-nitro-fill"></div></div>
-            <div id="p2-nitro-text">NITRO J2</div>
-        </div>
+        <div id="p2-speedo-wrap"><canvas id="p2-speedo-canvas" width="120" height="120"></canvas><div id="p2-speed-num">0</div><div id="p2-speed-unit">KM/H</div></div>
+        <div id="p2-nitro-wrap"><div id="p2-nitro-icon">⚡</div><div id="p2-nitro-track"><div id="p2-nitro-fill"></div></div><div id="p2-nitro-text">NITRO J2</div></div>
     </div>
 </div>
 
-<!-- PAUSE MENU -->
+<!-- ESC PAUSE MENU (in-game) -->
 <div id="pause-menu" class="hidden">
     <div class="pause-box">
         <div class="pause-emblem">⚜️</div>
         <div class="pause-title">PAUSE</div>
         <button class="pause-btn" onclick="resumeGame()">▶ Reprendre</button>
-        <button class="pause-btn" onclick="cycleView()">🎥 Changer Vue</button>
+        <button class="pause-btn" onclick="openCarChange()">🚗 Changer de voiture</button>
+        <button class="pause-btn" onclick="respawnPlayer()">🔄 Respawn</button>
+        <button class="pause-btn" onclick="cycleView()">🎥 Vue suivante</button>
         <button class="pause-btn" onclick="toggleFullscreen()">⛶ Plein Écran</button>
         <button class="pause-btn" onclick="toggleMute()" id="mute-btn-pause">🔊 Son activé</button>
-        <button class="pause-btn" onclick="showSetup()">⚙️ Paramètres</button>
-        <a href="jeux.html" style="text-decoration:none;display:block">
-            <button class="pause-btn pause-quit">← Quitter l'Arène</button>
-        </a>
+        <button class="pause-btn" onclick="backToSetup()">⚙️ Menu principal</button>
+        <a href="jeux.html" style="text-decoration:none;display:block"><button class="pause-btn pause-quit">← Quitter l'Arène</button></a>
     </div>
 </div>
 
+<!-- CAR CHANGE MENU (from pause) -->
+<div id="car-change-menu" class="hidden">
+    <div class="pause-box wide-box">
+        <div class="pause-title">🚗 Changer de voiture</div>
+        <div class="car-grid" id="car-change-grid"></div>
+        <div style="margin-top:14px;display:flex;gap:10px">
+            <button class="pause-btn" onclick="confirmCarChange()">✅ Confirmer</button>
+            <button class="pause-btn" onclick="closeCarChange()">✕ Annuler</button>
+        </div>
+    </div>
+</div>
+
+<!-- DEV CONSOLE (F2) -->
+<div id="dev-console" class="hidden">
+    <div class="console-header">
+        <span>💻 CONSOLE DEV — Route Royale</span>
+        <button onclick="closeConsole()">✕</button>
+    </div>
+    <div id="console-log"></div>
+    <div class="console-input-row">
+        <span class="console-prompt">$&gt;</span>
+        <input id="console-input" type="text" placeholder="Tapez une commande..." autocomplete="off" spellcheck="false">
+        <div id="console-autocomplete"></div>
+    </div>
+    <div class="console-hint">Exemples: <span onclick="fillConsole('max_speed=')">max_speed=</span> <span onclick="fillConsole('accel=')">accel=</span> <span onclick="fillConsole('drift=')">drift=</span> <span onclick="fillConsole('nitro=')">nitro=</span> <span onclick="fillConsole('gravity=')">gravity=</span> <span onclick="fillConsole('fog=')">fog=</span> <span onclick="fillConsole('help')">help</span></div>
+</div>
+
+<div id="split-line"></div>
+<div id="toast"></div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
 <script src="conduite.js"></script>
 </body>
 </html>
