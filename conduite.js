@@ -70,7 +70,9 @@ const THEMES = {
     city:   {sky:0x7ac0e8,fog:0x9acce8,fogD:0.0025,ground:0x4a4a4a,grass:0x3d6b2a,aTop:0xbbd8ff,aBot:0x3d5c1a,sunC:0xfff8e0,sunI:1.3,trees:true, night:false},
     desert: {sky:0xe8c880,fog:0xddb860,fogD:0.002, ground:0xc8a855,grass:0xb89040,aTop:0xffe8a0,aBot:0x8b6020,sunC:0xffee80,sunI:1.8,trees:false,night:false},
     snow:   {sky:0xc8dcf0,fog:0xd8e8f8,fogD:0.003, ground:0xddeeff,grass:0xb8ccdd,aTop:0xd0e8ff,aBot:0x6688aa,sunC:0xeef8ff,sunI:0.9,trees:true, night:false},
-    night:  {sky:0x060814,fog:0x0a0c18,fogD:0.003, ground:0x1a1a2a,grass:0x0d1a0d,aTop:0x2233aa,aBot:0x001100,sunC:0x2244ff,sunI:0.3,trees:true, night:true},
+    night:    {sky:0x060814,fog:0x0a0c18,fogD:0.003, ground:0x1a1a2a,grass:0x0d1a0d,aTop:0x2233aa,aBot:0x001100,sunC:0x2244ff,sunI:0.3,trees:true, night:true},
+    mountain: {sky:0x5a8ab4,fog:0x8aaac0,fogD:0.004, ground:0x5a6a4a,grass:0x3a5a2a,aTop:0x88aacc,aBot:0x2a3a22,sunC:0xffeedd,sunI:1.1,trees:true, night:false},
+    plains:   {sky:0x88c4f0,fog:0xaad8f4,fogD:0.001, ground:0x6a9a3a,grass:0x4a8a2a,aTop:0xaad4ff,aBot:0x2a6a0a,sunC:0xfff4cc,sunI:1.5,trees:true, night:false},
 };
 
 /* ══════════════════════════════════════════ PLAYER STATE */
@@ -169,6 +171,8 @@ function generateWorld() {
     }
 
     addRamps();
+    if(th.mountain) addMountains();
+    if(th.plains) addPlainsFeatures();
     // World borders
     const bw=WORLD+20;
     [{x:0,z:HALF+2,sx:bw,sz:4},{x:0,z:-HALF-2,sx:bw,sz:4},
@@ -227,6 +231,46 @@ function addRamps(){
         {x:240,z:-80, ry:0},         {x:-240,z:80,    ry:Math.PI},
     ];
     spots.forEach(s=>addRamp(s.x,s.z,s.ry));
+}
+
+function addMountains(){
+    const peaks=[{x:220,z:220},{x:-220,z:220},{x:220,z:-220},{x:-220,z:-220},{x:0,z:250},{x:250,z:0}];
+    peaks.forEach(p=>{
+        const h=25+Math.random()*35,r=18+Math.random()*14;
+        const mat=new THREE.MeshLambertMaterial({color:0x6a7a5a});
+        addMesh(new THREE.ConeGeometry(r,h,8),mat,p.x,h/2,p.z,0,0,0,true);
+        // Snow cap
+        addMesh(new THREE.ConeGeometry(r*0.35,h*0.28,8),new THREE.MeshLambertMaterial({color:0xeef4ff}),p.x,h*0.88,p.z,0,0,0,true);
+        colliders.push({minX:p.x-r*0.5,maxX:p.x+r*0.5,minZ:p.z-r*0.5,maxZ:p.z+r*0.5});
+    });
+    // Extra boulders scattered
+    for(let i=0;i<20;i++){
+        const bx=(Math.random()-0.5)*400,bz=(Math.random()-0.5)*400,bs=2+Math.random()*5;
+        addMesh(new THREE.DodecahedronGeometry(bs,0),new THREE.MeshLambertMaterial({color:0x7a7060}),bx,bs*0.4,bz,0,Math.random()*Math.PI,0,true);
+    }
+}
+
+function addPlainsFeatures(){
+    // Wind turbines
+    const turbSpots=[{x:150,z:80},{x:-150,z:80},{x:150,z:-80},{x:-150,z:-80}];
+    turbSpots.forEach(t=>{
+        const mat=new THREE.MeshLambertMaterial({color:0xddddcc});
+        addMesh(new THREE.CylinderGeometry(0.5,0.9,22,8),mat,t.x,11,t.z,0,0,0,true);
+        // 3 blades
+        for(let b=0;b<3;b++){const ba=(b/3)*Math.PI*2;addMesh(new THREE.BoxGeometry(0.4,8,0.18),mat,t.x+Math.cos(ba)*4,22.5,t.z+Math.sin(ba)*4,0,ba,0,true);}
+        colliders.push({minX:t.x-1.5,maxX:t.x+1.5,minZ:t.z-1.5,maxZ:t.z+1.5});
+    });
+    // Haystacks
+    for(let i=0;i<12;i++){
+        const hx=(Math.random()-0.5)*350,hz=(Math.random()-0.5)*350;
+        addMesh(new THREE.CylinderGeometry(2.2,2.8,2.2,12),new THREE.MeshLambertMaterial({color:0xc8a840}),hx,1.1,hz,0,0,0,true);
+    }
+    // Sunflower patches (simple cones)
+    for(let i=0;i<30;i++){
+        const fx=(Math.random()-0.5)*400,fz=(Math.random()-0.5)*400;
+        addMesh(new THREE.CylinderGeometry(0.08,0.12,2.2,5),new THREE.MeshLambertMaterial({color:0x3a8a2a}),fx,1.1,fz,0,0,0,true);
+        addMesh(new THREE.SphereGeometry(0.32,6,4),new THREE.MeshLambertMaterial({color:0xffcc00}),fx,2.4,fz,0,0,0,true);
+    }
 }
 
 function addRamp(x,z,ry){
@@ -308,8 +352,20 @@ function createCarMesh(pl){
     const body=new THREE.Mesh(new THREE.BoxGeometry(ct.bW,ct.bH,ct.bD),mBody);
     body.position.y=ct.bH/2+0.3;body.castShadow=true;g.add(body);
     if(ct.id==='truck'){
+        // Cab (front)
         const cab=new THREE.Mesh(new THREE.BoxGeometry(ct.cW,ct.cH,ct.cD),mBody);
         cab.position.set(0,ct.bH+ct.cH/2+0.08,ct.bD/2-ct.cD/2);cab.castShadow=true;g.add(cab);
+        // Windscreen
+        const twf=new THREE.Mesh(new THREE.PlaneGeometry(ct.cW-0.3,ct.cH*0.5),mGlass);
+        twf.position.set(0,ct.bH+ct.cH*0.62,ct.bD/2-ct.cD/2+ct.cD/2-0.05);twf.rotation.x=0.32;g.add(twf);
+        // Exhaust pipes
+        ['left','right'].forEach((s,si)=>{
+            const ex=new THREE.Mesh(new THREE.CylinderGeometry(0.1,0.1,2.2,6),new THREE.MeshLambertMaterial({color:0x444444}));
+            ex.position.set((si===0?-1:1)*(ct.bW/2-0.2),ct.bH+ct.cH*0.9,ct.bD/2-ct.cD+0.1);g.add(ex);
+        });
+        // Trailer connector
+        const hitch=new THREE.Mesh(new THREE.BoxGeometry(0.6,0.3,0.5),mDark);
+        hitch.position.set(0,ct.bH*0.5,-ct.bD/2-0.25);g.add(hitch);
     } else {
         const cab=new THREE.Mesh(new THREE.BoxGeometry(ct.cW,ct.cH,ct.cD),mBody);
         cab.position.set(0,ct.bH+ct.cH/2+0.18,-0.1);cab.castShadow=true;g.add(cab);
@@ -329,6 +385,23 @@ function createCarMesh(pl){
         const rim=new THREE.Mesh(new THREE.CylinderGeometry(wR*0.56,wR*0.56,wW+0.01,8),mGold);wg.add(rim);
         g.add(wg);pl.wheels.push(wg);
     });
+    // Name label sprite
+    if(pl.name && pl.name!=='?'){
+        const canvas2d=document.createElement('canvas');canvas2d.width=256;canvas2d.height=64;
+        const ctx2=canvas2d.getContext('2d');
+        ctx2.clearRect(0,0,256,64);
+        ctx2.fillStyle='rgba(0,0,0,0.6)';
+        ctx2.roundRect?ctx2.roundRect(4,8,248,48,8):ctx2.fillRect(4,8,248,48);
+        ctx2.fill();
+        ctx2.fillStyle='#e8d080';ctx2.font='bold 28px Arial';ctx2.textAlign='center';
+        ctx2.fillText(pl.name.substring(0,12),128,42);
+        const tex=new THREE.CanvasTexture(canvas2d);
+        const spriteMat=new THREE.SpriteMaterial({map:tex,transparent:true,depthTest:false});
+        const sprite=new THREE.Sprite(spriteMat);
+        sprite.scale.set(3.2,0.8,1);
+        sprite.position.set(0,pl.ct.bH+pl.ct.cH+1.1,0);
+        g.add(sprite);pl.nameSprite=sprite;
+    }
     g.castShadow=true;scene.add(g);pl.mesh=g;
     g.position.copy(pl.pos);
     return g;
@@ -393,16 +466,19 @@ function getOrCreateRemote(peerId,info){
     if(!remotePlayers[peerId]){const color=REMOTE_COLORS[remoteColorIdx++%REMOTE_COLORS.length];const rp={pos:new THREE.Vector3(20,0,20),rot:0,speed:0,nitroOn:false,mesh:null,wheels:[],name:info.name||'?',carIdx:info.carIdx||0,color};const fake=makePlayer(color,20,20,info.carIdx||0,info.name||'?');createCarMesh(fake);rp.mesh=fake.mesh;rp.wheels=fake.wheels;remotePlayers[peerId]=rp;updateLobbyPlayerList();}return remotePlayers[peerId];
 }
 function removeRemote(peerId){if(remotePlayers[peerId]){if(remotePlayers[peerId].mesh)scene.remove(remotePlayers[peerId].mesh);delete remotePlayers[peerId];updateLobbyPlayerList();}}
-function updateRemoteMesh(peerId,data){const rp=remotePlayers[peerId];if(!rp||!rp.mesh)return;rp.pos.set(data.x,0,data.z);rp.rot=data.rot;rp.speed=data.speed;rp.mesh.position.set(data.x,0,data.z);rp.mesh.rotation.y=data.rot;rp.wheelAngle=(rp.wheelAngle||0)+data.speed*0.016/0.36;rp.wheels.forEach(w=>w.rotation.y=rp.wheelAngle);}
+function updateRemoteMesh(peerId,data){const rp=remotePlayers[peerId];if(!rp||!rp.mesh)return;const ry=data.y!==undefined?data.y:getRampY(data.x,data.z,data.rot);rp.pos.set(data.x,ry,data.z);rp.rot=data.rot;rp.speed=data.speed;rp.mesh.position.set(data.x,ry,data.z);rp.mesh.rotation.y=data.rot;rp.wheelAngle=(rp.wheelAngle||0)+data.speed*0.016/0.36;rp.wheels.forEach(w=>w.rotation.y=rp.wheelAngle);}
 function hostGame(){CFG.lobbyName=document.getElementById('lobby-name').value.trim()||'Course Royale';CFG.lobbyPass=document.getElementById('lobby-pass').value;CFG.multiName=document.getElementById('multi-name').value.trim()||'Hôte';document.getElementById('host-btn').textContent='⏳...';document.getElementById('host-btn').disabled=true;initPeer(id=>{isHost=true;myPeerId=id;lobbyInfo={name:CFG.lobbyName,pass:CFG.lobbyPass,world:CFG.multiWorld,maxPlayers:CFG.maxPlayers,hostName:CFG.multiName,hostCar:CFG.multiCar,hostId:id};peer.on('connection',conn=>{conn.on('open',()=>{conn.send({type:'lobby_info',lobby:lobbyInfo,players:buildPlayerListForSync()});clientConns.push(conn);updateLobbyPlayerList();broadcastExcept(conn.peer,{type:'player_joined',peerId:conn.peer,info:conn.metadata});});conn.on('data',data=>handleHostData(conn,data));conn.on('close',()=>{clientConns=clientConns.filter(c=>c!==conn);removeRemote(conn.peer);broadcastAll({type:'player_left',peerId:conn.peer});updateLobbyPlayerList();});conn.on('error',()=>{});});showLobbyScreen();document.getElementById('host-btn').textContent='🏠 CRÉER LA PARTIE';document.getElementById('host-btn').disabled=false;});}
-function handleHostData(conn,data){if(data.type==='join_request'){if(lobbyInfo.pass&&data.pass!==lobbyInfo.pass){conn.send({type:'join_rejected',reason:'Mot de passe incorrect'});conn.close();return;}if(clientConns.length+1>=lobbyInfo.maxPlayers){conn.send({type:'join_rejected',reason:'Lobby plein'});conn.close();return;}conn.metadata={name:data.name,carIdx:data.carIdx};getOrCreateRemote(conn.peer,conn.metadata);conn.send({type:'join_accepted'});broadcastExcept(conn.peer,{type:'player_joined',peerId:conn.peer,info:conn.metadata});}if(data.type==='state'){updateRemoteMesh(conn.peer,data);broadcastExcept(conn.peer,{type:'remote_state',peerId:conn.peer,state:data});}}
+function handleHostData(conn,data){if(data.type==='join_request'){if(lobbyInfo.pass&&data.pass!==lobbyInfo.pass){conn.send({type:'join_rejected',reason:'Mot de passe incorrect'});conn.close();return;}if(clientConns.length+1>=lobbyInfo.maxPlayers){conn.send({type:'join_rejected',reason:'Lobby plein'});conn.close();return;}conn.metadata={name:data.name,carIdx:data.carIdx};getOrCreateRemote(conn.peer,conn.metadata);// Send ALL existing players to new joiner
+const allStates=[];Object.entries(remotePlayers).forEach(([id,rp])=>{if(id!==conn.peer)allStates.push({peerId:id,info:{name:rp.name,carIdx:rp.carIdx}});});conn.send({type:'join_accepted'});conn.send({type:'all_players',players:allStates,hostInfo:{name:CFG.multiName,carIdx:CFG.multiCar,peerId:myPeerId}});broadcastExcept(conn.peer,{type:'player_joined',peerId:conn.peer,info:conn.metadata});}if(data.type==='state'){updateRemoteMesh(conn.peer,data);broadcastExcept(conn.peer,{type:'remote_state',peerId:conn.peer,state:data});}}
 function buildPlayerListForSync(){const list=[{peerId:myPeerId,name:CFG.multiName,carIdx:CFG.multiCar,isHost:true}];clientConns.forEach(c=>{if(c.metadata)list.push({peerId:c.peer,...c.metadata});});return list;}
 function broadcastAll(msg){clientConns.forEach(c=>{try{c.send(msg);}catch(e){}});}
 function broadcastExcept(xId,msg){clientConns.filter(c=>c.peer!==xId).forEach(c=>{try{c.send(msg);}catch(e){}});}
 function startMultiGame(){if(clientConns.length===0&&!confirm('Démarrer seul ?'))return;broadcastAll({type:'game_start',world:CFG.multiWorld});CFG.mode='multi';CFG.world=CFG.multiWorld;launchGame();}
 function cancelLobby(){broadcastAll({type:'host_cancelled'});if(peer){peer.destroy();peer=null;}isHost=false;clientConns=[];document.getElementById('lobby-screen').classList.add('hidden');document.getElementById('setup-screen').classList.remove('hidden');}
 function joinGame(){const code=document.getElementById('join-code').value.trim(),pass=document.getElementById('join-pass').value,name=document.getElementById('multi-name').value.trim()||'Pilote';CFG.multiName=name;if(!code){showToast('Entrez un code de session');return;}document.getElementById('join-btn').textContent='⏳...';document.getElementById('join-btn').disabled=true;initPeer(()=>{hostConn=peer.connect(code,{reliable:true});hostConn.on('open',()=>hostConn.send({type:'join_request',name,carIdx:CFG.multiCar,pass}));hostConn.on('data',data=>handleClientData(data));hostConn.on('close',()=>{showToast('Déconnecté');showSetupScreen();});hostConn.on('error',()=>{showToast('Impossible de se connecter');showSetupScreen();});setTimeout(()=>{if(!document.getElementById('join-waiting').classList.contains('hidden'))return;showToast('Code introuvable');showSetupScreen();},8000);});}
-function handleClientData(data){if(data.type==='join_rejected'){showToast('Refusé: '+data.reason);showSetupScreen();return;}if(data.type==='join_accepted'){document.getElementById('join-waiting').classList.remove('hidden');document.getElementById('setup-screen').classList.add('hidden');document.getElementById('join-btn').textContent='🔗 REJOINDRE';document.getElementById('join-btn').disabled=false;}if(data.type==='lobby_info'){lobbyInfo=data.lobby;document.getElementById('join-lobby-title').textContent=lobbyInfo.name;document.getElementById('join-lobby-sub').textContent='Connecté !';document.getElementById('join-world-disp').textContent=worldName(lobbyInfo.world);updateJoinPlayerList(data.players);}if(data.type==='player_joined'){getOrCreateRemote(data.peerId,data.info);updateJoinPlayerList(null);}if(data.type==='player_left'){removeRemote(data.peerId);updateJoinPlayerList(null);}if(data.type==='remote_state'){updateRemoteMesh(data.peerId,data.state);}if(data.type==='host_cancelled'){showToast("L'hôte a annulé");showSetupScreen();}if(data.type==='game_start'){CFG.mode='multi';CFG.world=data.world;launchGame();}}
+function handleClientData(data){if(data.type==='join_rejected'){showToast('Refusé: '+data.reason);showSetupScreen();return;}if(data.type==='join_accepted'){document.getElementById('join-waiting').classList.remove('hidden');document.getElementById('setup-screen').classList.add('hidden');document.getElementById('join-btn').textContent='🔗 REJOINDRE';document.getElementById('join-btn').disabled=false;}if(data.type==='all_players'){// Create meshes for all existing players including host
+data.players.forEach(p=>getOrCreateRemote(p.peerId,p.info));
+if(data.hostInfo)getOrCreateRemote(data.hostInfo.peerId,{name:data.hostInfo.name,carIdx:data.hostInfo.carIdx});}if(data.type==='lobby_info'){lobbyInfo=data.lobby;document.getElementById('join-lobby-title').textContent=lobbyInfo.name;document.getElementById('join-lobby-sub').textContent='Connecté !';document.getElementById('join-world-disp').textContent=worldName(lobbyInfo.world);updateJoinPlayerList(data.players);}if(data.type==='player_joined'){getOrCreateRemote(data.peerId,data.info);updateJoinPlayerList(null);}if(data.type==='player_left'){removeRemote(data.peerId);updateJoinPlayerList(null);}if(data.type==='remote_state'){updateRemoteMesh(data.peerId,data.state);}if(data.type==='host_cancelled'){showToast("L'hôte a annulé");showSetupScreen();}if(data.type==='game_start'){CFG.mode='multi';CFG.world=data.world;launchGame();}}
 function cancelJoin(){if(hostConn){hostConn.close();hostConn=null;}if(peer){peer.destroy();peer=null;}document.getElementById('join-waiting').classList.add('hidden');showSetupScreen();}
 function showLobbyScreen(){document.getElementById('setup-screen').classList.add('hidden');document.getElementById('lobby-screen').classList.remove('hidden');document.getElementById('lobby-display-name').textContent=CFG.lobbyName;document.getElementById('lobby-code-display').textContent=myPeerId;document.getElementById('lob-world-name').textContent=worldName(CFG.multiWorld);document.getElementById('lob-max').textContent=CFG.maxPlayers;document.getElementById('lob-max2').textContent=CFG.maxPlayers;document.getElementById('lob-pass-tag').style.display=CFG.lobbyPass?'inline':'none';updateLobbyPlayerList();}
 function updateLobbyPlayerList(){const list=document.getElementById('lobby-players-list');if(!list)return;const players=[{name:CFG.multiName,carIdx:CFG.multiCar,color:'#c6a84a',isHost:true}];Object.values(remotePlayers).forEach(rp=>players.push({name:rp.name,carIdx:rp.carIdx,color:'#'+rp.color.toString(16).padStart(6,'0')}));document.getElementById('lob-count').textContent=players.length;list.innerHTML=players.map(p=>`<div class="player-row ${p.isHost?'host-row':''}"><div class="player-dot" style="background:${p.color}"></div><span class="player-row-name">${p.isHost?'👑 ':''}${p.name}</span><span class="player-row-car">${CAR_TYPES[p.carIdx]?.emoji||'🚗'} ${CAR_TYPES[p.carIdx]?.name||''}</span></div>`).join('');}
@@ -412,7 +488,7 @@ function worldName(w){return{city:'Cité Royale',desert:'Désert Ardent',snow:'T
 
 /* ══════════════════════════════════════════ NET STATE */
 let netTick=0;
-function sendNetState(){netTick++;if(netTick%3!==0)return;const state={type:'state',x:p1.pos.x,z:p1.pos.z,rot:p1.rot,speed:p1.speed,nitroOn:p1.nitroOn};if(isHost)broadcastAll({type:'remote_state',peerId:myPeerId,state});else if(hostConn){try{hostConn.send(state);}catch(e){}}}
+function sendNetState(){netTick++;if(netTick%3!==0)return;const state={type:'state',x:p1.pos.x,y:p1.pos.y,z:p1.pos.z,rot:p1.rot,speed:p1.speed,nitroOn:p1.nitroOn};if(isHost)broadcastAll({type:'remote_state',peerId:myPeerId,state});else if(hostConn){try{hostConn.send(state);}catch(e){}}}
 
 /* ══════════════════════════════════════════ INPUT */
 const keys={};
@@ -452,8 +528,8 @@ function updatePlayer(pl, dt, fwd, back, left, right, nitroKey, handbrake) {
     const sp=Math.min(Math.abs(pl.speed)/6,1)*ct.steer*dt;
     const sd=pl.speed>=0?1:-1;
     let steer=0;
-    if(left)steer=-sp*sd;
-    if(right)steer=sp*sd;
+    if(left)steer=sp*sd;
+    if(right)steer=-sp*sd;
 
     // Handbrake drift (Space / .)
     pl.handbraking=!!handbrake;
@@ -556,9 +632,12 @@ function updatePhysics(dt){
     if(!gameStarted||paused) return;
     const km=getKeys();
     updatePlayer(p1,dt,
-        keys[km.fwd],keys[km.back],keys[km.left],keys[km.right],
-        keys['ShiftLeft']||keys['ShiftRight'],
-        keys['Space']);
+        keys[km.fwd]||touchKeys.fwd,
+        keys[km.back]||touchKeys.back,
+        keys[km.left]||touchKeys.left,
+        keys[km.right]||touchKeys.right,
+        keys['ShiftLeft']||keys['ShiftRight']||touchKeys.nitro,
+        keys['Space']||touchKeys.handbrake);
     if(CFG.mode==='split')
         updatePlayer(p2,dt,
             keys['ArrowUp'],keys['ArrowDown'],keys['ArrowLeft'],keys['ArrowRight'],
@@ -755,6 +834,14 @@ const CONSOLE_COMMANDS=[
     {cmd:'p2.reset',     desc:'Reset J2',                              scope:'player2'},
     {cmd:'bots.speed=',  desc:'Vitesse des bots (ex: bots.speed=2)',   scope:'world'},
     {cmd:'time=',        desc:'Cycle jour/nuit (day/night)',           scope:'world'},
+    {cmd:'teleport=',    desc:'Téléporter J1 (ex: teleport=0,0)',      scope:'action'},
+    {cmd:'nitro.regen=', desc:'Regen nitro (ex: nitro.regen=30)',      scope:'world'},
+    {cmd:'world=',       desc:'Changer monde (city/desert/snow/night/mountain/plains)',scope:'world'},
+    {cmd:'bots.count=',  desc:'Nombre de bots (ex: bots.count=5)',     scope:'world'},
+    {cmd:'crash=',       desc:'Forcer crash J1 (crash=1)',             scope:'action'},
+    {cmd:'invincible=',  desc:'Mode invincible 0/1',                   scope:'player'},
+    {cmd:'lowgrav',      desc:'Gravité lunaire temporaire',             scope:'world'},
+    {cmd:'boost',        desc:'Boost instantané J1',                   scope:'action'},
 ];
 
 function toggleConsole(){
@@ -821,6 +908,13 @@ function executeConsoleCmd(raw){
         if(key==='p2.drift'){if(p2)p2.cons.drift=val;consoleLog(`✓ J2 drift = ${val}`,'ok');return;}
         if(key==='p2.nitro'){if(p2)p2.nitro=Math.max(0,Math.min(100,val));consoleLog(`✓ J2 nitro = ${val}`,'ok');return;}
 
+        if(key==='teleport'){const parts=rawVal.split(',');if(parts.length===2&&p1){p1.pos.x=parseFloat(parts[0]);p1.pos.z=parseFloat(parts[1]);p1.pos.y=0;p1.speed=0;consoleLog(`✓ Téléporté à ${parts[0]},${parts[1]}`,'ok');}return;}
+        if(key==='nitro.regen'){if(p1)p1.ct.nRegen=val;consoleLog(`✓ nitro.regen = ${val}`,'ok');return;}
+        if(key==='world'){const w=['city','desert','snow','night','mountain','plains'];if(w.includes(rawVal)){CFG.world=rawVal;CFG.multiWorld=rawVal;launchGame();consoleLog(`✓ Monde changé : ${rawVal}`,'ok');}else consoleLog('✗ Monde invalide','err');return;}
+        if(key==='bots.count'){bots.forEach(b=>{if(b.mesh)scene.remove(b.mesh);});bots=[];const nb=Math.max(0,Math.min(10,Math.round(val)));for(let i=0;i<nb;i++){const carIdx=Math.floor(Math.random()*CAR_TYPES.length);const b=makePlayer(BOT_COLORS[i%BOT_COLORS.length],(Math.random()-0.5)*200,(Math.random()-0.5)*200,carIdx,'Bot '+(i+1));b.isBot=true;b.botWaypointIdx=0;b.botWaypoints=generateBotWaypoints(0,0);b.botAggression=0.5+Math.random()*0.5;createCarMesh(b);bots.push(b);}consoleLog(`✓ ${nb} bots spawned`,'ok');return;}
+        if(key==='invincible'){if(p1){p1._invincible=val>0;consoleLog(`✓ Invincible = ${val>0}`,'ok');}return;}
+        if(cmd==='lowgrav'){worldGravity=3;setTimeout(()=>{worldGravity=18;},10000);consoleLog('✓ Gravité lunaire 10s !','ok');return;}
+        if(cmd==='boost'){if(p1){p1.nitro=100;p1.speed=p1.ct.maxSpd*1.5;consoleLog('✓ Boost !','ok');}return;}
         consoleLog('✗ Clé inconnue. Tapez help.','err');
     } catch(e){ consoleLog('✗ Erreur: '+e.message,'err'); }
 }
@@ -931,11 +1025,84 @@ function animate(time){
 }
 
 /* ══════════════════════════════════════════ BOOT */
+
+/* ══════════════════════════════════════════ MOBILE TOUCH CONTROLS */
+const touchKeys={fwd:false,back:false,left:false,right:false,nitro:false,handbrake:false};
+let joystickActive=false,joystickId=null;
+let joystickBaseX=0,joystickBaseY=0;
+
+function initMobileControls(){
+    if(!('ontouchstart' in window)&&navigator.maxTouchPoints===0) return;
+    const hud=document.getElementById('hud');
+    // Create touch overlay
+    const overlay=document.createElement('div');
+    overlay.id='touch-overlay';
+    overlay.innerHTML=`
+    <div id="joystick-zone">
+        <div id="joystick-base"><div id="joystick-knob"></div></div>
+    </div>
+    <div id="touch-btns">
+        <button id="btn-nitro" class="touch-btn nitro-btn">⚡<span>NITRO</span></button>
+        <button id="btn-brake" class="touch-btn brake-btn">🔴<span>DRIFT</span></button>
+    </div>`;
+    document.body.appendChild(overlay);
+
+    const zone=document.getElementById('joystick-zone');
+    const base=document.getElementById('joystick-base');
+    const knob=document.getElementById('joystick-knob');
+
+    zone.addEventListener('touchstart',e=>{
+        e.preventDefault();
+        const t=e.changedTouches[0];
+        joystickActive=true;joystickId=t.identifier;
+        joystickBaseX=t.clientX;joystickBaseY=t.clientY;
+        base.style.left=(t.clientX-zone.getBoundingClientRect().left-40)+'px';
+        base.style.top=(t.clientY-zone.getBoundingClientRect().top-40)+'px';
+        base.classList.add('active');
+    },{passive:false});
+
+    zone.addEventListener('touchmove',e=>{
+        e.preventDefault();
+        for(let t of e.changedTouches){
+            if(t.identifier!==joystickId)continue;
+            const dx=t.clientX-joystickBaseX,dy=t.clientY-joystickBaseY;
+            const dist=Math.min(Math.sqrt(dx*dx+dy*dy),50);
+            const ang=Math.atan2(dy,dx);
+            const kx=Math.cos(ang)*dist,ky=Math.sin(ang)*dist;
+            knob.style.transform=`translate(${kx}px,${ky}px)`;
+            const deadzone=8;
+            touchKeys.fwd=dy<-deadzone;
+            touchKeys.back=dy>deadzone;
+            touchKeys.left=dx<-deadzone;
+            touchKeys.right=dx>deadzone;
+        }
+    },{passive:false});
+
+    const resetJoy=e=>{
+        e.preventDefault();
+        joystickActive=false;joystickId=null;
+        knob.style.transform='translate(0,0)';
+        base.classList.remove('active');
+        touchKeys.fwd=false;touchKeys.back=false;touchKeys.left=false;touchKeys.right=false;
+    };
+    zone.addEventListener('touchend',resetJoy,{passive:false});
+    zone.addEventListener('touchcancel',resetJoy,{passive:false});
+
+    // Nitro & drift buttons
+    const btnNitro=document.getElementById('btn-nitro');
+    const btnBrake=document.getElementById('btn-brake');
+    btnNitro.addEventListener('touchstart',e=>{e.preventDefault();touchKeys.nitro=true;},{passive:false});
+    btnNitro.addEventListener('touchend',e=>{e.preventDefault();touchKeys.nitro=false;},{passive:false});
+    btnBrake.addEventListener('touchstart',e=>{e.preventDefault();touchKeys.handbrake=true;},{passive:false});
+    btnBrake.addEventListener('touchend',e=>{e.preventDefault();touchKeys.handbrake=false;},{passive:false});
+}
+
 function boot(){
     buildCarGrid('car-grid-p1',1);buildCarGrid('car-grid-p2',2);buildCarGrid('car-grid-multi',0);
     document.getElementById('loading').style.display='none';
     document.getElementById('setup-screen').classList.remove('hidden');
     renderer.render(scene,camera);
+    initMobileControls();
 }
 requestAnimationFrame(animate);
 boot();
