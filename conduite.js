@@ -229,9 +229,10 @@ function addRoadMarkings(){
 }
 
 /* ══════════════════════════════════════════ BLOCK GENERATION PER WORLD */
-function generateBlocks(worldKey, th) {
+async function generateBlocks(worldKey, th) {
     const w = worldKey;
     for (let bx=0;bx<N_BLOCK;bx++) {
+        await sleep(16); // yield per row
         for (let bz=0;bz<N_BLOCK;bz++) {
             const cx=-HALF+BLOCK*bx+BLOCK/2, cz=-HALF+BLOCK*bz+BLOCK/2;
             const inner=BLOCK-ROAD_W;
@@ -2408,7 +2409,7 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 
 async function doLoad(){
     setLoad(5,'Initialisation...');await sleep(80);
-    setLoad(15,'Thème et matériaux...');await sleep(80);
+    setLoad(12,'Thème...');await sleep(60);
     const _w=CFG.mode==='multi'?CFG.multiWorld:CFG.world;
     const _th=THEMES[_w]||THEMES.city;
     buildMats(_th);
@@ -2419,15 +2420,15 @@ async function doLoad(){
     if(_th.night)scene.add(new THREE.AmbientLight(0x112244,0.8));
     applyQuality();
     await sleep(60);
-    setLoad(28,'Sol et routes...');await sleep(60);
+    setLoad(22,'Sol et routes...');await sleep(60);
     if(_w==='skyworld'){scene.fog=new THREE.FogExp2(0x88aaf0,0.012);}
     else if(_w==='highway'){addMesh(new THREE.PlaneGeometry(WORLD*4,WORLD*4),MAT.grass,0,0,0,-Math.PI/2,0,0,false);}
     else{addMesh(new THREE.PlaneGeometry(WORLD+80,WORLD+80),MAT.asphalt,0,0,0,-Math.PI/2,0,0,false);addRoadMarkings();}
-    await sleep(80);
-    setLoad(40,'Bâtiments...');await sleep(80);
-    if(_w!=='skyworld'&&_w!=='highway')generateBlocks(_w,_th);
-    await sleep(80);
-    setLoad(50,'Détails du monde...');await sleep(80);
+    await sleep(60);
+    setLoad(30,'Bâtiments (1/2)...');await sleep(40);
+    if(_w!=='skyworld'&&_w!=='highway') await generateBlocks(_w,_th);
+    await sleep(60);
+    setLoad(48,'Détails du monde...');await sleep(60);
     if(_w!=='skyworld'&&_w!=='highway'){addRamps();if(_w==='mountain')addMountains(_th);if(_w==='plains')addPlainsFeatures();}
     else if(_w==='highway'){generateHighway();}
     else{generateSkyWorld();}
