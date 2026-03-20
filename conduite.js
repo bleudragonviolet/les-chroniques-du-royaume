@@ -1643,7 +1643,8 @@ const REMOTE_COLORS=[0x33cc44,0xff8800,0xcc33ff,0x00ccff,0xffee00,0xff3399];
 let remoteColorIdx=0;
 let peer=null,hostConn=null,clientConns=[],isHost=false,lobbyInfo=null,myPeerId=null;
 
-function initPeer(cb){if(peer){try{peer.destroy();}catch(e){}peer=null;}peer=new Peer(undefined,{debug:0});peer.on('open',id=>{myPeerId=id;if(cb)cb(id);});peer.on('error',err=>{showToast('Erreur réseau: '+err.type);document.getElementById('host-btn').textContent='🏠 CRÉER LA PARTIE';document.getElementById('host-btn').disabled=false;});}
+const PEER_CFG={debug:0,config:{iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},{urls:'stun:stun2.l.google.com:19302'},{urls:'turn:openrelay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},{urls:'turn:openrelay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},{urls:'turn:openrelay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'}]}};
+function initPeer(cb){if(peer){try{peer.destroy();}catch(e){}peer=null;}peer=new Peer(undefined,PEER_CFG);peer.on('open',id=>{myPeerId=id;if(cb)cb(id);});peer.on('error',err=>{showToast('Erreur réseau: '+err.type+' — réessaie dans 5s');setTimeout(()=>{if(cb)initPeer(cb);},5000);document.getElementById('host-btn').textContent='🏠 CRÉER LA PARTIE';document.getElementById('host-btn').disabled=false;});}
 function getOrCreateRemote(peerId,info){
     if(!remotePlayers[peerId]){const color=REMOTE_COLORS[remoteColorIdx++%REMOTE_COLORS.length];const rp={pos:new THREE.Vector3(20,0,20),rot:0,speed:0,nitroOn:false,mesh:null,wheels:[],name:info.name||'?',carIdx:info.carIdx||0,color};const fake=makePlayer(color,20,20,info.carIdx||0,info.name||'?');createCarMesh(fake);rp.mesh=fake.mesh;rp.wheels=fake.wheels;remotePlayers[peerId]=rp;updateLobbyPlayerList();}return remotePlayers[peerId];
 }
@@ -1671,7 +1672,7 @@ function joinGame(){
     if(peer){try{peer.destroy();}catch(e){}peer=null;}
     let joinTimeout=null;
     let connected=false;
-    peer=new Peer(undefined,{debug:0});
+    peer=new Peer(undefined,PEER_CFG);
     peer.on('error',err=>{
         clearTimeout(joinTimeout);
         if(!connected){showToast('Erreur: '+err.type);btn.textContent='🔗 REJOINDRE';btn.disabled=false;}
