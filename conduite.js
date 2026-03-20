@@ -1643,8 +1643,7 @@ const REMOTE_COLORS=[0x33cc44,0xff8800,0xcc33ff,0x00ccff,0xffee00,0xff3399];
 let remoteColorIdx=0;
 let peer=null,hostConn=null,clientConns=[],isHost=false,lobbyInfo=null,myPeerId=null;
 
-const PEER_CFG={debug:0,config:{iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'},{urls:'stun:stun2.l.google.com:19302'},{urls:'turn:openrelay.metered.ca:80',username:'openrelayproject',credential:'openrelayproject'},{urls:'turn:openrelay.metered.ca:443',username:'openrelayproject',credential:'openrelayproject'},{urls:'turn:openrelay.metered.ca:443?transport=tcp',username:'openrelayproject',credential:'openrelayproject'}]}};
-function initPeer(cb){if(peer){try{peer.destroy();}catch(e){}peer=null;}peer=new Peer(undefined,PEER_CFG);peer.on('open',id=>{myPeerId=id;if(cb)cb(id);});peer.on('error',err=>{showToast('Erreur réseau: '+err.type+' — réessaie dans 5s');setTimeout(()=>{if(cb)initPeer(cb);},5000);document.getElementById('host-btn').textContent='🏠 CRÉER LA PARTIE';document.getElementById('host-btn').disabled=false;});}
+function initPeer(cb){if(peer){try{peer.destroy();}catch(e){}peer=null;}peer=new Peer(undefined,{debug:0});peer.on('open',id=>{myPeerId=id;if(cb)cb(id);});peer.on('error',err=>{showToast('Erreur réseau: '+err.type);document.getElementById('host-btn').textContent='🏠 CRÉER LA PARTIE';document.getElementById('host-btn').disabled=false;});}
 function getOrCreateRemote(peerId,info){
     if(!remotePlayers[peerId]){const color=REMOTE_COLORS[remoteColorIdx++%REMOTE_COLORS.length];const rp={pos:new THREE.Vector3(20,0,20),rot:0,speed:0,nitroOn:false,mesh:null,wheels:[],name:info.name||'?',carIdx:info.carIdx||0,color};const fake=makePlayer(color,20,20,info.carIdx||0,info.name||'?');createCarMesh(fake);rp.mesh=fake.mesh;rp.wheels=fake.wheels;remotePlayers[peerId]=rp;updateLobbyPlayerList();}return remotePlayers[peerId];
 }
@@ -1672,7 +1671,7 @@ function joinGame(){
     if(peer){try{peer.destroy();}catch(e){}peer=null;}
     let joinTimeout=null;
     let connected=false;
-    peer=new Peer(undefined,PEER_CFG);
+    peer=new Peer(undefined,{debug:0});
     peer.on('error',err=>{
         clearTimeout(joinTimeout);
         if(!connected){showToast('Erreur: '+err.type);btn.textContent='🔗 REJOINDRE';btn.disabled=false;}
@@ -2408,10 +2407,35 @@ function setLoad(pct,msg){document.getElementById('load-bar').style.width=pct+'%
 function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
 
 async function doLoad(){
-    setLoad(5,'Initialisation...');await sleep(40);
-    setLoad(20,'Construction du monde...');await sleep(40);
-    generateWorld();
-    setLoad(55,'Véhicules...');await sleep(40);
+    setLoad(5,'Initialisation...');await sleep(80);
+    setLoad(15,'Thème et matériaux...');await sleep(80);
+    const _w=CFG.mode==='multi'?CFG.multiWorld:CFG.world;
+    const _th=THEMES[_w]||THEMES.city;
+    buildMats(_th);
+    scene.background.set(_th.sky);
+    scene.fog=new THREE.FogExp2(_th.fog,_th.fogD);
+    hemi.color.set(_th.aTop);hemi.groundColor.set(_th.aBot);
+    sun.color.set(_th.sunC);sun.intensity=_th.sunI;
+    if(_th.night)scene.add(new THREE.AmbientLight(0x112244,0.8));
+    applyQuality();
+    await sleep(60);
+    setLoad(28,'Sol et routes...');await sleep(60);
+    if(_w==='skyworld'){scene.fog=new THREE.FogExp2(0x88aaf0,0.012);}
+    else if(_w==='highway'){addMesh(new THREE.PlaneGeometry(WORLD*4,WORLD*4),MAT.grass,0,0,0,-Math.PI/2,0,0,false);}
+    else{addMesh(new THREE.PlaneGeometry(WORLD+80,WORLD+80),MAT.asphalt,0,0,0,-Math.PI/2,0,0,false);addRoadMarkings();}
+    await sleep(80);
+    setLoad(40,'Bâtiments...');await sleep(80);
+    if(_w!=='skyworld'&&_w!=='highway')generateBlocks(_w,_th);
+    await sleep(80);
+    setLoad(50,'Détails du monde...');await sleep(80);
+    if(_w!=='skyworld'&&_w!=='highway'){addRamps();if(_w==='mountain')addMountains(_th);if(_w==='plains')addPlainsFeatures();}
+    else if(_w==='highway'){generateHighway();}
+    else{generateSkyWorld();}
+    const _bw=WORLD+20;
+    [{x:0,z:HALF+2,sx:_bw,sz:4},{x:0,z:-HALF-2,sx:_bw,sz:4},{x:HALF+2,z:0,sx:4,sz:_bw},{x:-HALF-2,z:0,sx:4,sz:_bw}]
+    .forEach(b=>colliders.push({minX:b.x-b.sx/2,maxX:b.x+b.sx/2,minZ:b.z-b.sz/2,maxZ:b.z+b.sz/2}));
+    await sleep(60);
+    setLoad(55,'Véhicules...');await sleep(60);
     const p1ci=CFG.mode==='multi'?CFG.multiCar:CFG.p1Car;
     const p1nm=CFG.mode==='multi'?CFG.multiName:CFG.p1Name;
     // Spawn on road intersection at (-100,-100) — clear of center feature (0,0)
