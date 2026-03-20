@@ -232,7 +232,7 @@ function addRoadMarkings(){
 async function generateBlocks(worldKey, th) {
     const w = worldKey;
     for (let bx=0;bx<N_BLOCK;bx++) {
-        await sleep(16); // yield per row
+        await new Promise(r=>setTimeout(r,16));
         for (let bz=0;bz<N_BLOCK;bz++) {
             const cx=-HALF+BLOCK*bx+BLOCK/2, cz=-HALF+BLOCK*bz+BLOCK/2;
             const inner=BLOCK-ROAD_W;
@@ -2425,10 +2425,10 @@ async function doLoad(){
     else if(_w==='highway'){addMesh(new THREE.PlaneGeometry(WORLD*4,WORLD*4),MAT.grass,0,0,0,-Math.PI/2,0,0,false);}
     else{addMesh(new THREE.PlaneGeometry(WORLD+80,WORLD+80),MAT.asphalt,0,0,0,-Math.PI/2,0,0,false);addRoadMarkings();}
     await sleep(60);
-    setLoad(30,'Bâtiments (1/2)...');await sleep(40);
+    setLoad(30,'Bâtiments...');await sleep(40);
     if(_w!=='skyworld'&&_w!=='highway') await generateBlocks(_w,_th);
     await sleep(60);
-    setLoad(48,'Détails du monde...');await sleep(60);
+    setLoad(48,'Décors...');await sleep(60);
     if(_w!=='skyworld'&&_w!=='highway'){addRamps();if(_w==='mountain')addMountains(_th);if(_w==='plains')addPlainsFeatures();}
     else if(_w==='highway'){generateHighway();}
     else{generateSkyWorld();}
