@@ -453,6 +453,15 @@ const CATALOGUE = [
         "date": "2026-03-19",
         "image": "assets/Schedule1.jpg",
         "lien": "https://multiup.io/c2162b56b72b3f5c42da63f6286bddd3"
+    },
+    {
+        "nom": "MIMESIS",
+        "description": "Un jeu d'horreur et de survie coopératif. Lorsque la pluie maudite tombe, les « Mimesis » apparaissent et imitent parfaitement vos coéquipiers, apportant une tension inédite et terrifiante.",
+        "note": 5,
+        "categorie": "Jeu",
+        "date": "2026-03-20",
+        "image": "assets/MIMESIS.jpg",
+        "lien": "https://multiup.io/c8c14c8f8c5cdac669d1a0325fcc4360"
     }
 ];
 // ─── CHARGEMENT CATALOGUE ────────────────────
