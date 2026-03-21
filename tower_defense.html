@@ -1036,6 +1036,134 @@
             display: none !important;
         }
 
+        /* ══ MOBILE STYLES ══ */
+        body.is-mobile #hud-left { display: none; }
+        body.is-mobile #hud-right { display: none; }
+
+        /* Mobile top HUD — compact */
+        body.is-mobile #hud-top {
+            height: 52px;
+            padding: 0 10px;
+            gap: 10px;
+            flex-wrap: nowrap;
+            overflow: hidden;
+        }
+        body.is-mobile .hud-val { font-size: 1rem; }
+        body.is-mobile .hud-lbl { font-size: .48rem; }
+        body.is-mobile .hud-sep { height: 26px; }
+        body.is-mobile #wave-bar { top: 52px; }
+        body.is-mobile #wave-fill { top: 52px; }
+
+        /* Hide speed text on mobile to save space */
+        body.is-mobile .hud-wave-info { display: none; }
+
+        /* Mobile tower panel — bigger buttons, always visible */
+        body.is-mobile #tower-panel {
+            padding: 6px 8px;
+            min-height: 110px;
+            gap: 8px;
+        }
+        body.is-mobile .tower-btn {
+            min-width: 72px;
+            max-width: 80px;
+            padding: 10px 6px;
+        }
+        body.is-mobile .tower-btn .t-icon { font-size: 2rem; }
+        body.is-mobile .tower-btn .t-name { font-size: .6rem; }
+        body.is-mobile .tower-btn .t-cost { font-size: .65rem; }
+
+        /* Mobile wave + tower info panel — slides up from bottom */
+        #mobile-side-panel {
+            display: none;
+            position: fixed;
+            bottom: 120px;
+            left: 0; right: 0;
+            z-index: 55;
+            pointer-events: none;
+        }
+        body.is-mobile #mobile-side-panel { display: block; }
+
+        #mobile-wave-bar {
+            position: fixed;
+            bottom: 120px;
+            right: 10px;
+            width: 160px;
+            background: rgba(5,8,15,.92);
+            border: 1px solid rgba(198,168,74,.2);
+            padding: 10px;
+            pointer-events: all;
+            z-index: 55;
+            transition: transform .3s;
+        }
+        #mobile-wave-bar h3 {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: .7rem;
+            color: var(--or2);
+            margin-bottom: 8px;
+        }
+        #mobile-wave-preview { font-size:.62rem; color:var(--texte2); margin-bottom:8px; }
+        #mobile-wave-launch {
+            display: block; width:100%; padding:8px;
+            background: linear-gradient(135deg,rgba(34,170,68,.15),rgba(34,102,34,.1));
+            border: 1px solid #22aa44; color: #44ee77;
+            font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:1px;
+            cursor:pointer; transition:all .3s;
+        }
+        #mobile-wave-launch:disabled { opacity:.4; cursor:not-allowed; }
+
+        #mobile-tower-info {
+            position: fixed;
+            bottom: 120px;
+            left: 10px;
+            width: 155px;
+            background: rgba(5,8,15,.92);
+            border: 1px solid rgba(198,168,74,.15);
+            padding: 10px;
+            pointer-events: all;
+            z-index: 55;
+            display: none;
+        }
+        body.is-mobile #mobile-tower-info.visible { display: block; }
+        #mobile-tower-info h3 { font-family:'Cinzel Decorative',serif; font-size:.75rem; color:var(--or2); margin-bottom:8px; }
+        .mti-stat { display:flex; justify-content:space-between; font-size:.62rem; margin-bottom:4px; }
+        .mti-label { color:var(--texte2); }
+        .mti-val { color:var(--or2); font-family:'Share Tech Mono',monospace; }
+        .mti-btn {
+            display:block; width:100%; padding:7px; margin-top:6px;
+            background:transparent; border:1px solid;
+            font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:1px;
+            cursor:pointer; transition:all .2s; text-align:center;
+        }
+        .mti-btn.upg { border-color:var(--or3); color:var(--or); }
+        .mti-btn.sell { border-color:rgba(204,68,68,.4); color:#ee8888; }
+
+        /* Mobile cam hint */
+        #mobile-hint {
+            position: fixed; top: 60px; left:50%; transform:translateX(-50%);
+            color:rgba(198,168,74,.5); font-size:.6rem; letter-spacing:2px;
+            pointer-events:none; z-index:55;
+            transition: opacity 2s; 
+        }
+        body.is-mobile #mobile-hint { display:block; }
+
+        /* Cancel placement button on mobile */
+        #mobile-cancel-btn {
+            display: none;
+            position: fixed;
+            bottom: 135px;
+            left: 50%; transform: translateX(-50%);
+            padding: 10px 24px;
+            background: rgba(204,34,34,.2);
+            border: 1px solid #cc4444;
+            color: #ff8888;
+            font-family: 'Cinzel', serif;
+            font-size: .75rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            z-index: 60;
+        }
+        body.is-mobile #mobile-cancel-btn.visible { display: block; }
+
         /* Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
@@ -1200,6 +1328,26 @@
 
     <!-- Tooltip -->
     <div id="tooltip"></div>
+
+    <!-- ══ MOBILE ONLY UI ══ -->
+    <div id="mobile-side-panel"></div>
+    <div id="mobile-wave-bar" style="display:none">
+        <h3>⚔ PROCHAINE VAGUE</h3>
+        <div id="mobile-wave-preview"></div>
+        <button id="mobile-wave-launch" onclick="startWave()">▶ LANCER</button>
+    </div>
+    <div id="mobile-tower-info">
+        <h3 id="mti-name">Tour</h3>
+        <div class="mti-stat"><span class="mti-label">Dégâts</span><span class="mti-val" id="mti-dmg">—</span></div>
+        <div class="mti-stat"><span class="mti-label">Portée</span><span class="mti-val" id="mti-range">—</span></div>
+        <div class="mti-stat"><span class="mti-label">Vitesse</span><span class="mti-val" id="mti-spd">—</span></div>
+        <div class="mti-stat"><span class="mti-label">Niveau</span><span class="mti-val" id="mti-lvl">1/3</span></div>
+        <button class="mti-btn upg" onclick="openUpgradeModal()">⬆ AMÉLIORER</button>
+        <button class="mti-btn sell" onclick="sellSelected()">💰 VENDRE</button>
+        <button class="mti-btn" style="border-color:rgba(255,255,255,.15);color:var(--texte2)" onclick="closeMobileTowerInfo()">✕ FERMER</button>
+    </div>
+    <div id="mobile-hint" style="display:none">1 doigt = caméra · 2 doigts = zoom · tap = placer</div>
+    <button id="mobile-cancel-btn" onclick="cancelPlacement()">✕ ANNULER</button>
 
     <script>
         'use strict';
@@ -2850,6 +2998,183 @@
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
+
+        // ═══════════════════════════════════════════════════════════
+        //  MOBILE DETECTION & TOUCH CONTROLS
+        // ═══════════════════════════════════════════════════════════
+
+        const IS_MOBILE = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent)
+            || (navigator.maxTouchPoints > 1 && window.innerWidth < 900);
+
+        if (IS_MOBILE) {
+            document.body.classList.add('is-mobile');
+            document.getElementById('mobile-wave-bar').style.display = 'block';
+            document.getElementById('mobile-hint').style.display = 'block';
+            // Fade hint after 4s
+            setTimeout(() => { const h = document.getElementById('mobile-hint'); if (h) h.style.opacity = '0'; }, 4000);
+        }
+
+        /* ── Mobile: sync wave panel ── */
+        function syncMobileWavePanel() {
+            if (!IS_MOBILE || !G) return;
+            const btn = document.getElementById('mobile-wave-launch');
+            const preview = document.getElementById('mobile-wave-preview');
+            // Copy wave preview content
+            const src = document.getElementById('wave-preview');
+            if (src) preview.innerHTML = src.innerHTML;
+            if (btn) {
+                btn.disabled = G.waveActive;
+                btn.textContent = G.waveActive ? '⏳ VAGUE EN COURS' : '▶ LANCER';
+            }
+        }
+
+        // Patch prepareNextWave / startWave to also sync mobile panel
+        const _origPrepare = typeof prepareNextWave === 'function' ? prepareNextWave : null;
+        // We'll hook via setInterval since functions are defined later
+        setInterval(() => { if (IS_MOBILE) syncMobileWavePanel(); }, 800);
+
+        /* ── Mobile tower info ── */
+        function showMobileTowerInfo(tower) {
+            if (!IS_MOBILE || !tower) return;
+            const panel = document.getElementById('mobile-tower-info');
+            panel.classList.add('visible');
+            document.getElementById('mti-name').textContent = tower.def.icon + ' ' + tower.def.name;
+            document.getElementById('mti-dmg').textContent = Math.floor(tower.dmg);
+            document.getElementById('mti-range').textContent = tower.range.toFixed(1);
+            document.getElementById('mti-spd').textContent = tower.fireRate.toFixed(1) + '/s';
+            document.getElementById('mti-lvl').textContent = (tower.upgradeLevel || 0) + '/2';
+        }
+        function closeMobileTowerInfo() {
+            document.getElementById('mobile-tower-info').classList.remove('visible');
+        }
+
+        /* ── Touch camera & placement ── */
+        if (IS_MOBILE) {
+            let touches = {};
+            let lastPinchDist = 0;
+            let touchMoved = false;
+            let touchStartX = 0, touchStartY = 0;
+            let touchStartTime = 0;
+            let camTouchId = null;
+            let lastTouchCam = { x: 0, y: 0 };
+
+            canvas.addEventListener('touchstart', e => {
+                e.preventDefault();
+                Array.from(e.changedTouches).forEach(t => { touches[t.identifier] = { x: t.clientX, y: t.clientY }; });
+                const ids = Object.keys(touches);
+
+                if (ids.length === 1) {
+                    camTouchId = parseInt(ids[0]);
+                    const t = e.changedTouches[0];
+                    lastTouchCam = { x: t.clientX, y: t.clientY };
+                    touchStartX = t.clientX; touchStartY = t.clientY;
+                    touchStartTime = Date.now();
+                    touchMoved = false;
+                } else if (ids.length === 2) {
+                    camTouchId = null;
+                    const t0 = touches[ids[0]], t1 = touches[ids[1]];
+                    lastPinchDist = Math.hypot(t1.x - t0.x, t1.y - t0.y);
+                }
+            }, { passive: false });
+
+            canvas.addEventListener('touchmove', e => {
+                e.preventDefault();
+                Array.from(e.changedTouches).forEach(t => { touches[t.identifier] = { x: t.clientX, y: t.clientY }; });
+                const ids = Object.keys(touches);
+
+                if (ids.length === 1 && camTouchId !== null) {
+                    const t = e.changedTouches[0];
+                    if (t.identifier !== camTouchId) return;
+                    const dx = t.clientX - lastTouchCam.x;
+                    const dy = t.clientY - lastTouchCam.y;
+                    const dist = Math.hypot(t.clientX - touchStartX, t.clientY - touchStartY);
+                    if (dist > 8) touchMoved = true;
+                    // Only rotate cam if no tower selected OR moved enough
+                    if (!selectedTowerType || touchMoved) {
+                        camAngleH -= dx * 0.007;
+                        camAngleV = Math.max(0.18, Math.min(1.45, camAngleV - dy * 0.007));
+                        updateCamera();
+                    }
+                    lastTouchCam = { x: t.clientX, y: t.clientY };
+                } else if (ids.length === 2) {
+                    const t0 = touches[ids[0]], t1 = touches[ids[1]];
+                    const dist = Math.hypot(t1.x - t0.x, t1.y - t0.y);
+                    camDistance = Math.max(8, Math.min(45, camDistance - (dist - lastPinchDist) * 0.06));
+                    lastPinchDist = dist;
+                    updateCamera();
+                    touchMoved = true;
+                }
+            }, { passive: false });
+
+            canvas.addEventListener('touchend', e => {
+                e.preventDefault();
+                const elapsed = Date.now() - touchStartTime;
+                Array.from(e.changedTouches).forEach(t => { delete touches[t.identifier]; });
+                const ids = Object.keys(touches);
+                if (ids.length < 2) lastPinchDist = 0;
+                if (ids.length === 0) camTouchId = null;
+
+                // TAP = short touch, didn't move much
+                if (!touchMoved && elapsed < 350 && Object.keys(touches).length === 0) {
+                    const touch = e.changedTouches[0];
+                    pointer.x = (touch.clientX / window.innerWidth) * 2 - 1;
+                    pointer.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+
+                    if (!gameRunning || !G) return;
+
+                    if (selectedTowerType) {
+                        const cell = getCellUnderPointer();
+                        if (cell) {
+                            placeTowerAt(cell.row, cell.col);
+                            // Keep preview moving
+                            if (cell && placementPreview) {
+                                placementPreview.position.set(cell.wx, 0, cell.wz);
+                            }
+                        }
+                    } else {
+                        const tower = getTowerUnderPointer();
+                        if (tower) {
+                            G.towers.forEach(t => { t.rangeIndicator.material.opacity = 0; });
+                            updateTowerInfoPanel(tower);
+                            showMobileTowerInfo(tower);
+                        } else {
+                            updateTowerInfoPanel(null);
+                            closeMobileTowerInfo();
+                            cancelPlacement();
+                        }
+                    }
+                }
+            }, { passive: false });
+
+            // Show/hide cancel btn when tower selected
+            const _origSelectTower = selectTower;
+            // Wrap selectTower to show cancel btn
+            const origSelectTower = window.selectTower;
+            if (origSelectTower) {
+                window.selectTower = function(type) {
+                    origSelectTower(type);
+                    document.getElementById('mobile-cancel-btn').classList.add('visible');
+                };
+            }
+            const origCancelPlacement = window.cancelPlacement;
+            if (origCancelPlacement) {
+                window.cancelPlacement = function() {
+                    origCancelPlacement();
+                    document.getElementById('mobile-cancel-btn').classList.remove('visible');
+                    closeMobileTowerInfo();
+                };
+            }
+
+            // Also show cancel btn on tower-btn click (backup)
+            document.addEventListener('click', e => {
+                if (e.target.closest('.tower-btn') && IS_MOBILE) {
+                    setTimeout(() => {
+                        if (selectedTowerType)
+                            document.getElementById('mobile-cancel-btn').classList.add('visible');
+                    }, 50);
+                }
+            });
+        }
 
         // ═══════════════════════════════════════════════════════════
         //  BOOT
