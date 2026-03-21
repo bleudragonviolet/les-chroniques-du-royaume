@@ -399,6 +399,12 @@
             pointer-events: all;
         }
 
+        body.is-mobile #hud-left,
+        body.is-mobile #hud-right {
+            display: none !important;
+            pointer-events: none !important;
+        }
+
         /* Top HUD */
         .hud-stat {
             display: flex;
@@ -1085,40 +1091,39 @@
 
         #mobile-wave-bar {
             position: fixed;
-            bottom: 120px;
-            right: 10px;
-            width: 160px;
-            background: rgba(5,8,15,.92);
-            border: 1px solid rgba(198,168,74,.2);
-            padding: 10px;
+            top: 60px;
+            right: 8px;
+            width: 150px;
+            background: rgba(5,8,15,.88);
+            border: 1px solid rgba(198,168,74,.25);
+            padding: 8px;
             pointer-events: all;
             z-index: 55;
-            transition: transform .3s;
         }
         #mobile-wave-bar h3 {
             font-family: 'Cinzel Decorative', serif;
-            font-size: .7rem;
+            font-size: .6rem;
             color: var(--or2);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        #mobile-wave-preview { font-size:.62rem; color:var(--texte2); margin-bottom:8px; }
+        #mobile-wave-preview { font-size:.58rem; color:var(--texte2); margin-bottom:6px; line-height:1.4; }
         #mobile-wave-launch {
-            display: block; width:100%; padding:8px;
+            display: block; width:100%; padding:7px;
             background: linear-gradient(135deg,rgba(34,170,68,.15),rgba(34,102,34,.1));
             border: 1px solid #22aa44; color: #44ee77;
-            font-family:'Cinzel',serif; font-size:.7rem; letter-spacing:1px;
+            font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:1px;
             cursor:pointer; transition:all .3s;
         }
         #mobile-wave-launch:disabled { opacity:.4; cursor:not-allowed; }
 
         #mobile-tower-info {
             position: fixed;
-            bottom: 120px;
-            left: 10px;
-            width: 155px;
-            background: rgba(5,8,15,.92);
+            top: 60px;
+            left: 8px;
+            width: 145px;
+            background: rgba(5,8,15,.88);
             border: 1px solid rgba(198,168,74,.15);
-            padding: 10px;
+            padding: 8px;
             pointer-events: all;
             z-index: 55;
             display: none;
@@ -1139,9 +1144,11 @@
 
         /* Mobile cam hint */
         #mobile-hint {
-            position: fixed; top: 60px; left:50%; transform:translateX(-50%);
-            color:rgba(198,168,74,.5); font-size:.6rem; letter-spacing:2px;
-            pointer-events:none; z-index:55;
+            position: fixed; top: 56px; left:50%; transform:translateX(-50%);
+            color:rgba(198,168,74,.6); font-size:.58rem; letter-spacing:2px;
+            pointer-events:none; z-index:56; white-space:nowrap;
+            background: rgba(5,8,15,.7); padding: 4px 10px;
+            border: 1px solid rgba(198,168,74,.15);
             transition: opacity 2s; 
         }
         body.is-mobile #mobile-hint { display:block; }
@@ -1150,7 +1157,7 @@
         #mobile-cancel-btn {
             display: none;
             position: fixed;
-            bottom: 135px;
+            bottom: 125px;
             left: 50%; transform: translateX(-50%);
             padding: 10px 24px;
             background: rgba(204,34,34,.2);
@@ -1161,6 +1168,7 @@
             letter-spacing: 2px;
             cursor: pointer;
             z-index: 60;
+            white-space: nowrap;
         }
         body.is-mobile #mobile-cancel-btn.visible { display: block; }
 
@@ -2815,6 +2823,13 @@
             // Wave panel
             document.getElementById('wave-start-btn').disabled = false;
             notify(`🏰 ${map.name} — Prêt au combat !`, 'green');
+            // Show mobile hint briefly
+            if (IS_MOBILE) {
+                const h = document.getElementById('mobile-hint');
+                h.style.display = 'block'; h.style.opacity = '1';
+                setTimeout(() => { h.style.opacity = '0'; }, 3000);
+                setTimeout(() => { h.style.display = 'none'; }, 5500);
+            }
         }
 
         function endGame(win) {
@@ -3009,9 +3024,9 @@
         if (IS_MOBILE) {
             document.body.classList.add('is-mobile');
             document.getElementById('mobile-wave-bar').style.display = 'block';
-            document.getElementById('mobile-hint').style.display = 'block';
-            // Fade hint after 4s
-            setTimeout(() => { const h = document.getElementById('mobile-hint'); if (h) h.style.opacity = '0'; }, 4000);
+            // Show hint only when game starts — hide immediately for now
+            const hint = document.getElementById('mobile-hint');
+            hint.style.display = 'none'; // will show on game start
         }
 
         /* ── Mobile: sync wave panel ── */
